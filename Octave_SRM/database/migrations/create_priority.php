@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('priority', function (Blueprint $table) {
-            $table->unsignedBigInteger('asset_id');
-            $table->foreign('asset_id')->references('asset_id')->on('assets');
-            $table->primary('asset_id');
+            $table->foreignId('asset_id')->primary()->constrained(
+                table:'assets',column:'asset_id',indexName:'FK_PK_asset_id-Priority'
+            );
             $table->enum('trust',['1','2','3','4','5']);
             $table->enum('finance',['1','2','3','4','5']);
             $table->enum('productivity',['1','2','3','4','5']);

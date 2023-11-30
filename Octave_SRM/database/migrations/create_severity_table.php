@@ -12,9 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('severity', function (Blueprint $table) {
-            $table->unsignedBigInteger('AoC_id');
-            $table->foreign('AoC_id')->references('AoC_id')->on('risk_identification');
-            $table->primary('AoC_id');
+            $table->foreignId('AoC_id')->primary()->constrained(
+                table: 'risk_identification', column:'AoC_id'
+            )->onUpdate('cascade')->onDelete('cascade');
+            // $table->foreign('AoC_id')->references('AoC_id')->on('risk_identification')->primary()->onDelete('cascade');
             $table->enum('financial_value',['high','medium','low']);
             $table->enum('productivity_value',['high','medium','low']);
             $table->enum('rep_value',['high','medium','low']);
