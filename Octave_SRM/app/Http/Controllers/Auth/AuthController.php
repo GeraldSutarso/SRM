@@ -80,13 +80,12 @@ class AuthController extends Controller
      *
      * @return response()
      */
-    public function home():  View
+    public function home()
     {
         if(Auth::check()){
-            return view('home');
             $user = Auth::user();
+            return view('home')->with('user',$user);
         }
-  
         return redirect("login")->withSuccess('Oops! You do not have access');
     }
     

@@ -1,4 +1,4 @@
-@extends('partial/navbar')
+@extends('layout.main')
 
 @section('content')
 <main class="login-form">
@@ -12,7 +12,7 @@
                       <form action="{{ route('register.post') }}" method="POST">
                           @csrf
                           <div class="form-group row">
-                              <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
+                              <label for="name" class="col-md-4 col-form-label text-md-right">Username:</label>
                               <div class="col-md-6">
                                   <input type="text" id="name" class="form-control" name="name" required autofocus>
                                   @if ($errors->has('name'))
@@ -20,9 +20,9 @@
                                   @endif
                               </div>
                           </div>
-  
+                          <br>
                           <div class="form-group row">
-                              <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
+                              <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail:</label>
                               <div class="col-md-6">
                                   <input type="text" id="email_address" class="form-control" name="email" required autofocus>
                                   @if ($errors->has('email'))
@@ -30,9 +30,9 @@
                                   @endif
                               </div>
                           </div>
-  
+                        <br>
                           <div class="form-group row">
-                              <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                              <label for="password" class="col-md-4 col-form-label text-md-right">Password:</label>
                               <div class="col-md-6">
                                   <input type="password" id="password" class="form-control" name="password" required>
                                   @if ($errors->has('password'))
@@ -40,7 +40,7 @@
                                   @endif
                               </div>
                           </div>
-  
+                          <br>
                           <div class="form-group row">
                               <div class="col-md-6 offset-md-4">
                                   <div class="checkbox">
@@ -50,10 +50,10 @@
                                   </div>
                               </div>
                           </div>
-  
+                          <br>
                           <div class="col-md-6 offset-md-4">
-                              <button type="submit" class="btn btn-primary">
-                                  Register
+                              <button type="submit" class="btn btn-success">
+                                  Sign Up
                               </button>
                           </div>
                       </form>
