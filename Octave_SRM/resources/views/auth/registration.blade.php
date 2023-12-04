@@ -12,11 +12,11 @@
                       <form action="{{ route('register.post') }}" method="POST">
                           @csrf
                           <div class="form-group row">
-                              <label for="name" class="col-md-4 col-form-label text-md-right">Username:</label>
+                              <label for="username" class="col-md-4 col-form-label text-md-right">Username:</label>
                               <div class="col-md-6">
-                                  <input type="text" id="name" class="form-control" name="name" required autofocus>
-                                  @if ($errors->has('name'))
-                                      <span class="text-danger">{{ $errors->first('name') }}</span>
+                                  <input type="text" id="username" class="form-control" placeholder="Enter your name" name="username" required autofocus>
+                                  @if ($errors->has('username'))
+                                      <span class="text-danger">{{ $errors->first('username') }}</span>
                                   @endif
                               </div>
                           </div>
@@ -24,7 +24,7 @@
                           <div class="form-group row">
                               <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail:</label>
                               <div class="col-md-6">
-                                  <input type="text" id="email_address" class="form-control" name="email" required autofocus>
+                                  <input type="text" id="email_address" class="form-control" placeholder="Enter Email" name="email" required autofocus>
                                   @if ($errors->has('email'))
                                       <span class="text-danger">{{ $errors->first('email') }}</span>
                                   @endif
@@ -34,13 +34,32 @@
                           <div class="form-group row">
                               <label for="password" class="col-md-4 col-form-label text-md-right">Password:</label>
                               <div class="col-md-6">
-                                  <input type="password" id="password" class="form-control" name="password" required>
+                                  <input type="password" id="password" class="form-control" placeholder="Enter password" name="password" required>
                                   @if ($errors->has('password'))
                                       <span class="text-danger">{{ $errors->first('password') }}</span>
                                   @endif
                               </div>
                           </div>
                           <br>
+                          <div class="form-group row">
+                            <label for="department" class="col-md-4 col-form-label text-md-right">Department:</label>
+                            <div class="col-md-6">
+                                <select id="department" class="form-control" name="department" required>
+                                    <option value="">Select Department</option>
+                                    <option value="IT">IT</option>
+                                    <option value="HR">HR</option>
+                                    <option value="RnD">RnD</option>
+                                    <option value="FA">FA</option>
+                                    <option value="Sales">Sales</option>
+                                    <option value="BD">BD</option>
+                                    <option value="PPIC">PPIC</option>
+                                </select>
+                                @if ($errors->has('department'))
+                                    <span class="text-danger">{{ $errors->first('department') }}</span>
+                                @endif
+                            </div>
+                        </div>
+                        <br>
                           <div class="form-group row">
                               <div class="col-md-6 offset-md-4">
                                   <div class="checkbox">

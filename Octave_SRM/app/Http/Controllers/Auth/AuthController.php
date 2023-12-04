@@ -63,7 +63,7 @@ class AuthController extends Controller
     public function postRegistration(Request $request): RedirectResponse
     {  
         $request->validate([
-            'name' => 'required',
+            'username' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
             'department' =>'required'
@@ -96,12 +96,17 @@ class AuthController extends Controller
      */
     public function create(array $data)
     {
-      return User::create([
-        'name' => $data['name'],
+      $user = User::create([
+        'username' => $data['username'],
         'email' => $data['email'],
         'password' => Hash::make($data['password']),
-        'department' =>$data['department']
+        'department' => $data['department']
+
       ]);
+      //Log in the user
+      Auth::login($user);
+      return $user;
+    
     }
     
     /**
