@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(255, 252, 204)">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">
       <h4>Octave Allegro</h4>
@@ -23,6 +23,11 @@
         @else
           <li class="nav-item">
             <a class="nav-link" href="/"><span>Welcome, {{ auth()->user()->username }}</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/home">
+              <button class="btn btn-warning">Home</button>
+            </a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="{{ route('logout') }}">

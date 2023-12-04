@@ -10,7 +10,7 @@
 
     <title>Octave Allegro | Report System</title>
   </head>
-  <body>
+  <body style="background-color: rgb(241, 241, 241)">
     
     @include('partial/navbar')
 
