@@ -47,8 +47,9 @@ class AuthController extends Controller
    
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard')
+            return redirect()->intended('home')
                         ->withSuccess('You have Successfully loggedin');
+
         }
   
         return redirect("login")->withSuccess('Oops! You have entered invalid credentials');
@@ -71,7 +72,7 @@ class AuthController extends Controller
         $data = $request->all();
         $check = $this->create($data);
          
-        return redirect("dashboard")->withSuccess('Great! You have Successfully signed in');
+        return redirect("home")->withSuccess('Great! You have Successfully signed in');
     }
     
     /**
@@ -79,10 +80,11 @@ class AuthController extends Controller
      *
      * @return response()
      */
-    public function dashboard(): RedirectResponse
+    public function home():  View
     {
         if(Auth::check()){
-            return view('dashboard');
+            return view('home');
+            $user = Auth::user();
         }
   
         return redirect("login")->withSuccess('Oops! You do not have access');
