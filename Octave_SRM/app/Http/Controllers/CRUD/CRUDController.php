@@ -93,6 +93,8 @@ class CRUDController extends Controller{
             'asset_name' => 'required|string|max:255',
             'rationale_for_select' => 'required|string|max:255',
             'description' => 'required|string',
+            'owner' => 'required|string',
+            'a_department' => 'required|string',
             'confidentiality' => 'required|string',
             'integrity' => 'required|string',
             'availability' => 'required|string',
@@ -104,6 +106,8 @@ class CRUDController extends Controller{
             'user_id' => auth()->id(), // Get the authenticated user's ID
             'asset_name' => $validatedData['asset_name'],
             'asset_desc' => $validatedData['description'],
+            'owner' => $validatedData['owner'],
+            'a_department' => $validatedData['a_department'],
             'SR_confidentiality' => $validatedData['confidentiality'],
             'SR_integrity' => $validatedData['integrity'],
             'SR_availability' => $validatedData['availability'],
@@ -113,6 +117,54 @@ class CRUDController extends Controller{
 
         // Redirect to the next step or return a response
         return redirect()->route('step2');
+    }
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function create_step2(Request $request){
+
+    }
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function create_step3(Request $request){
+        
+    }
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function create_step4(Request $request){
+        
+    }
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function create_step5(Request $request){
+    // Retrieve the asset data from the session
+    $assetData = $request->session()->get('asset');
+
+    // Check if the session data exists
+    if ($assetData) {
+        // Create a new Asset instance and fill it with the session data
+        $asset = new Asset($assetData);
+        // Save the new asset to the database
+        $asset->save();
+        // Clear the session data for 'asset'
+        $request->session()->forget('asset');
+        // Redirect or return response
+        return redirect()->route('assets.index')->with('success', 'Asset created successfully from session data.');
+    } else {
+        // Handle the case where there is no session data
+        return redirect()->route('step1')->with('error', 'No asset data found in session.');
+    }
     }
 
     

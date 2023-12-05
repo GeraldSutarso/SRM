@@ -47,12 +47,14 @@
                                 <select id="department" class="form-control" name="department" required>
                                     <option value="">Select Department</option>
                                     <option value="IT">IT</option>
-                                    <option value="HR">HR</option>
-                                    <option value="RnD">RnD</option>
-                                    <option value="FA">FA</option>
+                                    <option value="HR">Human Resource</option>
+                                    <option value="Logistic">Logistic</option>
+                                    <option value="Engineering">Engineering</option>
+                                    <option value="RnD">Research and Development</option>
+                                    <option value="FA">Finance and Accounting</option>
                                     <option value="Sales">Sales</option>
-                                    <option value="BD">BD</option>
-                                    <option value="PPIC">PPIC</option>
+                                    <option value="BD">Business Development</option>
+                                    <option value="PPIC">Production, Planning, Inventory Control</option>
                                 </select>
                                 @if ($errors->has('department'))
                                     <span class="text-danger">{{ $errors->first('department') }}</span>

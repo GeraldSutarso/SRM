@@ -21,11 +21,28 @@
                     </tr>
                     <tr>
                         <td>Owner</td>
-                        <td><input type="text" name="username" class="form-control" value="{{ old('username') }}" disabled></td>
+                        <td><input type="text" name="owner" class="form-control" value="{{ auth()->user()->username }}" disabled></td>
                     </tr>
                     <tr>
                         <td>Department</td>
-                        <td><input type="text" name="department" class="form-control" value="{{ old('department') }}" disabled></td>
+                        @if (auth()->user()->user_id == '1')
+                        <td>
+                            <select id="department" class="form-control" name="a_department" required>
+                                <option value="">Select Department</option>
+                                <option value="IT">IT</option>
+                                <option value="HR">Human Resource</option>
+                                <option value="Logistic">Logistic</option>
+                                <option value="Engineering">Engineering</option>
+                                <option value="RnD">Research and Development</option>
+                                <option value="FA">Finance and Accounting</option>
+                                <option value="Sales">Sales</option>
+                                <option value="BD">Business Development</option>
+                                <option value="PPIC">Production, Planning, Inventory Control</option>
+                            </select>
+                        </td>
+                        @else
+                        <td><input type="text" name="a_department" class="form-control" value="{{ auth()->user()->department }}" disabled></td>
+                        @endif
                     </tr>
                     <tr><td><h5>Security Requirements</h5></td>
                     </tr>

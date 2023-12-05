@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id('asset_id');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('user_id')->on('users');
+            $table->string('owner');
+            $table->string('a_department');
             $table->string('asset_name');
             $table->text('asset_desc');
             $table->text('SR_confidentiality');
@@ -22,6 +24,7 @@ return new class extends Migration
             $table->text('SR_availability');
             $table->text('most_important_SR');
             $table->text('rationale_for_select');
+            $table->timestamps();
         });
     }
 

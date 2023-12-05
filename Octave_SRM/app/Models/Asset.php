@@ -17,11 +17,14 @@ class Asset extends Model
         'user_id',
         'asset_name',
         'asset_desc',
+        'owner',
+        'a_department',
         'SR_confidentiality',
         'SR_integrity',
         'SR_availability',
         'most_important_SR',
         'rationale_for_select',
+        
 
     ];
     protected $primaryKey = 'asset_id';

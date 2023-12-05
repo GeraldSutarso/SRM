@@ -41,7 +41,7 @@ Route::post('post-add/step-1', [CRUDController::class, 'create_step1'])->name('s
 Route::post('post-add/step-2', [CRUDController::class, 'create_step2'])->name('step2.post');
 Route::post('post-add/step-3', [CRUDController::class, 'create_step3'])->name('step3.post');
 Route::post('post-add/step-4', [CRUDController::class, 'create_step4'])->name('step4.post');
-Route::post('psot-add/step-5', [CRUDController::class, 'create_step5'])->name('step5.post');
+Route::post('post-add/step-5', [CRUDController::class, 'create_step5'])->name('step5.post');
 
 //Update routes
 Route::get('update/{$asset_id}', [CRUDController::class, 'update'])->name('update');
