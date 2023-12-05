@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use App\Models\Asset;
+use App\Models\Priority;
+use App\Models\Severity;
+use App\Models\Map_Human;
+use App\Models\Map_Physical;
+use App\Models\Map_Technical;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -69,26 +74,6 @@ class CRUDController extends Controller{
      * @return response()
      */
     public function create_step1(Request $request){
-        // $validatedData = $request->validate([
-        //     'asset_name' => 'required',
-        //     'asset_desc' => 'required',
-        //     'rationale_for_select' => 'required',
-        //     'SR_confidentiality' => 'required',
-        //     'SR_integrity' => 'required',
-        //     'SR_availability' => 'required',
-        //     'most_important_SR' => 'required'
-        // ]);
-        // $asset = new Asset($validatedData);
-
-        // // Assign the authenticated user's ID to the user_id foreign key
-        // $asset->user_id = auth()->id();
-    
-        // // Save the new asset
-        // $asset->save();
-    
-        // // Redirect or return response
-        // return redirect()->route('add.step2')->with('success', 'Asset created successfully.');
-        // Validate the request data
         $validatedData = $request->validate([
             'asset_name' => 'required|string|max:255',
             'rationale_for_select' => 'required|string|max:255',
@@ -100,10 +85,16 @@ class CRUDController extends Controller{
             'availability' => 'required|string',
             'most_important_SR' => 'required|string|in:Confidentiality,Integrity,Availability',
         ]);
+        // $asset = new Asset($validatedData);
 
-        // Store the validated data in the session
+        // // Assign the authenticated user's ID to the user_id foreign key
+        // $asset->user_id = auth()->user()->user_id;
+    
+        // Save the new asset
+        // $asset->save();
+        // Store data in the session
         $request->session()->put('asset', [
-            'user_id' => auth()->id(), // Get the authenticated user's ID
+            'user_id' => auth()->user()->user_id, // Get the authenticated user's ID
             'asset_name' => $validatedData['asset_name'],
             'asset_desc' => $validatedData['description'],
             'owner' => $validatedData['owner'],
@@ -114,7 +105,7 @@ class CRUDController extends Controller{
             'most_important_SR' => $validatedData['most_important_SR'],
             'rationale_for_select' => $validatedData['rationale_for_select'],
         ]);
-
+        
         // Redirect to the next step or return a response
         return redirect()->route('step2');
     }
@@ -124,7 +115,28 @@ class CRUDController extends Controller{
      * @return response()
      */
     public function create_step2(Request $request){
+        $validatedData = $request->validate([
+            'trust' => 'required|string|in:1,2,3,4,5',
+            'finance' => 'required|string|in:1,2,3,4,5',
+            'productivity' => 'required|string|in:1,2,3,4,5',
+            'safety' => 'required|string|in:1,2,3,4,5',
+            'fines' => 'required|string|in:1,2,3,4,5',
 
+        ]);
+        // $priority = new Priority($validatedData);
+        // $priority->asset_id = session('asset.asset_id');
+        // $priority->save();
+
+        $request->session()->put('priority', [
+            // 'asset_id'=>$validatedData['']               
+            'trust' => $validatedData['trust'],
+            'finance' => $validatedData['finance'],
+            'productivity' => $validatedData['productivity'],
+            'safety' => $validatedData['safety'],
+            'fines' => $validatedData['fines'],
+
+        ]);
+        return redirect()->route('step3');
     }
     /**
      * Write code on Method
@@ -150,22 +162,29 @@ class CRUDController extends Controller{
     public function create_step5(Request $request){
     // Retrieve the asset data from the session
     $assetData = $request->session()->get('asset');
-
+    $priorityData = $request->session()->get('priority');
+    $mapHData = $request->session()->get('map_human'); //mapping human
+    $mapPData = $request->session()->get('map_physical'); //mapping phys
+    $mapTData = $request->session()->get('map_technical'); //mapping tech
+    $RIData = $request->session()->get('RI'); //risk_ident
+    $severityData = $request->session()->get('severity'); // severity
     // Check if the session data exists
-    if ($assetData) {
-        // Create a new Asset instance and fill it with the session data
-        $asset = new Asset($assetData);
-        // Save the new asset to the database
-        $asset->save();
-        // Clear the session data for 'asset'
-        $request->session()->forget('asset');
-        // Redirect or return response
-        return redirect()->route('assets.index')->with('success', 'Asset created successfully from session data.');
-    } else {
+    // Create a new Asset instance and fill it with the session data
+    $asset = new Asset($assetData);
+    // Save the new asset to the database
+    $asset->save();
+    $priority = new Priority($priorityData);
+    $priority->asset_id = $asset->asset_id;
+    $priority -> save();
+
+    $request->session()->forget(['asset','priority','severity','map_human','map_physical','map_technical','RI']);//forget everyone
+    return redirect()->route('home')->with('success', 'Asset created successfully from session data.');
+    if(!$assetData or !$priorityData or !$mapHData or !$mapPData or !$mapTData or !$RIData or !$severityData) {// if any of those are missing
         // Handle the case where there is no session data
-        return redirect()->route('step1')->with('error', 'No asset data found in session.');
+        return redirect()->route('step5')->with('error', 'Some data are missing in session.');
     }
-    }
+    } 
+    
 
     
 }

@@ -22,11 +22,11 @@
           </li>
         @else
           <li class="nav-item">
-            <a class="nav-link" href="/"><span>Welcome, {{ auth()->user()->username }}</span></a>
+           <a class="nav-link" href="/"><span>Welcome, {{ auth()->user()->username }}</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/home">
-              <button class="btn btn-warning">Home</button>
+            <a class="nav-link" href="{{ route('home') }}">
+              <button id="home" class="btn btn-warning">Home</button>
             </a>
           </li>
           <li class="nav-item active">
@@ -39,3 +39,4 @@
     </div>
   </div>
 </nav>
+

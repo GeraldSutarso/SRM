@@ -71,10 +71,9 @@
                 </tbody>
             </table>
             <div class="form-group">
-                <a href="{{ route('home') }}" class="btn btn-secondary">Cancel</a>
+               <button id="home"><a href="{{ route('home') }}" class="btn btn-secondary">Cancel</a></button>
                 <button type="submit" class="btn btn-primary">Next</button>
             </div>
         </form>
     </div>
-
 @endsection

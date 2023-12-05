@@ -48,8 +48,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         $remember = $request->filled('remember'); //check the remember box
         if (Auth::attempt($credentials,$remember)) {
-            return redirect()->intended('home')
-                        ->withSuccess('You have Successfully loggedin');
+            return redirect("home")->withSuccess('You have Successfully loggedin');
 
         }
   
@@ -81,12 +80,22 @@ class AuthController extends Controller
      *
      * @return response()
      */
-    public function home()
+    public function home(Request $request)
     {
         if(Auth::check()){
             $user = Auth::user();
             return view('home')->with('user',$user);
         }
+    // Check if the current URL is one of the step pages
+    // $currentUrl = request()->path();
+    // $steps = ['/add/step-1', '/add/step-2', '/add/step-3', '/add/step-4', '/add/step-5'];
+    // if (in_array($currentUrl, $steps)) {
+    //     // Set a session variable to trigger the alert
+    //     session(['show_alert' => true]);
+    // }
+
+        $request->session()->forget(['asset','priority','severity','map_human','map_physical','map_technical','RI']);
+
         return redirect("login")->withSuccess('Oops! You do not have access');
     }
     
