@@ -2,10 +2,11 @@
 
 @section('content')
 <div class="container">
+    <a href="{{ route('step1') }}"><button class="btn btn-success">+ Add</button></a>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header">{{ __('Critical Asset List') }}</div>
   
                 <div class="card-body">
                     @if (session('success'))
@@ -13,8 +14,7 @@
                             {{ session('success') }}
                         </div>
                     @endif
-  
-                    You are Logged In
+                    Tabel nanti taro di sini
                 </div>
             </div>
         </div>

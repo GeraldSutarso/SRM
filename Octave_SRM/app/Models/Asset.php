@@ -13,7 +13,8 @@ class Asset extends Model
      * @var array<int, string>
      */
 
-     protected $fillable = [
+    protected $fillable = [
+        'user_id',
         'asset_name',
         'asset_desc',
         'SR_confidentiality',
@@ -21,5 +22,7 @@ class Asset extends Model
         'SR_availability',
         'most_important_SR',
         'rationale_for_select',
+
     ];
+    protected $primaryKey = 'asset_id';
 }

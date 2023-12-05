@@ -26,20 +26,35 @@ Route::post('post-registration', [AuthController::class, 'postRegistration'])->n
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 //Home routes
-Route::get('home', [AuthController::class, 'home']); 
+Route::get('home', [AuthController::class, 'home'])->name('home'); 
 Route::get('/', [AuthController::class, 'home']); 
 
-//Create routes
-Route::get('add/{$asset_id}/step-1', [CRUDController::class, 'create_step1']);
-Route::get('add/{$asset_id}/step-2', [CRUDController::class, 'create_step2']);
-Route::get('add/{$asset_id}/step-3', [CRUDController::class, 'create_cstep3']);
-Route::get('add/{$asset_id}/step-4', [CRUDController::class, 'create_cstep4']);
-Route::get('add/{$asset_id}/step-5', [CRUDController::class, 'create_cstep5']);
+//Create(get) routes
+Route::get('add/step-1', [CRUDController::class, 'step1'])->name('step1');
+Route::get('add/step-2', [CRUDController::class, 'step2'])->name('step2');
+Route::get('add/step-3', [CRUDController::class, 'step3'])->name('step3');
+Route::get('add/step-4', [CRUDController::class, 'step4'])->name('step4');
+Route::get('add/step-5', [CRUDController::class, 'step5'])->name('step5');
+
+//Create(post) routes
+Route::post('post-add/step-1', [CRUDController::class, 'create_step1'])->name('step1.post');
+Route::post('post-add/step-2', [CRUDController::class, 'create_step2'])->name('step2.post');
+Route::post('post-add/step-3', [CRUDController::class, 'create_step3'])->name('step3.post');
+Route::post('post-add/step-4', [CRUDController::class, 'create_step4'])->name('step4.post');
+Route::post('psot-add/step-5', [CRUDController::class, 'create_step5'])->name('step5.post');
 
 //Update routes
-Route::get('update/{$asset_id}', [CRUDController::class, 'update']);
+Route::get('update/{$asset_id}', [CRUDController::class, 'update'])->name('update');
+Route::post('post-upd', [AuthController::class, 'postUpd'])->name('update.post'); 
 
 //Delete routes
-Route::get('delete/{$asset_id}', [CRUDController::class, 'delete']);
+Route::post('delete/{$asset_id}', [CRUDController::class, 'delete'])->name('delete');
 
 //Show routes
+Route::get('show/{$asset_id}', [CRUDController::class, 'show'])->name('show');
+Route::post('generatePdf/{$asset_id}', [CRUDController::class, 'genPDF'])->name('genPDF');
+
+//Fallback
+Route::fallback(function () {
+    return redirect('/');
+});
