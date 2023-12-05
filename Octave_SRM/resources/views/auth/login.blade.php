@@ -12,9 +12,9 @@
                       <form action="{{ route('login.post') }}" method="POST">
                           @csrf
                           <div class="form-group row">
-                              <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail Address:</label>
+                              <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address:</label>
                               <div class="col-md-6">
-                                  <input type="text" id="email_address" class="form-control" placeholder="Enter your email" name="email" required autofocus>
+                                  <input type="text" id="email" class="form-control" placeholder="Enter your email" name="email" required autofocus>
                                   @if ($errors->has('email'))
                                       <span class="text-danger">{{ $errors->first('email') }}</span>
                                   @endif
