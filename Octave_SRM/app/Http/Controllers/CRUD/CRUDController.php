@@ -47,6 +47,9 @@ class CRUDController extends Controller{
     public function step3(): View
     {
         return view('add.step3');
+        session(['technical_asset_count' => 1]);
+        session(['physical_asset_count' => 1]);
+        session(['human_asset_count' => 1]);
     } 
     /**
      * Write code on Method
@@ -126,7 +129,10 @@ class CRUDController extends Controller{
         // $priority = new Priority($validatedData);
         // $priority->asset_id = session('asset.asset_id');
         // $priority->save();
-
+        if (count($validatedData) !== count(array_unique($validatedData)))
+        {
+            return back()->withErrors(['message' => 'Each priority value must be unique!']);
+        }
         $request->session()->put('priority', [
             // 'asset_id'=>$validatedData['']               
             'trust' => $validatedData['trust'],
@@ -151,6 +157,30 @@ class CRUDController extends Controller{
      *
      * @return response()
      */
+    public function add_technical(Request $request){
+        
+    }
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function add_physical(Request $request){
+        
+    }
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function add_human(Request $request){
+        
+    }
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
     public function create_step4(Request $request){
         
     }
@@ -161,21 +191,23 @@ class CRUDController extends Controller{
      */
     public function create_step5(Request $request){
     // Retrieve the asset data from the session
-    $assetData = $request->session()->get('asset');
-    $priorityData = $request->session()->get('priority');
+    $assetData = $request->session()->get('asset');//assetdata
+    $priorityData = $request->session()->get('priority');//priority
     $mapHData = $request->session()->get('map_human'); //mapping human
     $mapPData = $request->session()->get('map_physical'); //mapping phys
     $mapTData = $request->session()->get('map_technical'); //mapping tech
     $RIData = $request->session()->get('RI'); //risk_ident
     $severityData = $request->session()->get('severity'); // severity
-    // Check if the session data exists
     // Create a new Asset instance and fill it with the session data
     $asset = new Asset($assetData);
     // Save the new asset to the database
     $asset->save();
+    // Create a new Priority instance and fill it with the session data
     $priority = new Priority($priorityData);
     $priority->asset_id = $asset->asset_id;
     $priority -> save();
+
+    $
 
     $request->session()->forget(['asset','priority','severity','map_human','map_physical','map_technical','RI']);//forget everyone
     return redirect()->route('home')->with('success', 'Asset created successfully from session data.');
