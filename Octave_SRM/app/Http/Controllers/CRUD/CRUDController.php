@@ -13,6 +13,7 @@ use App\Models\Severity;
 use App\Models\Map_Human;
 use App\Models\Map_Physical;
 use App\Models\Map_Technical;
+use App\Models\Risk_Identification;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -168,13 +169,13 @@ class CRUDController extends Controller{
     //same as above but physical
     for ($i = 0; $i < session('physical_asset_count', 1); $i++) {
         $validatedData = $request->validate([
-            'p_location' => 'required|string|max:255',
-            'p_description' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
             'mp_owner' => 'required|string|max:255',            
         ]);
         $request->session()->put('map_physical', [         
-            'p_location' => $validatedData['p_location'],
-            'p_description' => $validatedData['p_description'],
+            'location' => $validatedData['p_location'],
+            'description' => $validatedData['p_description'],
             'mp_owner' => $validatedData['mp_owner'],
         ]);
     }
@@ -186,8 +187,8 @@ class CRUDController extends Controller{
             'mh_owner' => 'required|string|max:255',            
         ]);
         $request->session()->put('map_human', [         
-            'h_location' => $validatedData['h_location'],
-            'h_description' => $validatedData['h_description'],
+            'location' => $validatedData['h_location'],
+            'description' => $validatedData['h_description'],
             'mh_owner' => $validatedData['mh_owner'],
         ]);
     }
@@ -252,6 +253,9 @@ class CRUDController extends Controller{
      * @return response()
      */
     public function create_step5(Request $request){
+    
+
+    //This is the save button
     // Retrieve the asset data from the session
     $assetData = $request->session()->get('asset');//assetdata
     $priorityData = $request->session()->get('priority');//priority
@@ -270,8 +274,22 @@ class CRUDController extends Controller{
     $priority = new Priority($priorityData);
     $priority->asset_id = $asset->asset_id;
     $priority -> save();
+    // Create a new Human Mapping instance and fill it with the session data
+    $mapH= new Map_Human($mapHData);
+    $mapH->asset_id = $asset->asset_id;
+    $mapH -> save();
+    // same as above, but Physical Mapping
+    $mapP= new Map_Physical($mapPData);
+    $mapP->asset_id = $asset->asset_id;
+    $mapP -> save();
+    // same as above, but Technical Mapping
+    $mapT= new Map_Technical($mapTData);
+    $mapT->asset_id = $asset->asset_id;
+    $mapT-> save();
 
-    $
+    $RI = new Risk_Identification($RIData);
+    $RI->asset_id = $asset->asset_id;
+    $RI->save();
 
     $request->session()->forget(['asset','priority','severity','map_human','map_physical','map_technical','RI']);//forget everyone
     return redirect()->route('home')->with('success', 'Asset created successfully from session data.');

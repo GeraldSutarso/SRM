@@ -46,7 +46,6 @@
                         <td><h5>Physical Asset Mapping</h5></td>
                     </tr>
                 </thead>
-                {{-- Loop to create technical asset rows --}}
                 @for ($i = 0; $i < session('physical_asset_count', 1); $i++)
                 <tbody>
                     <tr>
@@ -80,7 +79,6 @@
                         <td><h5>Human Asset Mapping</h5></td>
                     </tr>
                 </thead>
-                {{-- Loop to create technical asset rows --}}
                 @for ($i = 0; $i < session('human_asset_count', 1); $i++)
                 <tbody>
                     <tr>
