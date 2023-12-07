@@ -44,9 +44,9 @@ Route::post('post-add/step-4', [CRUDController::class, 'create_step4'])->name('s
 Route::post('post-add/step-5', [CRUDController::class, 'create_step5'])->name('step5.post');
 
 //for step3 button
-Route::post('post-add/step-3/add-technical', [CRUDController::class, 'add_technical'])->name('add.technical');
-Route::post('post-add/step-3/add-physical', [CRUDController::class, 'add_physical'])->name('add.physical');
-Route::post('post-add/step-3/add-human', [CRUDController::class, 'add_human'])->name('add.human');
+Route::get('add/step-3/add-technical', [CRUDController::class, 'add_technical'])->name('add.technical');
+Route::get('add/step-3/add-physical', [CRUDController::class, 'add_physical'])->name('add.physical');
+Route::get('add/step-3/add-human', [CRUDController::class, 'add_human'])->name('add.human');
 
 
 //Update routes

@@ -52,7 +52,7 @@ class AuthController extends Controller
 
         }
   
-        return redirect("login")->withSuccess('Oops! You have entered invalid credentials');
+        return back()->withErrors(['errorLogin' => 'Oops! You have entered invalid credentials']);
     }
       
     /**
@@ -84,6 +84,12 @@ class AuthController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
+            $request->session()->forget([
+                //reset the database session
+                'asset','priority','severity','map_human','map_physical','map_technical','RI',
+                //reset the container mapping count session
+                'technical_asset_count','physical_asset_count','human_asset_count'
+                ]);
             return view('home')->with('user',$user);
         }
     // Check if the current URL is one of the step pages
@@ -93,10 +99,8 @@ class AuthController extends Controller
     //     // Set a session variable to trigger the alert
     //     session(['show_alert' => true]);
     // }
-
-        $request->session()->forget(['asset','priority','severity','map_human','map_physical','map_technical','RI']);
-
-        return redirect("login")->withSuccess('Oops! You do not have access');
+        Session::flush();
+        return redirect('login')->withErrors(['errorHome' => 'You have no access']);
     }
     
     /**

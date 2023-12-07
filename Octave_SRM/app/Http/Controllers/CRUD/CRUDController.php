@@ -80,12 +80,12 @@ class CRUDController extends Controller{
         $validatedData = $request->validate([
             'asset_name' => 'required|string|max:255',
             'rationale_for_select' => 'required|string|max:255',
-            'description' => 'required|string',
-            'owner' => 'required|string',
-            'a_department' => 'required|string',
-            'confidentiality' => 'required|string',
-            'integrity' => 'required|string',
-            'availability' => 'required|string',
+            'description' => 'required|string|max:255',
+            'owner'=> 'required|string|max:255',
+            'a_department' => 'required|string|in:IT,HR,Logistic,Engineering,RnD,FA,Sales,BD,PPIC',
+            'SR_confidentiality' => 'required|string|max:255',
+            'SR_integrity' => 'required|string|max:255',
+            'SR_availability' => 'required|string|max:255',
             'most_important_SR' => 'required|string|in:Confidentiality,Integrity,Availability',
         ]);
         // $asset = new Asset($validatedData);
@@ -102,9 +102,9 @@ class CRUDController extends Controller{
             'asset_desc' => $validatedData['description'],
             'owner' => $validatedData['owner'],
             'a_department' => $validatedData['a_department'],
-            'SR_confidentiality' => $validatedData['confidentiality'],
-            'SR_integrity' => $validatedData['integrity'],
-            'SR_availability' => $validatedData['availability'],
+            'SR_confidentiality' => $validatedData['SR_confidentiality'],
+            'SR_integrity' => $validatedData['SR_integrity'],
+            'SR_availability' => $validatedData['SR_availability'],
             'most_important_SR' => $validatedData['most_important_SR'],
             'rationale_for_select' => $validatedData['rationale_for_select'],
         ]);
@@ -150,6 +150,47 @@ class CRUDController extends Controller{
      * @return response()
      */
     public function create_step3(Request $request){
+         // Loop through the input data for technical assets
+    for ($i = 0; $i < session('technical_asset_count', 1); $i++) {
+        //validate the form
+        $validatedData = $request->validate([
+            't_location' => 'required|string|max:255',
+            't_description' => 'required|string|max:255',
+            'mt_owner' => 'required|string|max:255',            
+        ]);
+        //put into session
+        $request->session()->put('map_technical', [         
+            't_location' => $validatedData['t_location'],
+            't_description' => $validatedData['t_description'],
+            'mt_owner' => $validatedData['mt_owner'],
+        ]);
+    }
+    //same as above but physical
+    for ($i = 0; $i < session('physical_asset_count', 1); $i++) {
+        $validatedData = $request->validate([
+            'p_location' => 'required|string|max:255',
+            'p_description' => 'required|string|max:255',
+            'mp_owner' => 'required|string|max:255',            
+        ]);
+        $request->session()->put('map_physical', [         
+            'p_location' => $validatedData['p_location'],
+            'p_description' => $validatedData['p_description'],
+            'mp_owner' => $validatedData['mp_owner'],
+        ]);
+    }
+    //this one's human mapping
+    for ($i = 0; $i < session('human_asset_count', 1); $i++) {
+        $validatedData = $request->validate([
+            'h_location' => 'required|string|max:255',
+            'h_description' => 'required|string|max:255',
+            'mh_owner' => 'required|string|max:255',            
+        ]);
+        $request->session()->put('map_human', [         
+            'h_location' => $validatedData['h_location'],
+            'h_description' => $validatedData['h_description'],
+            'mh_owner' => $validatedData['mh_owner'],
+        ]);
+    }
         
     }
     /**
@@ -158,7 +199,14 @@ class CRUDController extends Controller{
      * @return response()
      */
     public function add_technical(Request $request){
-        
+    if ($request -> has('add_technical')){
+    // Increment the row count for technical assets
+    $count = $request->session()->get('technical_asset_count', 1);
+    $request->session()->put('technical_asset_count', ++$count);
+
+    // Redirect back to the form
+    return back();
+    }
     }
     /**
      * Write code on Method
@@ -166,15 +214,29 @@ class CRUDController extends Controller{
      * @return response()
      */
     public function add_physical(Request $request){
-        
+    if ($request -> has('add_physical')){
+    // Increment the row count for technical assets
+    $count = $request->session()->get('physical_asset_count', 1);
+    $request->session()->put('physical_asset_count', ++$count);
+
+    // Redirect back to the form
+    return back();
     }
+    }   
     /**
      * Write code on Method
      *
      * @return response()
      */
     public function add_human(Request $request){
-        
+    if ($request -> has('add_human')){
+    // Increment the row count for technical assets
+    $count = $request->session()->get('human_asset_count', 1);
+    $request->session()->put('human_asset_count', ++$count);
+
+    // Redirect back to the form
+    return back();    
+    }
     }
     /**
      * Write code on Method
@@ -200,6 +262,8 @@ class CRUDController extends Controller{
     $severityData = $request->session()->get('severity'); // severity
     // Create a new Asset instance and fill it with the session data
     $asset = new Asset($assetData);
+    $asset->user_id = auth()->user()->user_id;
+    $asset->owner = auth()->user()->username;
     // Save the new asset to the database
     $asset->save();
     // Create a new Priority instance and fill it with the session data

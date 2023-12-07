@@ -1,6 +1,7 @@
 @extends('layout.main')
 
 @section('content')
+{{-- {{ dd(session()->all()) }} --}}
     <div class="container">
         <h2>Step 2: Choose Priority of Your Asset</h2>
         <form method="POST" action="{{ route('step2.post') }}">

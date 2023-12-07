@@ -16,7 +16,11 @@
                               <div class="col-md-6">
                                   <input type="text" id="email" class="form-control" placeholder="Enter your email" name="email" required autofocus>
                                   @if ($errors->has('email'))
-                                      <span class="text-danger">{{ $errors->first('email') }}</span>
+                                      <div class="alert alert-danger">
+                                        <ul>
+                                            <li>{{ $errors }}</li>
+                                        </ul>
+                                      </div>
                                   @endif
                               </div>
                           </div>
@@ -26,7 +30,11 @@
                               <div class="col-md-6">
                                   <input type="password" id="password" class="form-control" placeholder="Enter your password" name="password" required>
                                   @if ($errors->has('password'))
-                                      <span class="text-danger">{{ $errors->first('password') }}</span>
+                                  <div class="alert alert-danger">
+                                    <ul>
+                                            <li>{{ $errors->first('password') }}</li>
+                                    </ul>
+                                </div>
                                   @endif
                               </div>
                           </div>
