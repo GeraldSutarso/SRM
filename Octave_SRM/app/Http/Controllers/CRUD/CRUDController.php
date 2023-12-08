@@ -96,6 +96,7 @@ class CRUDController extends Controller{
     
         // Save the new asset
         // $asset->save();
+        $request->session()->forget('asset');
         // Store data in the session
         $request->session()->put('asset', [
             'user_id' => auth()->user()->user_id, // Get the authenticated user's ID
@@ -134,6 +135,7 @@ class CRUDController extends Controller{
         {
             return back()->withErrors(['message' => 'Each priority value must be unique!']);
         }
+        $request->session()->forget('priority');
         $request->session()->put('priority', [
             // 'asset_id'=>$validatedData['']               
             'trust' => $validatedData['trust'],
@@ -153,6 +155,9 @@ class CRUDController extends Controller{
     public function create_step3(Request $request){
          // Loop through the input data for technical assets
     // Initialize arrays to store session data
+    $request->session()->forget('map_technical');
+    $request->session()->forget('map_physical');
+    $request->session()->forget('map_human');
     $map_technical = $request->session()->get('map_technical', []);
     $map_physical = $request->session()->get('map_physical', []);
     $map_human = $request->session()->get('map_human', []);
