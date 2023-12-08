@@ -1,7 +1,10 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\CRUD\CRUDController;
+use App\Http\Controllers\CRUD\CRController;
+use App\Http\Controllers\CRUD\DController;
+use App\Http\Controllers\CRUD\UController;
+use App\Http\Controllers\PDF\GenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,35 +33,35 @@ Route::get('home', [AuthController::class, 'home'])->name('home');
 Route::get('/', [AuthController::class, 'home']); 
 
 //Create(get) routes
-Route::get('add/step-1', [CRUDController::class, 'step1'])->name('step1');
-Route::get('add/step-2', [CRUDController::class, 'step2'])->name('step2');
-Route::get('add/step-3', [CRUDController::class, 'step3'])->name('step3');
-Route::get('add/step-4', [CRUDController::class, 'step4'])->name('step4');
-Route::get('add/step-5', [CRUDController::class, 'step5'])->name('step5');
+Route::get('add/step-1', [CRController::class, 'step1'])->name('step1');
+Route::get('add/step-2', [CRController::class, 'step2'])->name('step2');
+Route::get('add/step-3', [CRController::class, 'step3'])->name('step3');
+Route::get('add/step-4', [CRController::class, 'step4'])->name('step4');
+Route::get('add/step-5', [CRController::class, 'step5'])->name('step5');
 
 //Create(post) routes
-Route::post('post-add/step-1', [CRUDController::class, 'create_step1'])->name('step1.post');
-Route::post('post-add/step-2', [CRUDController::class, 'create_step2'])->name('step2.post');
-Route::post('post-add/step-3', [CRUDController::class, 'create_step3'])->name('step3.post');
-Route::post('post-add/step-4', [CRUDController::class, 'create_step4'])->name('step4.post');
-Route::post('post-add/step-5', [CRUDController::class, 'create_step5'])->name('step5.post');
+Route::post('post-add/step-1', [CRController::class, 'create_step1'])->name('step1.post');
+Route::post('post-add/step-2', [CRController::class, 'create_step2'])->name('step2.post');
+Route::post('post-add/step-3', [CRController::class, 'create_step3'])->name('step3.post');
+Route::post('post-add/step-4', [CRController::class, 'create_step4'])->name('step4.post');
+Route::post('post-add/step-5', [CRController::class, 'create_step5'])->name('step5.post');
 
 //for step3 button
-Route::get('add/step-3/add-technical', [CRUDController::class, 'add_technical'])->name('add.technical');
-Route::get('add/step-3/add-physical', [CRUDController::class, 'add_physical'])->name('add.physical');
-Route::get('add/step-3/add-human', [CRUDController::class, 'add_human'])->name('add.human');
+Route::get('add/step-3/add-technical', [CRController::class, 'add_technical'])->name('add.technical');
+Route::get('add/step-3/add-physical', [CRController::class, 'add_physical'])->name('add.physical');
+Route::get('add/step-3/add-human', [CRController::class, 'add_human'])->name('add.human');
 
 
 //Update routes
-Route::get('update/{$asset_id}', [CRUDController::class, 'update'])->name('update');
+Route::get('update/{$asset_id}', [UController::class, 'update'])->name('update');
 Route::post('post-upd', [AuthController::class, 'postUpd'])->name('update.post'); 
 
 //Delete routes
-Route::post('delete/{$asset_id}', [CRUDController::class, 'delete'])->name('delete');
+Route::post('delete/{$asset_id}', [DController::class, 'delete'])->name('delete');
 
 //Show routes
-Route::get('show/{$asset_id}', [CRUDController::class, 'show'])->name('show');
-Route::post('generatePdf/{$asset_id}', [CRUDController::class, 'genPDF'])->name('genPDF');
+Route::get('show/{$asset_id}', [GenController::class, 'show'])->name('show');
+Route::post('generatePdf/{$asset_id}', [GenController::class, 'genPDF'])->name('genPDF');
 
 //Fallback
 Route::fallback(function () {

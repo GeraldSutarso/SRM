@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 
-class CRUDController extends Controller{
+class CRController extends Controller{
 
         /**
      * Write code on Method
@@ -325,7 +325,4 @@ class CRUDController extends Controller{
         return redirect()->route('step5')->with('error', 'Some data are missing in session.');
     }
     } 
-    
-
-    
 }
