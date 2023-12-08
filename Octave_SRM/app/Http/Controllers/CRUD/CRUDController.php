@@ -152,46 +152,68 @@ class CRUDController extends Controller{
      */
     public function create_step3(Request $request){
          // Loop through the input data for technical assets
+    // Initialize arrays to store session data
+    $map_technical = $request->session()->get('map_technical', []);
+    $map_physical = $request->session()->get('map_physical', []);
+    $map_human = $request->session()->get('map_human', []);
+
+    // Loop through the input data for technical assets
     for ($i = 0; $i < session('technical_asset_count', 1); $i++) {
-        //validate the form
+        // Validate the form
         $validatedData = $request->validate([
-            't_location' => 'required|string|max:255',
-            't_description' => 'required|string|max:255',
-            'mt_owner' => 'required|string|max:255',            
+            't_location.*' => 'required|string|max:255',
+            't_description.*' => 'required|string|max:255',
+            'mt_owner.*' => 'required|string|max:255',            
         ]);
-        //put into session
-        $request->session()->put('map_technical', [         
-            't_location' => $validatedData['t_location'],
-            't_description' => $validatedData['t_description'],
-            'mt_owner' => $validatedData['mt_owner'],
-        ]);
+
+        // Append to session array
+        $map_technical[] = [         
+            't_location' => $validatedData['t_location'][$i],
+            't_description' => $validatedData['t_description'][$i],
+            'mt_owner' => $validatedData['mt_owner'][$i],
+        ];
     }
-    //same as above but physical
-    for ($i = 0; $i < session('physical_asset_count', 1); $i++) {
-        $validatedData = $request->validate([
-            'location' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
-            'mp_owner' => 'required|string|max:255',            
-        ]);
-        $request->session()->put('map_physical', [         
-            'location' => $validatedData['p_location'],
-            'description' => $validatedData['p_description'],
-            'mp_owner' => $validatedData['mp_owner'],
-        ]);
-    }
-    //this one's human mapping
-    for ($i = 0; $i < session('human_asset_count', 1); $i++) {
-        $validatedData = $request->validate([
-            'h_location' => 'required|string|max:255',
-            'h_description' => 'required|string|max:255',
-            'mh_owner' => 'required|string|max:255',            
-        ]);
-        $request->session()->put('map_human', [         
-            'location' => $validatedData['h_location'],
-            'description' => $validatedData['h_description'],
-            'mh_owner' => $validatedData['mh_owner'],
-        ]);
-    }
+        // Store the updated array in the session
+        $request->session()->put('map_technical', $map_technical);
+        //same as above but physical
+        // Loop through the input data for physical assets
+        for ($i = 0; $i < session('physical_asset_count', 1); $i++) {
+            // Validate the form
+            $validatedData = $request->validate([
+                'p_location.*' => 'required|string|max:255',
+                'p_description.*' => 'required|string|max:255',
+                'mp_owner.*' => 'required|string|max:255',            
+            ]);
+    
+            // Append to session array
+            $map_physical[] = [         
+                'p_location' => $validatedData['p_location'][$i],
+                'p_description' => $validatedData['p_description'][$i],
+                'mp_owner' => $validatedData['mp_owner'][$i],
+            ];
+        }
+        // Store the updated array in the session
+        $request->session()->put('map_physical', $map_physical);
+    
+        // Loop through the input data for human assets
+        for ($i = 0; $i < session('human_asset_count', 1); $i++) {
+            // Validate the form
+            $validatedData = $request->validate([
+                'h_location.*' => 'required|string|max:255',
+                'h_description.*' => 'required|string|max:255',
+                'mh_owner.*' => 'required|string|max:255',            
+            ]);
+    
+            // Append to session array
+            $map_human[] = [         
+                'h_location' => $validatedData['h_location'][$i],
+                'h_description' => $validatedData['h_description'][$i],
+                'mh_owner' => $validatedData['mh_owner'][$i],
+            ];
+        }
+        // Store the updated array in the session
+        $request->session()->put('map_human', $map_human);
+        return redirect()->route('step4');
         
     }
     /**
@@ -206,7 +228,7 @@ class CRUDController extends Controller{
     $request->session()->put('technical_asset_count', ++$count);
 
     // Redirect back to the form
-    return back();
+    return back()->withInput();
     }
     }
     /**
@@ -221,7 +243,7 @@ class CRUDController extends Controller{
     $request->session()->put('physical_asset_count', ++$count);
 
     // Redirect back to the form
-    return back();
+    return back()->withInput();
     }
     }   
     /**
@@ -236,7 +258,7 @@ class CRUDController extends Controller{
     $request->session()->put('human_asset_count', ++$count);
 
     // Redirect back to the form
-    return back();    
+    return back()->withInput();
     }
     }
     /**
