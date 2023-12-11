@@ -66,7 +66,7 @@ Route::get('update', [UController::class, 'update'])->name('update');
 Route::post('post-upd', [AuthController::class, 'postUpd'])->name('update.post'); 
 
 //Delete routes
-Route::post('delete', [DController::class, 'delete'])->name('delete');
+Route::delete('delete-asset/{asset_id}', [DController::class, 'delete_asset'])->name('delete.asset');
 
 //Show routes
 Route::get('show', [GenController::class, 'show'])->name('show');
