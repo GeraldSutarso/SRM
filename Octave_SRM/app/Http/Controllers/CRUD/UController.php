@@ -18,4 +18,16 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 
-class UController extends Controller{}
+class UController extends Controller{
+
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function update()
+    {   
+        $asset = Asset::get();
+        return redirect()->route('update', ['asset_id' => $asset->asset_id]);
+    } 
+}

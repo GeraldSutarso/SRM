@@ -41,8 +41,8 @@ class HomeController extends Controller{
             //reset the container mapping count session
         'technical_asset_count','physical_asset_count','human_asset_count'
         ]);
-            $results = Asset::paginate(10);
-            return view('home', ['results' => $results, 'user' => $user]);;
+            $assets = Asset::paginate(10);
+            return view('home', ['assets' => $assets, 'user' => $user]);;
     }
      /**
      * Write code on Method
@@ -52,12 +52,12 @@ class HomeController extends Controller{
     public function search(Request $request)
     {
         $searchTerm = $request->input('search');
-        $results = Asset::where('asset_name', 'LIKE', "%{$searchTerm}%")
+        $assets = Asset::where('asset_name', 'LIKE', "%{$searchTerm}%")
                             ->orWhere('a_department', 'LIKE', "%{$searchTerm}%")
                             ->orWhere('created_at', 'LIKE', "%{$searchTerm}%")
                             ->orWhere('asset_id','LIKE',"%{$searchTerm}%")
-                            ->get();
+                            ->paginate(10);
 
-        return view('home', compact('results'));
+        return view('home', compact('assets'));
     }
 }

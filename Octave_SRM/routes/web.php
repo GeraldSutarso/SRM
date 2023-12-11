@@ -62,15 +62,15 @@ Route::get('add/step-3/add-human', [CRController::class, 'add_human'])->name('ad
 
 
 //Update routes
-Route::get('update/{$asset_id}', [UController::class, 'update'])->name('update');
+Route::get('update', [UController::class, 'update'])->name('update');
 Route::post('post-upd', [AuthController::class, 'postUpd'])->name('update.post'); 
 
 //Delete routes
-Route::post('delete/{$asset_id}', [DController::class, 'delete'])->name('delete');
+Route::post('delete', [DController::class, 'delete'])->name('delete');
 
 //Show routes
-Route::get('show/{$asset_id}', [GenController::class, 'show'])->name('show');
-Route::post('generatePdf/{$asset_id}', [GenController::class, 'genPDF'])->name('genPDF');
+Route::get('show', [GenController::class, 'show'])->name('show');
+Route::post('generatePdf', [GenController::class, 'genPDF'])->name('genPDF');
 
 
 //Fallback
