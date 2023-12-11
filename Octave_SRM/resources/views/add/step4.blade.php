@@ -1,59 +1,54 @@
 @extends('layout.main') 
 @section('content')
 <div class="container">
-  <h2>Step 4: Fill In Risk Identification</h2><br><br>
+  <h2>Step 4: Fill In Risk Identification</h2>
   <form method="POST" action="{{ route('step4.post') }}">
     @csrf
     <table class="table">
       <tbody>
-        <tr><td></td>
-          <td><h5>Threat Properties</h5></td>
+        <tr>
+          <td>Threat Properties</td>
         </tr>
         <tr>
           <td>Area of Concern</td>
-          <td><textarea placeholder="Input Area of Concern" name="area_of_concern" class="form-control" required>{{ old('area_of_concern') }}</textarea></td>
+          <td><textarea placeholder="Input Area of Concern" name="concern" class="form-control" required></textarea></td>
         </tr>
         <tr>
           <td>Actor</td>
-          <td><input placeholder="Input Actor" name="actor" class="form-control" required value="{{ old('actor') }}"></td>
+          <td><textarea placeholder="Input Actor" name="actor" class="form-control" required></textarea></td>
         </tr>
         <tr>
           <td>Objective</td>
-          <td><input placeholder="Input Objective" name="objective" class="form-control" required value="{{ old('objective') }}"></td>
+          <td><textarea placeholder="Input Objective" name="objective" class="form-control" required></textarea></td>
         </tr>
         <tr>
           <td>Motive</td>
-          <td><input placeholder="Input Motive" name="motive" class="form-control" value="{{ old('motive') }}" required></td>
+          <td><textarea placeholder="Input Motive" name="motive" class="form-control" required></textarea></td>
         </tr>
         <tr>
           <td>Result</td>
-          <td><input placeholder="Input Result" name="result" class="form-control" value="{{ old('result') }}" required></td>
+          <td><textarea placeholder="Input Result" name="result" class="form-control" required></textarea></td>
         </tr>
         <tr>
           <td>Security Needs</td>
-          <td><textarea placeholder="Input Security Needs" name="security_needs" class="form-control" value="{{ old('security_needs') }}" required></textarea></td>
+          <td><textarea placeholder="Input Security Needs" name="needs" class="form-control" required></textarea></td>
         </tr>
         <tr>
-          <td>Probability</td>
-          <td><select id="probability" class="form-control" name="probability" required>
-            <option value="">Select Probability Chances</option>
-            <option value="high">High</option>
-            <option value="medium">Medium</option>
-            <option value="low">Low</option>
-        </select></td>
+          <td>Possibility</td>
+          <td><textarea placeholder="Input Possibility" name="possibility" class="form-control" required></textarea></td>
         </tr>
         <tr>
           <td>Consequence</td>
-          <td><textarea placeholder="Input Consequence" name="consequences" class="form-control" required>{{ old('consequence') }}</textarea></td>
+          <td><textarea placeholder="Input Consequence" name="consequence" class="form-control" required></textarea></td>
         </tr>
         <tr>
-          <td>Control</td>
-          <td><textarea placeholder="Input Control" name="control" class="form-control" required>{{ old('control') }}</textarea></td>
+          <td>Controll</td>
+          <td><textarea placeholder="Input Control" name="control" class="form-control" required></textarea></td>
         </tr>
       </tbody>
     </table>
     <div class="form-group">
-      <a href="{{ route('step3') }}" class="btn btn-secondary">Back</a>
+      <a href="{{ route('home') }}" class="btn btn-danger">Cancel</a>
       <button type="submit" class="btn btn-primary">Next</button>
     </div>
   </form>

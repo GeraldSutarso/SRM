@@ -26,8 +26,7 @@ class CRController extends Controller{
      * @return response()
      */
 
-//view page of the steps (1 until 5)
-
+     //view page of the steps (1 until 5)
     public function step1(): View
     {
         return view('add.step1');
@@ -71,8 +70,7 @@ class CRController extends Controller{
     {
         return view('add.step5');
     }  
-
-//step(1 - 5) posts or could be said as submit button function? anything goes
+    //step(1 - 5) posts
 
     /**
      * Write code on Method
@@ -91,8 +89,13 @@ class CRController extends Controller{
             'SR_availability' => 'required|string|max:255',
             'most_important_SR' => 'required|string|in:Confidentiality,Integrity,Availability',
         ]);
+        // $asset = new Asset($validatedData);
 
-        //ask to forget in case another same session already exist
+        // // Assign the authenticated user's ID to the user_id foreign key
+        // $asset->user_id = auth()->user()->user_id;
+    
+        // Save the new asset
+        // $asset->save();
         $request->session()->forget('asset');
         // Store data in the session
         $request->session()->put('asset', [
@@ -132,7 +135,6 @@ class CRController extends Controller{
         {
             return back()->withErrors(['message' => 'Each priority value must be unique!']);
         }
-        //ask to forget in case another same session already exist
         $request->session()->forget('priority');
         $request->session()->put('priority', [
             // 'asset_id'=>$validatedData['']               
@@ -219,9 +221,6 @@ class CRController extends Controller{
         return redirect()->route('step4');
         
     }
-
-//from here on is add button ( + ) for the container mapping (Step 3) forms
-     
     /**
      * Write code on Method
      *
@@ -267,52 +266,14 @@ class CRController extends Controller{
     return back()->withInput();
     }
     }
-
-//Continue to step 4 ^_^
-
-
     /**
      * Write code on Method
      *
      * @return response()
      */
     public function create_step4(Request $request){
-        $validatedData = $request->validate([
-            'area_of_concern' => 'required|string|max:255',
-            'actor' => 'required|string|max:255',
-            'objective' => 'required|string|max:255',
-            'motive'=> 'required|string|max:255',
-            'result' => 'required|string|max:255',
-            'security_needs' => 'required|string|max:255',
-            'consequences' => 'required|string|max:255',
-            'control' => 'required|string|max:255',
-            'probability' => 'required|string|in:high,medium,low',
-        ]);
-
-        //ask to forget in case another same session already exist
-        $request->session()->forget('RI');
-        // Store data in the session
-        $request->session()->put('RI', [
-            'area_of_concern' => $validatedData['area_of_concern'],
-            'actor' => $validatedData['actor'],
-            'objective' => $validatedData['objective'],
-            'motive' => $validatedData['motive'],
-            'result' => $validatedData['result'],
-            'security_needs' => $validatedData['security_needs'],
-            'consequences' => $validatedData['consequences'],
-            'control' => $validatedData['control'],
-            'probability' => $validatedData['probability'],
-        ]);
         
-        // Redirect to the next step or return a response
-        return redirect()->route('step5');
     }
-
-
-// step 5 submit button controller looking a bit ugly
-// because this is where all the form sessions are submitted to the database
-
-
     /**
      * Write code on Method
      *
@@ -321,76 +282,63 @@ class CRController extends Controller{
     public function create_step5(Request $request){
     
 
-//This is the save button
-
-// Retrieve all of the data from the session
+    //This is the save button
+    // Retrieve the asset data from the session
     $assetData = $request->session()->get('asset');//assetdata
     $priorityData = $request->session()->get('priority');//priority
     $mapHData = $request->session()->get('map_human'); //mapping human
     $mapPData = $request->session()->get('map_physical'); //mapping phys
     $mapTData = $request->session()->get('map_technical'); //mapping tech
-    $RIData = $request->session()->get('RI'); //risk_identification
+    $RIData = $request->session()->get('RI'); //risk_ident
     $severityData = $request->session()->get('severity'); // severity
-// Create a new Asset instance and fill it with the session data
+    // Create a new Asset instance and fill it with the session data
     $asset = new Asset($assetData);
     $asset->user_id = auth()->user()->user_id;
     $asset->owner = auth()->user()->username;
-// Save the new asset to the database
+    // Save the new asset to the database
     $asset->save();
-// Create a new Priority instance and fill it with the session data
+    // Create a new Priority instance and fill it with the session data
     $priority = new Priority($priorityData);
     $priority->asset_id = $asset->asset_id;
     $priority -> save();
-// Create a new Human Mapping instance and fill it with the session data
+    // Create a new Human Mapping instance and fill it with the session data
     $mapH= new Map_Human($mapHData);
     $mapH->asset_id = $asset->asset_id;
     $mapH -> save();
-// same as above, but Physical Mapping
+    // same as above, but Physical Mapping
     $mapP= new Map_Physical($mapPData);
     $mapP->asset_id = $asset->asset_id;
     $mapP -> save();
-// same as above, but Technical Mapping
+    // same as above, but Technical Mapping
     $mapT= new Map_Technical($mapTData);
     $mapT->asset_id = $asset->asset_id;
     $mapT-> save();
-//Create a new Risk Identification instance and fill it with the session data
+
     $RI = new Risk_Identification($RIData);
     $RI->asset_id = $asset->asset_id;
     $RI->save();
-//Create a new Severity Instance and fill it with the session data
-    $Severity = new Severity($severityData);
-    $Severity->AoC_id = $RI->AoC_id;
-    $RI->save();
-    
 
-    if(!$assetData) {// if any of those are missing
-// Handle the case where there is no session data asset
-        $error = 'Please fill step 1.';
-        return view('add.step5', compact('error'));
-    }
-    else if(!$priorityData) {// if any of those are missing 
-// Handle the case where there is no session data priority
-        $error = 'Please fill step 2.';
-        return view('add.step5', compact('error'));
-    }
-    else if(!$mapHData or !$mapPData or !$mapTData) {// if any of those are missing
-// Handle the case where there is no session data mapping
-        $error = 'Please fill step 3.';
-        return view('add.step5', compact('error'));
-    }
-    else if(!$RIData) {// if any of those are missing
-// Handle the case where there is no session data risk identification
-        $error = 'Please fill step 4.';
-        return view('add.step5', compact('error'));
-    }
-    else if(!$severityData) {// if any of those are missing
-// Handle the case where there is no session data severity
-        $error = 'Please fill step 5.';
-        return view('add.step5', compact('error'));
-    }
-
-//when done,
     $request->session()->forget(['asset','priority','severity','map_human','map_physical','map_technical','RI']);//forget everyone
     return redirect()->route('home')->with('success', 'Asset created successfully from session data.');
+    if(!$assetData) {// if any of those are missing
+        // Handle the case where there is no session data asset
+        return redirect()->route('step5')->with('error', 'Please fill step 1.');
+    }
+    else if(!$priorityData) {// if any of those are missing 
+        // Handle the case where there is no session data priority
+        return redirect()->route('step5')->with('error', 'Please fill step 2.');
+    }
+    else if(!$mapHData or !$mapPData or !$mapTData) {// if any of those are missing
+        // Handle the case where there is no session data mapping
+        return redirect()->route('step5')->with('error', 'Please fill step 3.');
+    }
+    else if(!$RIData) {// if any of those are missing
+        // Handle the case where there is no session data risk identification
+        return redirect()->route('step5')->with('error', 'Please fill step 4.');
+    }
+    else if(!$severityData) {// if any of those are missing
+        // Handle the case where there is no session data severity
+        return redirect()->route('step5')->with('error', 'Please fill step 5.');
+    }
     } 
 }
