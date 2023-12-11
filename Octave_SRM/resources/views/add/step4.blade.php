@@ -1,5 +1,7 @@
 @extends('layout.main') 
 @section('content')
+
+{{-- {{ dd(session()->all()) }} --}}
 <div class="container">
   <h2>Step 4: Fill In Risk Identification</h2><br><br>
   <form method="POST" action="{{ route('step4.post') }}">

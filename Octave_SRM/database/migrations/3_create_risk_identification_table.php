@@ -21,10 +21,10 @@ return new class extends Migration
             $table->text('motive');
             $table->text('result');
             $table->text('security_needs');
-            $table->text('probability');
+            $table->enum('probability',['high','medium','low']);
             $table->text('consequences');
             $table->text('control');
-            $table->timestamp('date_created')->useCurrent();
+            $table->timestamps();
         });
     }
 

@@ -16,11 +16,12 @@ class Map_Human extends Model
 
     protected $fillable = [
         'asset_id',
-        'description',
+        'h_description',
         'mh_owner',
-        'location',
+        'h_location',
     ];
     protected $primaryKey = 'mh_id';
     // public $incrementing = false;
+    protected $table = 'map_human';
 
 }

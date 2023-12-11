@@ -27,5 +27,6 @@ class Risk_Identification extends Model
     ];
     protected $primaryKey = 'AoC_id';
     // public $incrementing = false;
+    protected $table = 'risk_identification';
 
 }

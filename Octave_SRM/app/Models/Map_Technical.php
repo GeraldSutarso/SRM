@@ -15,11 +15,12 @@ class Map_Technical extends Model
 
     protected $fillable = [
         'asset_id',
-        'description',
+        't_description',
         'mt_owner',
-        'location',
+        't_location',
     ];
     protected $primaryKey = 'mt_id';
     // public $incrementing = false;
+    protected $table = 'map_technical';
 
 }

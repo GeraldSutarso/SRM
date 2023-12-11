@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('productivity',['1','2','3','4','5']);
             $table->enum('safety',['1','2','3','4','5']);
             $table->enum('fines',['1','2','3','4','5']);
+            $table->timestamps();
         });
     }
 

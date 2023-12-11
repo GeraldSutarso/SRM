@@ -23,5 +23,6 @@ class Priority extends Model
     ];
     protected $primaryKey = 'asset_id';
     public $incrementing = false;
+    protected $table = 'priority';
 
 }

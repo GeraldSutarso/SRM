@@ -27,6 +27,7 @@ return new class extends Migration
             $table->enum('safety_score',['1','2','3','4','5','6','7','8','9','10']);
             $table->enum('fines_score',['1','2','3','4','5','6','7','8','9','10']);
             $table->integer('rr_score',$autoIncrement = false);
+            $table->timestamps();
         });
     }
 

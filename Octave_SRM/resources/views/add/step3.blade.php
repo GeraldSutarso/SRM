@@ -93,7 +93,7 @@
                     </tr>
                     <tr>
                         <td>Description</td>
-                        <td><textarea placeholder="Input Physical Mapping Description" name="h_description[]" class="form-control" required>{{ old('h_description.'.$i) }}</textarea></td>
+                        <td><textarea placeholder="Input Human Mapping Description" name="h_description[]" class="form-control" required>{{ old('h_description.'.$i) }}</textarea></td>
                     </tr>
                     <tr>
                         <td>Owner</td>

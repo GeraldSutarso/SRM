@@ -30,5 +30,6 @@ class Severity extends Model
     ];
     protected $primaryKey = 'AoC_id';
     public $incrementing = false;
+    protected $table = 'severity';
 
 }

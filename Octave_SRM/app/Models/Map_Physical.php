@@ -15,11 +15,12 @@ class Map_Physical extends Model
 
     protected $fillable = [
         'asset_id',
-        'description',
+        'p_description',
         'mp_owner',
-        'location',
+        'p_location',
     ];
     protected $primaryKey = 'mp_id';
     // public $incrementing = false;
+    protected $table = 'map_physical';
 
 }
