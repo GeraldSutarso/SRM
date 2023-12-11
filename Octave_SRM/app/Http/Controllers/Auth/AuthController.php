@@ -48,7 +48,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         $remember = $request->filled('remember'); //check the remember box
         if (Auth::attempt($credentials,$remember)) {
-            return redirect("home")->withSuccess('You have Successfully loggedin');
+            return redirect("home")->withSuccess('You have Successfully logged in!');
 
         }
   

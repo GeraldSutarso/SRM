@@ -458,6 +458,6 @@ $errors = [];
     
 //when done,
     $request->session()->forget(['asset','priority','severity','map_human','map_physical','map_technical','RI']);//forget everyone
-    return redirect()->route('home')->with('success', 'Asset created successfully from session data.');
+    return redirect()->route('home')->with('success', 'Asset created successfully.');
     } 
 }

@@ -1,5 +1,4 @@
 @extends('layout.main')
-{{ dd(session()->all()) }}
 @section('content')
 {{-- {{ dd(session()->all()) }} --}}
     <div class="container">

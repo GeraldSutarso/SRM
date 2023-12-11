@@ -5,6 +5,7 @@ use App\Http\Controllers\CRUD\CRController;
 use App\Http\Controllers\CRUD\DController;
 use App\Http\Controllers\CRUD\UController;
 use App\Http\Controllers\PDF\GenController;
+use App\Http\Controllers\Home\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +31,15 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 //middleware check if user authenticated
 Route::middleware(['auth.check'])->group(function () {
-// Your routes that require user to be authenticated
+//routes that require user to be authenticated
+
+//Home routes
+Route::get('home', [HomeController::class, 'home'])->name('home'); 
+Route::get('/', [HomeController::class, 'home']); 
+
+//the search bar
+Route::get('/search', [HomeController::class, 'search'])->name('search');
+
 
 //Create(get) routes
 Route::get('add/step-1', [CRController::class, 'step1'])->name('step1');
@@ -63,12 +72,9 @@ Route::post('delete/{$asset_id}', [DController::class, 'delete'])->name('delete'
 Route::get('show/{$asset_id}', [GenController::class, 'show'])->name('show');
 Route::post('generatePdf/{$asset_id}', [GenController::class, 'genPDF'])->name('genPDF');
 
-});
-//Home routes
-Route::get('home', [AuthController::class, 'home'])->name('home'); 
-Route::get('/', [AuthController::class, 'home']); 
 
 //Fallback
 Route::fallback(function () {
     return redirect('/');
+});
 });
