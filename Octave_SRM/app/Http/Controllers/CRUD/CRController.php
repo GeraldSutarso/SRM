@@ -320,9 +320,25 @@ class CRController extends Controller{
 
     $request->session()->forget(['asset','priority','severity','map_human','map_physical','map_technical','RI']);//forget everyone
     return redirect()->route('home')->with('success', 'Asset created successfully from session data.');
-    if(!$assetData or !$priorityData or !$mapHData or !$mapPData or !$mapTData or !$RIData or !$severityData) {// if any of those are missing
-        // Handle the case where there is no session data
-        return redirect()->route('step5')->with('error', 'Some data are missing in session.');
+    if(!$assetData) {// if any of those are missing
+        // Handle the case where there is no session data asset
+        return redirect()->route('step5')->with('error', 'Please fill step 1.');
+    }
+    else if(!$priorityData) {// if any of those are missing 
+        // Handle the case where there is no session data priority
+        return redirect()->route('step5')->with('error', 'Please fill step 2.');
+    }
+    else if(!$mapHData or !$mapPData or !$mapTData) {// if any of those are missing
+        // Handle the case where there is no session data mapping
+        return redirect()->route('step5')->with('error', 'Please fill step 3.');
+    }
+    else if(!$RIData) {// if any of those are missing
+        // Handle the case where there is no session data risk identification
+        return redirect()->route('step5')->with('error', 'Please fill step 4.');
+    }
+    else if(!$severityData) {// if any of those are missing
+        // Handle the case where there is no session data severity
+        return redirect()->route('step5')->with('error', 'Please fill step 5.');
     }
     } 
 }

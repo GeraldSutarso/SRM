@@ -28,9 +28,9 @@ Route::get('registration', [AuthController::class, 'registration'])->name('regis
 Route::post('post-registration', [AuthController::class, 'postRegistration'])->name('register.post'); 
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
-//Home routes
-Route::get('home', [AuthController::class, 'home'])->name('home'); 
-Route::get('/', [AuthController::class, 'home']); 
+//middleware check if user authenticated
+Route::middleware(['auth.check'])->group(function () {
+// Your routes that require user to be authenticated
 
 //Create(get) routes
 Route::get('add/step-1', [CRController::class, 'step1'])->name('step1');
@@ -62,6 +62,11 @@ Route::post('delete/{$asset_id}', [DController::class, 'delete'])->name('delete'
 //Show routes
 Route::get('show/{$asset_id}', [GenController::class, 'show'])->name('show');
 Route::post('generatePdf/{$asset_id}', [GenController::class, 'genPDF'])->name('genPDF');
+
+});
+//Home routes
+Route::get('home', [AuthController::class, 'home'])->name('home'); 
+Route::get('/', [AuthController::class, 'home']); 
 
 //Fallback
 Route::fallback(function () {
