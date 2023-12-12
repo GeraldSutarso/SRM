@@ -13,4 +13,15 @@ How to Install?
 - Mysql as database connection.
 - octave_srm as the database name
 6. Remember to generate the key by running:> php artisan generate:key in the Octave_SRM cmd.
-7. Should be enough, to run, as usual for a laravel project:> php artisan serve
+7. Now, to put the tables in the database, run in the cmd:> php artisan migrate:fresh
+8. To run, as usual for a laravel project:> php artisan serve
+9. First thing you need to know when opening this application is:
+- The first account you sign up in this app (the very first user) will be considered as admin
+- Because of that, you need to sign up as admin
+Username: Administrator (Recommended)
+Email: admin@mail.com (anything goes, as long as you remember)
+Password: administrator (anything goes, as long as you remember)
+Department: IT (Recommended)
+
+- Actually, you are free to sign up as anything, the above requirements are only for formalities, since it would be weird if a username called Guest has an administrator authorities.
+- These stuff could be handled better with seeder, which I have not learnt yet, sorry.
