@@ -18,4 +18,15 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 
-class GenController extends Controller{}
+class GenController extends Controller{
+
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function show(): View
+    {
+        return view('show.show');
+    } 
+}
