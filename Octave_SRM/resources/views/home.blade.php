@@ -29,7 +29,9 @@
                         <tr>
                             <th>No.</th>
                             <th>Asset Name</th>
-                            <th>Department</th>
+                            @if ( Auth::user()->user_id == '1' )
+                                <th>Department</th>
+                            @endif
                             <th>Time Created</th>
                             <th>Action</th>
                             <!-- Add other table headers as needed -->
@@ -46,7 +48,9 @@
                             <tr>
                                 <td>{{ $startingNumber + $index }}</td>
                                 <td>{{ $asset->asset_name }}</td>
-                                <td>{{ $asset->a_department }}</td>
+                                @if ( Auth::user()->user_id == '1' )
+                                    <td>{{ $asset->a_department }}</td>
+                                @endif
                                 <td>{{ $asset->created_at }}</td>
                                 <td>
                                 <div style="display: flex; justify-content: space-around; align-items: center; gap: 1px;">

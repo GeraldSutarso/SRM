@@ -41,8 +41,10 @@ class HomeController extends Controller{
             //reset the container mapping count session
         'technical_asset_count','physical_asset_count','human_asset_count'
         ]);
+        if($user->user_id =='1'){    
             $assets = Asset::paginate(10);
-            return view('home', ['assets' => $assets, 'user' => $user]);;
+        }
+        return view('home', ['assets' => $assets, 'user' => $user]);;
     }
      /**
      * Write code on Method

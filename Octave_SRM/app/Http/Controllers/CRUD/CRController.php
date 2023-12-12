@@ -130,7 +130,7 @@ class CRController extends Controller{
         // $priority->save();
         if (count($validatedData) !== count(array_unique($validatedData)))
         {
-            return back()->withErrors(['message' => 'Each priority value must be unique!']);
+            return back()->withErrors(['message' => 'Each priority value must be different from the others! <br>Different Impact, different priority.']);
         }
         //ask to forget in case another same session already exist
         $request->session()->forget('priority');
