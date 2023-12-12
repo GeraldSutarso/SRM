@@ -27,8 +27,8 @@ class HomeController extends Controller{
      */
     public function home(Request $request)
     {
-        if(!Auth::check()){
-
+        if(!Auth::check()){//if not logged in yet, the flush the session, in case some of the steps session stays
+                            // then redirect to the login page, or the sign in page
             Session::flush();
             return redirect('login')->withErrors(['errorHome' => 'You have no access']);
 
@@ -38,12 +38,13 @@ class HomeController extends Controller{
         $request->session()->forget([
         //reset the database session
         'asset','priority','severity','map_human','map_physical','map_technical','RI',
-            //reset the container mapping count session
+        //reset the container mapping count session
         'technical_asset_count','physical_asset_count','human_asset_count'
         ]);
+        //if the user is an admin, show all of the critical asset
         if($user->user_id =='1'){    
             $assets = Asset::paginate(10);
-        }
+        }//if not an admin, then only show the asset of their respective department
         else{
             $assets = Asset::where('a_department', $user->department)->paginate(10);
         }
@@ -55,14 +56,14 @@ class HomeController extends Controller{
      * @return response()
      */
     public function search(Request $request)
-    {
+    {//the search button
         $searchTerm = $request->input('search');
-        $assets = Asset::where('asset_name', 'LIKE', "%{$searchTerm}%")
-                            ->orWhere('a_department', 'LIKE', "%{$searchTerm}%")
+        $assets = Asset::where('asset_name', 'LIKE', "%{$searchTerm}%")//find asset name or department or when is it created or even the id
+                            ->orWhere('a_department', 'LIKE', "%{$searchTerm}%")//which has the same character as the inputted word
                             ->orWhere('created_at', 'LIKE', "%{$searchTerm}%")
                             ->orWhere('asset_id','LIKE',"%{$searchTerm}%")
                             ->paginate(10);
 
-        return view('home', compact('assets'));
+        return view('home', compact('assets'));//then send that data to the home page, which will be shown there
     }
 }

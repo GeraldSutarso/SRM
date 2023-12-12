@@ -12,7 +12,7 @@ How to Install?
 5. Speaking of .env, you need that file. You could have the default one by renaming the .env.example file into .env, Default one has:
 - Mysql as database connection.
 - octave_srm as the database name
-6. Remember to generate the key by running:> php artisan generate:key in the Octave_SRM cmd.
+6. Remember to generate the key by running:> php artisan key:generate in the Octave_SRM cmd.
 7. Now, to put the tables in the database, run in the cmd:> php artisan migrate:fresh
 8. To run, as usual for a laravel project:> php artisan serve
 9. First thing you need to know when opening this application is:
