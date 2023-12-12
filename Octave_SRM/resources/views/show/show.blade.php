@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Asset Details</h1>
+    {{-- <h1>Asset Details</h1>
     <div>
         <p>ID: {{ $asset->id }}</p>
         <p>Name: {{ $asset->name }}</p>
@@ -17,8 +17,8 @@
     @endforeach
 
     {{-- Tombol untuk menghasilkan PDF --}}
-    <form action="{{ url('/generate-pdf/' . $asset->id) }}" method="POST">
+    {{-- <form action="{{ url('/generate-pdf/' . $asset->id) }}" method="POST">
         @csrf
         <button type="submit">Generate PDF</button>
-    </form>
+    </form> --}} 
 @endsection

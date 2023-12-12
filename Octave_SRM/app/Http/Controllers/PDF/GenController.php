@@ -25,8 +25,38 @@ class GenController extends Controller{
      *
      * @return response()
      */
-    public function show(): View
+    public function show($asset_id)
     {
-        return view('show.show');
-    } 
+
+    // Initialize arrays to store the data
+    $severityData = [];
+    $mapHumanData = [];
+    $mapPhysicalData = [];
+    $mapTechnicalData = [];
+    // Find Risk Identifications (RIs)
+    $RIs = Risk_Identification::where('asset_id', $asset_id)->get();
+
+
+    // For every RI, get severity and store it
+    foreach ($RIs as $RI) {
+        $severities = Severity::where('AoC_id', $RI->AoC_id)->get();
+        foreach ($severities as $severity) {
+            $severityData[] = $severity;
+        }
+    }
+
+    // Get mapping data
+    $mapHumanData = Map_Human::where('asset_id', $asset_id)->get();
+    $mapPhysicalData = Map_Physical::where('asset_id', $asset_id)->get();
+    $mapTechnicalData = Map_Technical::where('asset_id', $asset_id)->get();
+
+    // Get priority
+    $priority = Priority::where('asset_id', $asset_id)->first();
+
+    // Find the asset
+    $asset = Asset::findOrFail($asset_id);
+
+    // Pass all the data to the view
+    return view('show.show', compact('RIs', 'severityData', 'mapHumanData', 'mapPhysicalData', 'mapTechnicalData', 'priority', 'asset'));
+}
 }

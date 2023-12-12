@@ -69,7 +69,7 @@ Route::post('post-upd', [AuthController::class, 'postUpd'])->name('update.post')
 Route::delete('delete-asset/{asset_id}', [DController::class, 'delete_asset'])->name('delete.asset');
 
 //Show routes
-Route::get('show', [GenController::class, 'show'])->name('show');
+Route::get('show/{asset_id}', [GenController::class, 'show'])->name('show');
 Route::post('generatePdf', [GenController::class, 'genPDF'])->name('genPDF');
 
 
