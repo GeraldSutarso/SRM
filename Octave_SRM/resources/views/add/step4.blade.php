@@ -29,7 +29,7 @@
         </tr>
         <tr>
           <td>Result</td>
-          <td><textarea placeholder="Input Result" name="result" class="form-control" >{{ old('motive') }}</textarea>/td>
+          <td><textarea placeholder="Input Result" name="result" class="form-control" >{{ old('motive') }}</textarea></td>
         </tr>
         <tr>
           <td>Security Needs</td>
