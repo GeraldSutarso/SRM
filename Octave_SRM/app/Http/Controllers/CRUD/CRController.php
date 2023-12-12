@@ -82,13 +82,13 @@ class CRController extends Controller{
     public function create_step1(Request $request){
         $validatedData = $request->validate([
             'asset_name' => 'required|string|max:255',
-            'rationale_for_select' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'rationale_for_select' => 'required|string',
+            'description' => 'required|string',
             'owner'=> 'required|string|max:255',
             'a_department' => 'required|string|in:IT,HR,Logistic,Engineering,RnD,FA,Sales,BD,PPIC',
-            'SR_confidentiality' => 'required|string|max:255',
-            'SR_integrity' => 'required|string|max:255',
-            'SR_availability' => 'required|string|max:255',
+            'SR_confidentiality' => 'required|string',
+            'SR_integrity' => 'required|string',
+            'SR_availability' => 'required|string',
             'most_important_SR' => 'required|string|in:Confidentiality,Integrity,Availability',
         ]);
 
@@ -130,7 +130,7 @@ class CRController extends Controller{
         // $priority->save();
         if (count($validatedData) !== count(array_unique($validatedData)))
         {
-            return back()->withErrors(['message' => 'Each priority value must be different from the others! <br>Different Impact, different priority.']);
+            return back()->withErrors(['message' => 'Each priority value must be different from the others! Different Impact Area, different priority.']);
         }
         //ask to forget in case another same session already exist
         $request->session()->forget('priority');
@@ -165,7 +165,7 @@ class CRController extends Controller{
         // Validate the form
         $validatedData = $request->validate([
             't_location.*' => 'required|string|max:255',
-            't_description.*' => 'required|string|max:255',
+            't_description.*' => 'required|string',
             'mt_owner.*' => 'required|string|max:255',            
         ]);
 
@@ -184,7 +184,7 @@ class CRController extends Controller{
             // Validate the form
             $validatedData = $request->validate([
                 'p_location.*' => 'required|string|max:255',
-                'p_description.*' => 'required|string|max:255',
+                'p_description.*' => 'required|string',
                 'mp_owner.*' => 'required|string|max:255',            
             ]);
     
@@ -203,7 +203,7 @@ class CRController extends Controller{
             // Validate the form
             $validatedData = $request->validate([
                 'h_location.*' => 'required|string|max:255',
-                'h_description.*' => 'required|string|max:255',
+                'h_description.*' => 'required|string',
                 'mh_owner.*' => 'required|string|max:255',            
             ]);
     
@@ -278,14 +278,14 @@ class CRController extends Controller{
      */
     public function create_step4(Request $request){
         $validatedData = $request->validate([
-            'area_of_concern' => 'required|string|max:255',
+            'area_of_concern' => 'required|string',
             'actor' => 'required|string|max:255',
-            'objective' => 'required|string|max:255',
-            'motive'=> 'required|string|max:255',
-            'result' => 'required|string|max:255',
-            'security_needs' => 'required|string|max:255',
-            'consequences' => 'required|string|max:255',
-            'control' => 'required|string|max:255',
+            'objective' => 'required|string',
+            'motive'=> 'required|string',
+            'result' => 'required|string',
+            'security_needs' => 'required|string',
+            'consequences' => 'required|string',
+            'control' => 'required|string',
             'probability' => 'required|string|in:high,medium,low',
         ]);
 

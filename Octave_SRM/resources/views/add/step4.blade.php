@@ -21,19 +21,19 @@
         </tr>
         <tr>
           <td>Objective</td>
-          <td><input placeholder="Input Objective" name="objective" class="form-control" required value="{{ old('objective') }}"></td>
+          <td><textarea placeholder="Input Objective" name="objective" class="form-control" required >{{  old('objective')  }}"</textarea></td>
         </tr>
         <tr>
           <td>Motive</td>
-          <td><input placeholder="Input Motive" name="motive" class="form-control" value="{{ old('motive') }}" required></td>
+          <td><textarea placeholder="Input Motive" name="motive" class="form-control" required>{{ old('motive') }}</textarea></td>
         </tr>
         <tr>
           <td>Result</td>
-          <td><input placeholder="Input Result" name="result" class="form-control" value="{{ old('result') }}" required></td>
+          <td><textarea placeholder="Input Result" name="result" class="form-control" >{{ old('motive') }}</textarea>/td>
         </tr>
         <tr>
           <td>Security Needs</td>
-          <td><textarea placeholder="Input Security Needs" name="security_needs" class="form-control" value="{{ old('security_needs') }}" required></textarea></td>
+          <td><textarea placeholder="Input Security Needs" name="security_needs" class="form-control" required>{{ old('security_needs') }}</textarea></td>
         </tr>
         <tr>
           <td>Probability</td>
