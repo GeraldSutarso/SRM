@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container bg-white"><br>
-    <h3><center>Asset Details<center></h3><br><br>
+    <h3><center>Asset Details</center></h3><br><br>
 
 {{-- priority dan severity biar gw yg buat soalnya agak beda --}}
 
