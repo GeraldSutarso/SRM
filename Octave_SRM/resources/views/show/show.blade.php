@@ -1,24 +1,38 @@
-@extends('layouts.app')
+@extends('layout.main')
 
 @section('content')
-    {{-- <h1>Asset Details</h1>
-    <div>
-        <p>ID: {{ $asset->id }}</p>
-        <p>Name: {{ $asset->name }}</p>
-        <!-- Tambahkan lebih banyak field sesuai kebutuhan -->
-    </div>
+<div class="container">
+    <h3>Asset Details</h3>
 
-    <h2>Related Data</h2>
-    @foreach ($asset->relatedModels as $relatedModel)
-        <div>
-            <p>Related Model ID: {{ $relatedModel->id }}</p>
-            <!-- Tambahkan lebih banyak field sesuai kebutuhan -->
-        </div>
-    @endforeach
+{{-- priority dan severity biar gw yg buat soalnya agak beda --}}
 
-    {{-- Tombol untuk menghasilkan PDF --}}
-    {{-- <form action="{{ url('/generate-pdf/' . $asset->id) }}" method="POST">
-        @csrf
-        <button type="submit">Generate PDF</button>
-    </form> --}} 
+    {{-- ini kyk risk identification tapi asset, mapping dll --}}
+
+    {{-- Risk Identifications Table --}}
+    <h5>Risk Identifications</h5>
+    <table class="table">
+        @foreach ($RIs as $RI)
+        <tr>
+            <td><h6>Area of Concern :</h6></td>
+            <td>{{ $RI->area_of_concern }}</td>
+        </tr>
+            <td><h6>Actor :</h6></td>
+            <td>{{ $RI->actor }}</td>
+        </tr>
+        <tr>
+
+        </tr>
+        @endforeach
+    </table>
+
+    {{-- Severities Table --}}
+    <h2>Severities</h2>
+    <table>
+        @foreach ($severityData as $severity)
+        <tr>
+            {{--  --}}
+        </tr>
+        @endforeach
+    </table>
+</div>
 @endsection
