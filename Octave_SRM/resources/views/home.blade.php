@@ -29,6 +29,7 @@
                         <tr>
                             <th>No.</th>
                             <th>Asset Name</th>
+                            <th>Owner</th>
                             @if ( Auth::user()->user_id == '1' )
                                 <th>Department</th>
                             @endif
@@ -48,6 +49,7 @@
                             <tr>
                                 <td>{{ $startingNumber + $index }}</td>
                                 <td>{{ $asset->asset_name }}</td>
+                                <td>{{ $asset->owner }}</td>
                                 @if ( Auth::user()->user_id == '1' )
                                     <td>{{ $asset->a_department }}</td>
                                 @endif
