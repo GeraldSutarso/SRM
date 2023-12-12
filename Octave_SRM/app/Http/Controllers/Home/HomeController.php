@@ -44,6 +44,9 @@ class HomeController extends Controller{
         if($user->user_id =='1'){    
             $assets = Asset::paginate(10);
         }
+        else{
+            $assets = Asset::where('a_department', $user->department)->paginate(10);
+        }
         return view('home', ['assets' => $assets, 'user' => $user]);;
     }
      /**
