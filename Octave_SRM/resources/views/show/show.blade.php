@@ -1,8 +1,8 @@
 @extends('layout.main')
 
 @section('content')
-<div class="container">
-    <h3>Asset Details</h3>
+<div class="container bg-white"><br>
+    <h3><center>Asset Details<center></h3><br><br>
 
 {{-- priority dan severity biar gw yg buat soalnya agak beda --}}
 
