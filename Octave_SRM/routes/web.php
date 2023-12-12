@@ -70,7 +70,7 @@ Route::delete('delete-asset/{asset_id}', [DController::class, 'delete_asset'])->
 
 //Show routes
 Route::get('show/{asset_id}', [GenController::class, 'show'])->name('show');
-Route::post('generatePDF/{asset_id}', [GenController::class, 'genPDF'])->name('genPDF');
+Route::get('generatePDF/{asset_id}', [GenController::class, 'genPDF'])->name('genPDF');
 
 
 //Fallback

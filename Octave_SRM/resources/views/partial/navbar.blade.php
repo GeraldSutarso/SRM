@@ -1,3 +1,4 @@
+@if(!isset($excludeNavbar))
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(255, 252, 204)">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">
@@ -39,4 +40,4 @@
     </div>
   </div>
 </nav>
-
+@endif

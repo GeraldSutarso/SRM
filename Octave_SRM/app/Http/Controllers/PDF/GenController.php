@@ -96,9 +96,9 @@ class GenController extends Controller{
 
     // Find the asset
     $asset = Asset::findOrFail($asset_id);
-
+    $excludeNavbar = true;
     // Load the view and pass the data to generate the PDF
-    $pdf = PDF::loadView('show.show', compact('RIs', 'severityData', 'mapHumanData', 'mapPhysicalData', 'mapTechnicalData', 'priority', 'asset'));
+    $pdf = PDF::loadView('show.show', compact('RIs', 'severityData', 'mapHumanData', 'mapPhysicalData', 'mapTechnicalData', 'priority', 'asset', 'excludeNavbar'));
 
     // Download the PDF file
     return $pdf->download($asset->asset_name .'_asset_report.pdf');
