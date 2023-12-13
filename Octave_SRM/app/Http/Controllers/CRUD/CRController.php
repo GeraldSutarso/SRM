@@ -72,6 +72,15 @@ class CRController extends Controller{
     {
         return view('add.step5');
     }  
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function step6(): View
+    {
+        return view('add.step6');
+    }  
 
 //step(1 - 5) posts or could be said as submit button function? anything goes
 
@@ -351,7 +360,7 @@ class CRController extends Controller{
             
         ]);
         // Redirect to the next step or return a response
-        return redirect()->route('add.save');
+        return redirect()->route('step6');
     }
 
 //This is the save button
@@ -455,4 +464,5 @@ try {
     // Return with error message
     return redirect()->route('home')->with('error', 'Error saving asset: ' . $e->getMessage());
 } 
-}}
+}
+}
