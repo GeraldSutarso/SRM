@@ -54,6 +54,8 @@ Route::post('post-add/step-2', [CRController::class, 'create_step2'])->name('ste
 Route::post('post-add/step-3', [CRController::class, 'create_step3'])->name('step3.post');
 Route::post('post-add/step-4', [CRController::class, 'create_step4'])->name('step4.post');
 Route::post('post-add/step-5', [CRController::class, 'create_step5'])->name('step5.post');
+//save steps
+Route::post('add/save', [CRController::class, 'add_save'])->name('add.save');
 
 //for step3 button
 Route::get('add/step-3/add-technical', [CRController::class, 'add_technical'])->name('add.technical');

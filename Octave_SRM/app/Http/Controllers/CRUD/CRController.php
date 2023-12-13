@@ -347,12 +347,20 @@ class CRController extends Controller{
             'fines_value' => $validatedData['fines_value'],
             'fines_score' => $validatedData['fines_score'],
             'rr_score' =>$validatedData['rr_score']
-
+            
         ]);
-
+        // Redirect to the next step or return a response
+        return redirect()->route('add.save');
+    }
 
 //This is the save button
 
+    /**
+         * Write code on Method
+         *
+         * @return response()
+         */
+    public function add_save(Request $request){
 // Retrieve all of the data from the session
     $assetData = $request->session()->get('asset');//assetdata
     $priorityData = $request->session()->get('priority');//priority
@@ -450,20 +458,16 @@ $errors = [];
 //Create a new Risk Identification instance and fill it with the session data
     foreach ($RIData as $data) { 
         $RI = new Risk_Identification();
-        if(is_array($data)){
-            $RI->fill($data);
-            $RI->asset_id = $asset->asset_id;
-            $RI->save();
-        }
+        $RI->fill($data);
+        $RI->asset_id = $asset->asset_id;
+        $RI->save();
     }
 //Create a new Severity Instance and fill it with the session data
     foreach ($severityData as $data) {
         $Severity = new Severity();
-        if(is_array($data)){
-            $Severity->fill($data);
-            $Severity->AoC_id = $RI->AoC_id;
-            $Severity->save();
-        }
+        $Severity->fill($data);
+        $Severity->AoC_id = $RI->AoC_id;
+        $RI->save();
     } 
 //when done,
     $request->session()->forget(['asset','priority','severity','map_human','map_physical','map_technical','RI']);//forget everyone
