@@ -449,14 +449,14 @@ $errors = [];
     }
 //Create a new Risk Identification instance and fill it with the session data
     foreach ($RIData as $data) { 
-        $RI = new Risk_Identification($data);
+        $RI = new Risk_Identification();
         $RI->fill($data);
         $RI->asset_id = $asset->asset_id;
         $RI->save();
     }
 //Create a new Severity Instance and fill it with the session data
     foreach ($severityData as $data) {
-        $Severity = new Severity($data);
+        $Severity = new Severity();
         $Severity->fill($data);
         $Severity->AoC_id = $RI->AoC_id;
         $RI->save();
