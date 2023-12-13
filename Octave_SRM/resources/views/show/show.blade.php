@@ -23,137 +23,135 @@
           {{-- ini kyk risk identification tapi asset, mapping dll --}}
       
           {{-- Asset Informations Table --}}
-          <h4 style="font-weight: bold">Asset Information</h4>
-          <table class="table">
-              <tr>
-                  <td><h6>Critical Asset :</h6></td>
-                  <td>{{ $asset->asset_name }}</td>
-              </tr>
-              <tr>
-                  <td><h6>Rationale for Selection :</h6></td>
-                  <td>{{ $asset->rationale_for_select }}</td>
-              </tr>
-              <tr>
-                  <td><h6>Description :</h6></td>
-                  <td>{{ $asset->asset_desc }}</td>
-              </tr>
-              <tr>
-                  <td><h6>Owner :</h6></td>
-                  <td>{{ $asset->owner }}</td>
-              </tr>
-              <tr>
-                  <td><h6>Department :</h6></td>
-                  <td>{{ $asset->a_department }}</td>
-              </tr>
-          </table>
-      
-          {{-- Security Requirements Table --}}
-          <h5>Security Requirement</h5>
-          <table class="table">
-              <tr>
-                  <td><h6>Confidentiality :</h6></td>
-                  <td>{{ $asset->SR_confidentiality }}</td>
-              </tr>
-              <tr>
-                  <td><h6>Integrity :</h6></td>
-                  <td>{{ $asset->SR_integrity }}</td>
-              </tr>
-              <tr>
-                  <td><h6>Availability :</h6></td>
-                  <td>{{ $asset->SR_availability }}</td>
-              </tr>
-              <tr>
-                  <td><h6>Most Important Security Requirement :</h6></td>
-                  <td>{{ $asset->most_important_SR }}</td>
-              </tr>
-          </table>&ensp;&ensp;
+        <h4 style="font-weight: bold">Asset Information</h4>
+        <table class="table" style="background-color: #EFEFEF; border-collapse: collapse; width: 100%;">
+            <tr>
+                <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Critical Asset :</h6></td>
+                <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->asset_name }}</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Rationale for Selection :</h6></td>
+                <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->rationale_for_select }}</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Description :</h6></td>
+                <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->asset_desc }}</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Owner :</h6></td>
+                <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->owner }}</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Department :</h6></td>
+                <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->a_department }}</td>
+            </tr>
+        </table>
+
+        {{-- Security Requirements Table --}}
+        <h5>Security Requirement</h5>
+        <table class="table" style="background-color: #EFEFEF; border-collapse: collapse; width: 100%;">
+            <tr>
+                <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Confidentiality :</h6></td>
+                <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->SR_confidentiality }}</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Integrity :</h6></td>
+                <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->SR_integrity }}</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Availability :</h6></td>
+                <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->SR_availability }}</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Most Important Security Requirement :</h6></td>
+                <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->most_important_SR }}</td>
+            </tr>
+        </table>&ensp;&ensp;
       
           {{-- Priority of Your Asset Table --}}
-          <h4 style="font-weight: bold">Priority of Your Asset</h4>
-          <table class="table">
-              <tbody>
-                  <tr>
-                      <td><h5>Impact Area</h5></td>
-                      <td><h5>Priority</h5></td>
-                  </tr>
-                  <tr>
-                      <td>Reputation and Consumer Trust</td>
-                      <td>{{ $priority->trust }}</td>
-                      </select></td>
-                  </tr>
-                  <tr>
-                      <td>Finance</td>
-                      <td>{{ $priority->finance }}</td>
-                      </select></td>    
-                  </tr>
-                  <tr>
-                      <td>Productivity</td>
-                      <td>{{ $priority->productivity }}</td>
-                      </select></td>    
-                  </tr>
-                  <tr>
-                      <td>Safety and Health</td>
-                      <td>{{ $priority->safety }}</td>
-                      </select></td>
-                  </tr>
-                  <tr>
-                      <td>Fines and Legal Sanctions</td>
-                      <td>{{ $priority->fines }}</td>
-                      </select></td>
-                  </tr>
-              </tbody>
-          </table>&ensp;&ensp;
+            <h4 style="font-weight: bold">Priority of Your Asset</h4>
+            <table class="table" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                <tbody>
+                    <tr style="background-color: #EFEFEF;">
+                        <td style="border: 1px solid #dddddd; padding: 8px;"><h5>Impact Area</h5></td>
+                        <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;"><h5>Priority</h5></td>
+                    </tr>
+                    <tr style="background-color: #EFEFEF;">
+                        <td style="border: 1px solid #dddddd; padding: 8px;">Reputation and Consumer Trust</td>
+                        <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $priority->trust }}</td>
+                    </tr>
+                    <tr style="background-color: #EFEFEF;">
+                        <td style="border: 1px solid #dddddd; padding: 8px;">Finance</td>
+                        <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $priority->finance }}</td>
+                    </tr>
+                    <tr style="background-color: #EFEFEF;">
+                        <td style="border: 1px solid #dddddd; padding: 8px;">Productivity</td>
+                        <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $priority->productivity }}</td>
+                    </tr>
+                    <tr style="background-color: #EFEFEF;">
+                        <td style="border: 1px solid #dddddd; padding: 8px;">Safety and Health</td>
+                        <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $priority->safety }}</td>
+                    </tr>
+                    <tr style="background-color: #EFEFEF;">
+                        <td style="border: 1px solid #dddddd; padding: 8px;">Fines and Legal Sanctions</td>
+                        <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $priority->fines }}</td>
+                    </tr>
+                </tbody>
+            </table>&ensp;&ensp;
+
           
       
           {{-- Asset Mapping Table --}}
-          <h4 style="font-weight: bold">Asset Mapping</h4>
-          <h5>Technical Asset Mapping</h5>
-          <table class="table">
-              <tr>
-                  <td><h6>Location :</h6></td>
-                  <td>{{ $asset->rationale_for_select }}</td>
-              </tr>
-              <tr>
-                  <td><h6>Description :</h6></td>
-                  <td>{{ $asset->rationale_for_select }}</td>
-              </tr>
-              <tr>
-                  <td><h6>Owner :</h6></td>
-                  <td>{{ $asset->asset_desc }}</td>
-              </tr>
-          </table>&ensp;&ensp;
-      
-          <h5>Physical Asset Mapping</h5>
-          <table class="table">
-              <tr>
-                  <td><h6>Location :</h6></td>
-                  <td>{{ $asset->asset_name }}</td>
-              </tr>
-              <tr>
-                  <td><h6>Description :</h6></td>
-                  <td>{{ $asset->rationale_for_select }}</td>
-              </tr>
-              <tr>
-                  <td><h6>Owner :</h6></td>
-                  <td>{{ $asset->asset_desc }}</td>
-              </tr>
-          </table>&ensp;&ensp;
-      
-          <h5>Human Asset Mapping</h5>
-          <table class="table">
-              <tr>
-                  <td><h6>Location :</h6></td>
-                  <td>{{ $asset->asset_name }}</td>
-              </tr>
-              <tr>
-                  <td><h6>Description :</h6></td>
-                  <td>{{ $asset->rationale_for_select }}</td>
-              </tr>
-              <tr>
-                  <td><h6>Owner :</h6></td>
-                  <td>{{ $asset->asset_desc }}</td>
-              </tr>
-          </table>&ensp;&ensp;
+            <h4 style="font-weight: bold">Asset Mapping</h4>
+
+            <h5 style="margin-top: 10px;">Technical Asset Mapping</h5>
+            <table class="table" style="background-color: #EFEFEF; border-collapse: collapse; width: 100%;">
+                <tr>
+                    <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Location :</h6></td>
+                    <td style="border: 1px solid #dddddd; padding: 8px;">{{ $asset->rationale_for_select }}</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Description :</h6></td>
+                    <td style="border: 1px solid #dddddd; padding: 8px;">{{ $asset->rationale_for_select }}</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Owner :</h6></td>
+                    <td style="border: 1px solid #dddddd; padding: 8px;">{{ $asset->asset_desc }}</td>
+                </tr>
+            </table>&ensp;&ensp;
+
+            <h5>Physical Asset Mapping</h5>
+            <table class="table" style="border-collapse: collapse; width: 100%;">
+                <tr>
+                    <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Location :</h6></td>
+                    <td style="border: 1px solid #dddddd; padding: 8px;">{{ $asset->asset_name }}</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Description :</h6></td>
+                    <td style="border: 1px solid #dddddd; padding: 8px;">{{ $asset->rationale_for_select }}</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Owner :</h6></td>
+                    <td style="border: 1px solid #dddddd; padding: 8px;">{{ $asset->asset_desc }}</td>
+                </tr>
+            </table>&ensp;&ensp;
+
+            <h5>Human Asset Mapping</h5>
+            <table class="table" style="border-collapse: collapse; width: 100%;">
+                <tr>
+                    <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Location :</h6></td>
+                    <td style="border: 1px solid #dddddd; padding: 8px;">{{ $asset->asset_name }}</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Description :</h6></td>
+                    <td style="border: 1px solid #dddddd; padding: 8px;">{{ $asset->rationale_for_select }}</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Owner :</h6></td>
+                    <td style="border: 1px solid #dddddd; padding: 8px;">{{ $asset->asset_desc }}</td>
+                </tr>
+            </table>&ensp;&ensp;
+
           
           {{-- Risk Identifications Table --}}
           <h4 style="font-weight: bold">Risk Identifications</h4>
