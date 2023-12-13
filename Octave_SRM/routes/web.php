@@ -79,4 +79,7 @@ Route::get('generatePDF/{asset_id}', [GenController::class, 'genPDF'])->name('ge
 Route::fallback(function () {
     return redirect('/');
 });
+Route::get('ddsession', function(){
+    return view('ddsession');
+})->name('ddsession');
 });
