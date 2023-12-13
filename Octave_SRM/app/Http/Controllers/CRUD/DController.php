@@ -22,9 +22,9 @@ class DController extends Controller{
 
     public function delete_asset($asset_id)
 {
-    //find RI
+    //find RI where its asset id is the same
     $RIs = Risk_Identification::where('asset_id', $asset_id)->get();
-    foreach ($RIs as $RI){//for every RI, get severity
+    foreach ($RIs as $RI){//for every RI, get severity which the aoc id
     $severities=Severity::where('AoC_id', $RI->AoC_id)->get();
         foreach($severities as $severity){//for every severity, delete
             $severity->delete();

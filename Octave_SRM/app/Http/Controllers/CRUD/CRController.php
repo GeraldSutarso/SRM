@@ -448,14 +448,19 @@ $errors = [];
         $mapT->save(); // Save the record to the database
     }
 //Create a new Risk Identification instance and fill it with the session data
-    $RI = new Risk_Identification($RIData);
-    $RI->asset_id = $asset->asset_id;
-    $RI->save();
+    foreach ($RIData as $data) { 
+        $RI = new Risk_Identification($data);
+        $RI->fill($data);
+        $RI->asset_id = $asset->asset_id;
+        $RI->save();
+    }
 //Create a new Severity Instance and fill it with the session data
-    $Severity = new Severity($severityData);
-    $Severity->AoC_id = $RI->AoC_id;
-    $RI->save();
-    
+    foreach ($severityData as $data) {
+        $Severity = new Severity($data);
+        $Severity->fill($data);
+        $Severity->AoC_id = $RI->AoC_id;
+        $RI->save();
+    } 
 //when done,
     $request->session()->forget(['asset','priority','severity','map_human','map_physical','map_technical','RI']);//forget everyone
     return redirect()->route('home')->with('success', 'Asset created successfully.');
