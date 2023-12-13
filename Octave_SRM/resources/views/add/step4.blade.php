@@ -21,7 +21,7 @@
         </tr>
         <tr>
           <td>Objective</td>
-          <td><textarea placeholder="Input Objective" name="objective" class="form-control" required >{{  old('objective')  }}"</textarea></td>
+          <td><textarea placeholder="Input Objective" name="objective" class="form-control" required >{{  old('objective')  }}</textarea></td>
         </tr>
         <tr>
           <td>Motive</td>

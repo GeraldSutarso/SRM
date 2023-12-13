@@ -305,7 +305,7 @@ class CRController extends Controller{
         ]);
         
         // Redirect to the next step or return a response
-        return redirect()->route('ddsession');
+        return redirect()->route('step5');
     }
 
 
@@ -437,7 +437,7 @@ class CRController extends Controller{
         $Severity->AoC_id = $RI->AoC_id;
         $Severity->save();
 //when done,
-    $request->session()->forget(['asset','priority','severity','map_human','map_physical','map_technical','RI']);//forget everyone
+    // session()->forget(['asset','priority','severity','map_human','map_physical','map_technical','RI']);//forget everyone
     return redirect()->route('home')->with('success', 'Asset created successfully.');
     } 
 }
