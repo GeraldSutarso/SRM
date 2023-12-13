@@ -106,52 +106,51 @@
 
             <h5 style="margin-top: 10px;">Technical Asset Mapping</h5>
             <table class="table" style="background-color: #EFEFEF; border-collapse: collapse; width: 100%;">
-                <tr>
+                <tr style="background-color: #EFEFEF;">
                     <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Location :</h6></td>
-                    <td style="border: 1px solid #dddddd; padding: 8px;">{{ $asset->rationale_for_select }}</td>
-                </tr>
+                    <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->rationale_for_select }}</td>
+                </tr style="background-color: #EFEFEF;">
                 <tr>
                     <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Description :</h6></td>
-                    <td style="border: 1px solid #dddddd; padding: 8px;">{{ $asset->rationale_for_select }}</td>
+                    <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->rationale_for_select }}</td>
                 </tr>
-                <tr>
+                <tr style="background-color: #EFEFEF;">
                     <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Owner :</h6></td>
-                    <td style="border: 1px solid #dddddd; padding: 8px;">{{ $asset->asset_desc }}</td>
+                    <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->asset_desc }}</td>
                 </tr>
             </table>&ensp;&ensp;
 
             <h5>Physical Asset Mapping</h5>
             <table class="table" style="border-collapse: collapse; width: 100%;">
-                <tr>
+                <tr style="background-color: #EFEFEF;">
                     <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Location :</h6></td>
-                    <td style="border: 1px solid #dddddd; padding: 8px;">{{ $asset->asset_name }}</td>
+                    <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->asset_name }}</td>
                 </tr>
-                <tr>
+                <tr style="background-color: #EFEFEF;">
                     <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Description :</h6></td>
-                    <td style="border: 1px solid #dddddd; padding: 8px;">{{ $asset->rationale_for_select }}</td>
+                    <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->rationale_for_select }}</td>
                 </tr>
-                <tr>
+                <tr style="background-color: #EFEFEF;">
                     <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Owner :</h6></td>
-                    <td style="border: 1px solid #dddddd; padding: 8px;">{{ $asset->asset_desc }}</td>
+                    <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->asset_desc }}</td>
                 </tr>
             </table>&ensp;&ensp;
 
             <h5>Human Asset Mapping</h5>
             <table class="table" style="border-collapse: collapse; width: 100%;">
-                <tr>
+                <tr style="background-color: #EFEFEF;">
                     <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Location :</h6></td>
-                    <td style="border: 1px solid #dddddd; padding: 8px;">{{ $asset->asset_name }}</td>
+                    <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->asset_name }}</td>
                 </tr>
-                <tr>
+                <tr style="background-color: #EFEFEF;">
                     <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Description :</h6></td>
-                    <td style="border: 1px solid #dddddd; padding: 8px;">{{ $asset->rationale_for_select }}</td>
+                    <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->rationale_for_select }}</td>
                 </tr>
-                <tr>
+                <tr style="background-color: #EFEFEF;">
                     <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Owner :</h6></td>
-                    <td style="border: 1px solid #dddddd; padding: 8px;">{{ $asset->asset_desc }}</td>
+                    <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->asset_desc }}</td>
                 </tr>
             </table>&ensp;&ensp;
-
           
           {{-- Risk Identifications Table --}}
           <h4 style="font-weight: bold">Risk Identifications</h4>
