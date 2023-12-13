@@ -17,6 +17,7 @@ use App\Models\Risk_Identification;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 
 class CRController extends Controller{
 
@@ -362,82 +363,96 @@ class CRController extends Controller{
          */
     public function add_save(Request $request){
 // Retrieve all of the data from the session
-    $assetData = $request->session()->get('asset');//assetdata
-    $priorityData = $request->session()->get('priority');//priority
-    $mapHData = $request->session()->get('map_human'); //mapping human
-    $mapPData = $request->session()->get('map_physical'); //mapping phys
-    $mapTData = $request->session()->get('map_technical'); //mapping tech
-    $RIData = $request->session()->get('RI'); //risk_identification
-    $severityData = $request->session()->get('severity'); // severity
+$assetData = $request->session()->get('asset'); //assetdata
+$priorityData = $request->session()->get('priority'); //priority
+$mapHData = $request->session()->get('map_human'); //mapping human
+$mapPData = $request->session()->get('map_physical'); //mapping phys
+$mapTData = $request->session()->get('map_technical'); //mapping tech
+$RIData = $request->session()->get('RI'); //risk_identification
+$severityData = $request->session()->get('severity'); // severity
 
-    $errors = [];
-    // Handle the case where there is no session data asset
-        if (!$assetData) {
-            $errors[] = 'Please fill step 1.';
-        }
-    // Handle the case where there is no session data priority
-        if (!$priorityData) {
-            $errors[] = 'Please fill step 2.';
-        }
-    // Handle the case where there is no session data mapping
-        if (!$mapHData || !$mapPData || !$mapTData) {
-            $errors[] = 'Please fill step 3.';
-        }
-    // Handle the case where there is no session data risk identification
-        if (!$RIData) {
-            $errors[] = 'Please fill step 4.';
-        }
-    // Handle the case where there is no session data severity
-        if (!$severityData) {
-            $errors[] = 'Please fill step 5.';
-        }
+$errors = [];
+// Validate that session data exists for all steps
+if (!$assetData) {
+    $errors[] = 'Please fill step 1.';
+}
+if (!$priorityData) {
+    $errors[] = 'Please fill step 2.';
+}
+if (!$mapHData || !$mapPData || !$mapTData) {
+    $errors[] = 'Please fill step 3.';
+}
+if (!$RIData) {
+    $errors[] = 'Please fill step 4.';
+}
+if (!$severityData) {
+    $errors[] = 'Please fill step 5.';
+}
 
-        if (!empty($errors)) {
-            // If there are any errors, return to the step 5 view with the errors
-            return view('add.step5', ['errors' => $errors]);
-        }
+if (!empty($errors)) {
+    // If there are any errors, return to the step 5 view with the errors
+    return view('add.step5', ['errors' => $errors]);
+}
 
-// Create a new Asset instance and fill it with the session data
+// Begin database transaction
+DB::beginTransaction();
+
+try {
+    // Create and save the Asset
     $asset = new Asset($assetData);
     $asset->user_id = auth()->user()->user_id;
     $asset->owner = auth()->user()->username;
-// Save the new asset to the database
     $asset->save();
-// Create a new Priority instance and fill it with the session data
+
+    // Create and save the Priority
     $priority = new Priority($priorityData);
     $priority->asset_id = $asset->asset_id;
-    $priority -> save();
-// Create a new Human Mapping instance and fill it with the session data
-    foreach ($mapHData as $data) {
-        $mapH = new Map_Human(); // Create a new instance of Map_Human
-        $mapH->fill($data); // Fill the model with data
-        $mapH->asset_id = $asset->asset_id; // Set the asset_id
-        $mapH->save(); // Save the record to the database
-    }
-// same as above, but Physical Mapping
-    foreach ($mapPData as $data) {
-        $mapP = new Map_Physical(); // Create a new instance of Map Physical
-        $mapP->fill($data); // Fill the model with data
-        $mapP->asset_id = $asset->asset_id; // Set the asset_id
-        $mapP->save(); // Save the record to the database
-    }
-    // same as above, but Technical Mapping
-    foreach ($mapTData as $data) {
-        $mapT = new Map_Technical(); // Create a new instance of Map Technical
-        $mapT->fill($data); // Fill the model with data
-        $mapT->asset_id = $asset->asset_id; // Set the asset_id
-        $mapT->save(); // Save the record to the database
-    }
-//Create a new Risk Identification instance and fill it with the session data
-        $RI = new Risk_Identification($RIData);
-        $RI->asset_id = $asset->asset_id;
-        $RI->save();
+    $priority->save();
 
-        $Severity = new Severity($severityData);
-        $Severity->AoC_id = $RI->AoC_id;
-        $Severity->save();
-//when done,
-    // session()->forget(['asset','priority','severity','map_human','map_physical','map_technical','RI']);//forget everyone
+    // Create and save the Human Mapping
+    foreach ($mapHData as $data) {
+        $mapH = new Map_Human($data);
+        $mapH->asset_id = $asset->asset_id;
+        $mapH->save();
+    }
+
+    // Create and save the Physical Mapping
+    foreach ($mapPData as $data) {
+        $mapP = new Map_Physical($data);
+        $mapP->asset_id = $asset->asset_id;
+        $mapP->save();
+    }
+
+    // Create and save the Technical Mapping
+    foreach ($mapTData as $data) {
+        $mapT = new Map_Technical($data);
+        $mapT->asset_id = $asset->asset_id;
+        $mapT->save();
+    }
+
+    // Create and save the Risk Identification
+    $RI = new Risk_Identification($RIData);
+    $RI->asset_id = $asset->asset_id;
+    $RI->save();
+
+    // Create and save the Severity
+    $Severity = new Severity($severityData);
+    $Severity->AoC_id = $RI->AoC_id;
+    $Severity->save();
+
+    // Commit the transaction
+    DB::commit();
+
+    // Forget the session data
+    session()->forget(['asset', 'priority', 'severity', 'map_human', 'map_physical', 'map_technical', 'RI']);
+
+    // Redirect to the home route with success message
     return redirect()->route('home')->with('success', 'Asset created successfully.');
-    } 
-}
+} catch (\Exception $e) {
+    // Rollback the transaction on error
+    DB::rollback();
+
+    // Return with error message
+    return redirect()->route('home')->with('error', 'Error saving asset: ' . $e->getMessage());
+} 
+}}
