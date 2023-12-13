@@ -305,7 +305,7 @@ class CRController extends Controller{
         ]);
         
         // Redirect to the next step or return a response
-        return redirect()->route('step5');
+        return redirect()->route('ddsession');
     }
 
 
@@ -370,59 +370,32 @@ class CRController extends Controller{
     $RIData = $request->session()->get('RI'); //risk_identification
     $severityData = $request->session()->get('severity'); // severity
 
-//     if(!$assetData) {// if any of those are missing
-// // Handle the case where there is no session data asset
-//                 $error = 'Please fill step 1.';
-//                 return view('add.step5', compact('error'));
-//             }
-//             else if(!$priorityData) {// if any of those are missing 
-// // Handle the case where there is no session data priority
-//                 $error = 'Please fill step 2.';
-//                 return view('add.step5', compact('error'));
-//             }
-//             else if(!$mapHData or !$mapPData or !$mapTData) {// if any of those are missing
-// // Handle the case where there is no session data mapping
-//                 $error = 'Please fill step 3.';
-//                 return view('add.step5', compact('error'));
-//             }
-//             else if(!$RIData) {// if any of those are missing
-// // Handle the case where there is no session data risk identification
-//                 $error = 'Please fill step 4.';
-//                 return view('add.step5', compact('error'));
-//             }
-//             else if(!$severityData) {// if any of those are missing
-// // Handle the case where there is no session data severity
-//                 $error = 'Please fill step 5.';
-//                 return view('add.step5', compact('error'));
-//             }
+    $errors = [];
+    // Handle the case where there is no session data asset
+        if (!$assetData) {
+            $errors[] = 'Please fill step 1.';
+        }
+    // Handle the case where there is no session data priority
+        if (!$priorityData) {
+            $errors[] = 'Please fill step 2.';
+        }
+    // Handle the case where there is no session data mapping
+        if (!$mapHData || !$mapPData || !$mapTData) {
+            $errors[] = 'Please fill step 3.';
+        }
+    // Handle the case where there is no session data risk identification
+        if (!$RIData) {
+            $errors[] = 'Please fill step 4.';
+        }
+    // Handle the case where there is no session data severity
+        if (!$severityData) {
+            $errors[] = 'Please fill step 5.';
+        }
 
-//create array to check which step is not filled yet, if its not filled, put in array
-$errors = [];
-// Handle the case where there is no session data asset
-    if (!$assetData) {
-        $errors[] = 'Please fill step 1.';
-    }
-// Handle the case where there is no session data priority
-    if (!$priorityData) {
-        $errors[] = 'Please fill step 2.';
-    }
-// Handle the case where there is no session data mapping
-    if (!$mapHData || !$mapPData || !$mapTData) {
-        $errors[] = 'Please fill step 3.';
-    }
-// Handle the case where there is no session data risk identification
-    if (!$RIData) {
-        $errors[] = 'Please fill step 4.';
-    }
-// Handle the case where there is no session data severity
-    if (!$severityData) {
-        $errors[] = 'Please fill step 5.';
-    }
-
-    if (!empty($errors)) {
-        // If there are any errors, return to the step 5 view with the errors
-        return view('add.step5', ['errors' => $errors]);
-    }
+        if (!empty($errors)) {
+            // If there are any errors, return to the step 5 view with the errors
+            return view('add.step5', ['errors' => $errors]);
+        }
 
 // Create a new Asset instance and fill it with the session data
     $asset = new Asset($assetData);
@@ -456,19 +429,13 @@ $errors = [];
         $mapT->save(); // Save the record to the database
     }
 //Create a new Risk Identification instance and fill it with the session data
-    foreach ($RIData as $data) { 
-        $RI = new Risk_Identification();
-        $RI->fill($data);
+        $RI = new Risk_Identification($RIData);
         $RI->asset_id = $asset->asset_id;
         $RI->save();
-    }
-//Create a new Severity Instance and fill it with the session data
-    foreach ($severityData as $data) {
-        $Severity = new Severity();
-        $Severity->fill($data);
+
+        $Severity = new Severity($severityData);
         $Severity->AoC_id = $RI->AoC_id;
-        $RI->save();
-    } 
+        $Severity->save();
 //when done,
     $request->session()->forget(['asset','priority','severity','map_human','map_physical','map_technical','RI']);//forget everyone
     return redirect()->route('home')->with('success', 'Asset created successfully.');
