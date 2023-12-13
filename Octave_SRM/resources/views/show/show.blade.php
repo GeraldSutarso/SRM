@@ -45,7 +45,7 @@
                 <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Department :</h6></td>
                 <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->a_department }}</td>
             </tr>
-        </table>
+        </table>&ensp;&ensp;
 
         {{-- Security Requirements Table --}}
         <h5>Security Requirement</h5>
@@ -72,9 +72,9 @@
             <h4 style="font-weight: bold">Priority of Your Asset</h4>
             <table class="table" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
                 <tbody>
-                    <tr style="background-color: #EFEFEF;">
+                    <tr style="background-color: #B0A695;">
                         <td style="border: 1px solid #dddddd; padding: 8px;"><h5>Impact Area</h5></td>
-                        <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;"><h5>Priority</h5></td>
+                        <td style="border: 1px solid #dddddd; padding: 8px;"><h5>Priority</h5></td>
                     </tr>
                     <tr style="background-color: #EFEFEF;">
                         <td style="border: 1px solid #dddddd; padding: 8px;">Reputation and Consumer Trust</td>
@@ -152,53 +152,53 @@
                 </tr>
             </table>&ensp;&ensp;
           
-          {{-- Risk Identifications Table --}}
-          <h4 style="font-weight: bold">Risk Identifications</h4>
-          <table class="table">
-              @foreach ($RIs as $RI)
-              <tbody>
-                  <tr><td></td>
-                    <td><h5>Threat Properties</h5></td>
-                  </tr>
-                  <tr>
-                    <td>Area of Concern</td>
-                    <td>{{ $RI->area_of_concern }}</td>
-                  </tr>
-                  <tr>
-                    <td>Actor</td>
-                    <td>{{ $RI->actor }}</td>
-                  </tr>
-                  <tr>
-                    <td>Objective</td>
-                    <td>{{ $RI->objective }}</td>
-                  </tr>
-                  <tr>
-                    <td>Motive</td>
-                    <td>{{ $RI->motive }}</td>
-                  </tr>
-                  <tr>
-                    <td>Result</td>
-                    <td>{{ $RI->result }}</td>
-                  </tr>
-                  <tr>
-                    <td>Security Needs</td>
-                    <td>{{ $RI->security_needs }}</td>
-                  </tr>
-                  <tr>
-                    <td>Probability</td>
-                    <td>{{ $RI->probability }}</td>
-                  </tr>
-                  <tr>
-                    <td>Consequence</td>
-                    <td>{{ $RI->consequences }}</td>
-                  </tr>
-                  <tr>
-                    <td>Control</td>
-                    <td>{{ $RI->control }}</td>
-                  </tr>
+        {{-- Risk Identifications Table --}}
+        <h4 style="font-weight: bold">Risk Identifications</h4>
+        <table class="table" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            @foreach ($RIs as $RI)
+                <tbody>
+                    <tr style="background-color: #B0A695;">
+                        <td colspan="2"><h5>Threat Properties</h5></td>
+                    </tr>
+                    <tr style="background-color: #EFEFEF;">
+                        <td style="border: 1px solid #dddddd; padding: 8px;">Area of Concern</td>
+                        <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $RI->area_of_concern }}</td>
+                    </tr>
+                    <tr style="background-color: #EFEFEF;">
+                        <td style="border: 1px solid #dddddd; padding: 8px;">Actor</td>
+                        <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $RI->actor }}</td>
+                    </tr>
+                    <tr style="background-color: #EFEFEF;">
+                        <td style="border: 1px solid #dddddd; padding: 8px;">Objective</td>
+                        <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $RI->objective }}</td>
+                    </tr>
+                    <tr style="background-color: #EFEFEF;">
+                        <td style="border: 1px solid #dddddd; padding: 8px;">Motive</td>
+                        <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $RI->motive }}</td>
+                    </tr>
+                    <tr style="background-color: #EFEFEF;">
+                        <td style="border: 1px solid #dddddd; padding: 8px;">Result</td>
+                        <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $RI->result }}</td>
+                    </tr>
+                    <tr style="background-color: #EFEFEF;">
+                        <td style="border: 1px solid #dddddd; padding: 8px;">Security Needs</td>
+                        <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $RI->security_needs }}</td>
+                    </tr>
+                    <tr style="background-color: #EFEFEF;">
+                        <td style="border: 1px solid #dddddd; padding: 8px;">Probability</td>
+                        <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $RI->probability }}</td>
+                    </tr>
+                    <tr style="background-color: #EFEFEF;">
+                        <td style="border: 1px solid #dddddd; padding: 8px;">Consequence</td>
+                        <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $RI->consequences }}</td>
+                    </tr>
+                    <tr style="background-color: #EFEFEF;">
+                        <td style="border: 1px solid #dddddd; padding: 8px;">Control</td>
+                        <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $RI->control }}</td>
+                    </tr>
                 </tbody>
-              @endforeach
-          </table>&ensp;&ensp;
+            @endforeach
+        </table>&ensp;&ensp;
       
           {{-- Severities Table --}}
           <h4 style="font-weight: bold">Severities</h4>
