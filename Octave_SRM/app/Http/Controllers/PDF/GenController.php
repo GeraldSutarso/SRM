@@ -53,9 +53,18 @@ class GenController extends Controller{
     }
 
     // Get mapping data
-    $mapHumanData = Map_Human::where('asset_id', $asset_id)->get();
-    $mapPhysicalData = Map_Physical::where('asset_id', $asset_id)->get();
-    $mapTechnicalData = Map_Technical::where('asset_id', $asset_id)->get();
+    $mapHumans = Map_Human::where('asset_id', $asset_id)->get();
+    foreach($mapHumans as $mapHuman){
+        $mapHumanData[] = $mapHuman;
+    }
+    $mapPhysicals = Map_Physical::where('asset_id', $asset_id)->get();
+    foreach($mapPhysicals as $mapPhysical){
+        $mapPhysicalData[] = $mapPhysical;
+    }
+    $mapTechnicals = Map_Technical::where('asset_id', $asset_id)->get();
+    foreach($mapTechnicals as $mapTechnical){
+        $mapTechnicalData[] = $mapTechnical;
+    }
 
     // Get priority
     $priority = Priority::where('asset_id', $asset_id)->first();
@@ -70,6 +79,12 @@ class GenController extends Controller{
      */
     public function genPDF($asset_id)
     {
+
+    // Find the asset
+    $asset = Asset::findOrFail($asset_id);
+    if(Auth::user()->user_id != '1' && Auth::user()->department != $asset->a_department){
+        return redirect('home')->withErrors('Asset inaccessible.');
+    }
         // Initialize arrays to store the data
     $severityData = [];
     $mapHumanData = [];
@@ -88,15 +103,21 @@ class GenController extends Controller{
     }
 
     // Get mapping data
-    $mapHumanData = Map_Human::where('asset_id', $asset_id)->get();
-    $mapPhysicalData = Map_Physical::where('asset_id', $asset_id)->get();
-    $mapTechnicalData = Map_Technical::where('asset_id', $asset_id)->get();
+    $mapHumans = Map_Human::where('asset_id', $asset_id)->get();
+    foreach($mapHumans as $mapHuman){
+        $mapHumanData[] = $mapHuman;
+    }
+    $mapPhysicals = Map_Physical::where('asset_id', $asset_id)->get();
+    foreach($mapPhysicals as $mapPhysical){
+        $mapPhysicalData[] = $mapPhysical;
+    }
+    $mapTechnicals = Map_Technical::where('asset_id', $asset_id)->get();
+    foreach($mapTechnicals as $mapTechnical){
+        $mapTechnicalData[] = $mapTechnical;
+    }
 
     // Get priority
     $priority = Priority::where('asset_id', $asset_id)->first();
-
-    // Find the asset
-    $asset = Asset::findOrFail($asset_id);
     $excludeNavbar = true;
     // Load the view and pass the data to generate the PDF
     $pdf = PDF::loadView('show.show', compact('RIs', 'severityData', 'mapHumanData', 'mapPhysicalData', 'mapTechnicalData', 'priority', 'asset', 'excludeNavbar'));

@@ -65,11 +65,17 @@ Route::get('add/step-3/add-human', [CRController::class, 'add_human'])->name('ad
 
 
 //Update routes
-Route::get('update', [UController::class, 'update'])->name('update');
-Route::post('post-upd', [AuthController::class, 'postUpd'])->name('update.post'); 
+Route::get('update/{asset_id}', [UController::class, 'update'])->name('update');
+Route::post('update/{asset_id}/save', [AuthController::class, 'save_Upd'])->name('update.save'); 
 
 //Delete routes
 Route::delete('delete-asset/{asset_id}', [DController::class, 'delete_asset'])->name('delete.asset');
+//Delete mapping container (inside the update)
+Route::delete('update/{asset_id}/delete_map_human/{mh_id}', [AuthController::class, 'del_mh'])->name('mh.del');
+Route::delete('update/{asset_id}/delete_map_physical/{mp_id}', [AuthController::class, 'del_mp'])->name('mp.del');
+Route::delete('update/{asset_id}/delete_map_technical/{mt_id}', [AuthController::class, 'del_mt'])->name('mt.del');
+//delete risk identification (inside the update)
+Route::delete('update/{asset_id}/delete_risk_identification/{AoC_id}', [AuthController::class, 'del_RI'])->name('RI.del');
 
 //Show routes
 Route::get('show/{asset_id}', [GenController::class, 'show'])->name('show');
