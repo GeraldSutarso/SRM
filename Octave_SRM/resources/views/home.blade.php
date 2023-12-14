@@ -7,6 +7,13 @@
             {{ session('success') }}
         </div>
     @endif
+    @if ($errors->any())
+    <div class="alert alert-danger">
+            @foreach ($errors->all() as $error)
+                {{ $error }}
+            @endforeach
+    </div>
+    @endif
     <a href="{{ route('step1') }}"><button class="btn btn-success">+ Add</button></a><br><br>
     <div class="card">
         <div class="card-header">

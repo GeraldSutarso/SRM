@@ -30,7 +30,11 @@ class GenController extends Controller{
      */
     public function show($asset_id)
     {
-
+    $asset = Asset::findOrFail($asset_id);
+    
+    if(Auth::user()->user_id != '1' && Auth::user()->department != $asset->a_department){
+        return redirect('home')->withErrors('Asset inaccessible.');
+    }
     // Initialize arrays to store the data
     $severityData = [];
     $mapHumanData = [];
@@ -55,9 +59,6 @@ class GenController extends Controller{
 
     // Get priority
     $priority = Priority::where('asset_id', $asset_id)->first();
-
-    // Find the asset
-    $asset = Asset::findOrFail($asset_id);
 
     // Pass all the data to the view
     return view('show.show', compact('RIs', 'severityData', 'mapHumanData', 'mapPhysicalData', 'mapTechnicalData', 'priority', 'asset'));
@@ -102,5 +103,6 @@ class GenController extends Controller{
 
     // Download the PDF file
     return $pdf->download($asset->asset_name .'_asset_report.pdf');
+    return redirect()->route('home')->withSuccess('Successfully generated the pdf');
     }  
 }

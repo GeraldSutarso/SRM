@@ -36,13 +36,13 @@
                     </tr>
                     <tr>
                         <td>Finance</td>
-                        <td><select id="finance_value" class="form-control" name="finance_value" required>
+                        <td><select id="financial_value" class="form-control" name="financial_value" required>
                             <option value="">Select Severity Value</option>
                             <option value="high">High</option>
                             <option value="medium">Medium</option>
                             <option value="low">Low</option>
                         </select></td>
-                        <td><select id="finance_score" class="form-control" name="finance_score" onchange="updateRRScore()" required>
+                        <td><select id="financial_score" class="form-control" name="financial_score" onchange="updateRRScore()" required>
                             <option value="">Select Severity Score</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -151,7 +151,7 @@
         function updateRRScore() {
             // Get the selected values of safety_score and fines_score
             var repScore = parseInt(document.getElementById('rep_score').value) || 0;
-            var financeScore = parseInt(document.getElementById('finance_score').value) || 0;
+            var financeScore = parseInt(document.getElementById('financial_score').value) || 0;
             var productivityScore = parseInt(document.getElementById('productivity_score').value) || 0;
             var safetyScore = parseInt(document.getElementById('safety_score').value) || 0;
             var finesScore = parseInt(document.getElementById('fines_score').value) || 0;

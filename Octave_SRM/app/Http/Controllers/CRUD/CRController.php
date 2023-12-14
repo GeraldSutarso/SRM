@@ -332,8 +332,8 @@ class CRController extends Controller{
         $validatedData = $request->validate([
             'rep_value' => 'required|string|in:high,medium,low',
             'rep_score' => 'required|string|in:1,2,3,4,5,6,7,8,9,10',
-            'finance_value' => 'required|string|in:high,medium,low',
-            'finance_score' => 'required|string|in:1,2,3,4,5,6,7,8,9,10',
+            'financial_value' => 'required|string|in:high,medium,low',
+            'financial_score' => 'required|string|in:1,2,3,4,5,6,7,8,9,10',
             'productivity_value' => 'required|string|in:high,medium,low',
             'productivity_score' => 'required|string|in:1,2,3,4,5,6,7,8,9,10',
             'safety_value' => 'required|string|in:high,medium,low',
@@ -348,8 +348,8 @@ class CRController extends Controller{
         $request->session()->put('severity', [             
             'rep_value' => $validatedData['rep_value'],
             'rep_score' => $validatedData['rep_score'],
-            'finance_value' => $validatedData['finance_value'],
-            'finance_score' => $validatedData['finance_score'],
+            'financial_value' => $validatedData['financial_value'],
+            'financial_score' => $validatedData['financial_score'],
             'productivity_value' => $validatedData['productivity_value'],
             'productivity_score' => $validatedData['productivity_score'],
             'safety_value' => $validatedData['safety_value'],
@@ -403,10 +403,6 @@ if (!empty($errors)) {
     return view('add.step5', ['errors' => $errors]);
 }
 
-// Begin database transaction
-DB::beginTransaction();
-
-try {
     // Create and save the Asset
     $asset = new Asset($assetData);
     $asset->user_id = auth()->user()->user_id;
@@ -449,20 +445,13 @@ try {
     $Severity->AoC_id = $RI->AoC_id;
     $Severity->save();
 
-    // Commit the transaction
-    DB::commit();
-
     // Forget the session data
     session()->forget(['asset', 'priority', 'severity', 'map_human', 'map_physical', 'map_technical', 'RI']);
 
     // Redirect to the home route with success message
     return redirect()->route('home')->with('success', 'Asset created successfully.');
-} catch (\Exception $e) {
-    // Rollback the transaction on error
-    DB::rollback();
+
 
     // Return with error message
-    return redirect()->route('home')->with('error', 'Error saving asset: ' . $e->getMessage());
 } 
-}
 }
