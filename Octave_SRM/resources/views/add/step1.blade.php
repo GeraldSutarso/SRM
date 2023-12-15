@@ -9,15 +9,15 @@
                 <tbody>
                     <tr>
                         <td>Critical Asset</td>
-                        <td><input type="text" placeholder="Input the critical asset name" name="asset_name" class="form-control" value="{{ old('asset_name') }}" required></td>
+                        <td><input type="text" placeholder="Input the critical asset name" name="asset_name" class="form-control" value="{{ session('asset.asset_name') }}" required></td>
                     </tr>
                     <tr>
                         <td>Rationale for Selection</td>
-                        <td><input type="text" placeholder="Input the rationale for selection" name="rationale_for_select" class="form-control" value="{{ old('rationale_for_select') }}" required></td>
+                        <td><input type="text" placeholder="Input the rationale for selection" name="rationale_for_select" class="form-control" value="{{ session('asset.rationale_for_select') }}" required></td>
                     </tr>
                     <tr>
                         <td>Description</td>
-                        <td><textarea placeholder="Input asset description" name="description" class="form-control" required>{{ old('description') }}</textarea></td>
+                        <td><textarea placeholder="Input asset description" name="description" class="form-control" required>{{ session('asset.description') }}</textarea></td>
                     </tr>
                     <tr>
                         <td>Owner</td>
@@ -48,23 +48,25 @@
                     </tr>
                     <tr>
                         <td>Confidentiality</td>
-                        <td><textarea placeholder="Input confidentiality description" name="SR_confidentiality" class="form-control" required>{{ old('SR_confidentiality') }}</textarea></td>
+                        <td><textarea placeholder="Input confidentiality description" name="SR_confidentiality" class="form-control" required>{{ session('asset.SR_confidentiality') }}</textarea></td>
                     </tr>
                     <tr>
                         <td>Integrity</td>
-                        <td><textarea placeholder="Input integrity description" name="SR_integrity" class="form-control" required>{{ old('SR_integrity') }}</textarea></td>
+                        <td><textarea placeholder="Input integrity description" name="SR_integrity" class="form-control" required>{{ session('asset.SR_integrity') }}</textarea></td>
                     </tr>
                     <tr>
                         <td>Availability</td>
-                        <td><textarea placeholder="Input availability description" name="SR_availability" class="form-control" required>{{ old('SR_availability') }}</textarea></td>
+                        <td><textarea placeholder="Input availability description" name="SR_availability" class="form-control" required>{{ session('asset.SR_availability') }}</textarea></td>
                     </tr>
                     <tr>
                         <td>Most Important Security Requirement</td>
                         <td> <select id="most_important_SR" class="form-control" name="most_important_SR" required>
                             <option value="">Select the most important security requirement</option>
-                            <option value="Confidentiality">Confidentiality</option>
-                            <option value="Integrity">Integrity</option>
-                            <option value="Availability">Availability</option>
+                            @foreach(['Confidentiality','Integrity','Availability'] as $value)
+                                <option value="{{ $value }}" @selected(session('asset.most_important_SR') == $value)>
+                                {{ $value }}
+                                </option>
+                            @endforeach
                         </select></td>
                     </tr>
 

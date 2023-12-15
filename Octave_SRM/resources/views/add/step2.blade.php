@@ -16,55 +16,55 @@
                         <td>Reputation and Consumer Trust</td>
                         <td><select id="trust" class="form-control" name="trust" required>
                             <option value="">Select Priority Value</option>
-                            <option value="5">5</option>
-                            <option value="4">4</option>
-                            <option value="3">3</option>
-                            <option value="2">2</option>
-                            <option value="1">1</option>
+                            @foreach([5, 4, 3, 2, 1] as $value)
+                            <option value="{{ $value }}" @selected(session('priority.trust') == $value)>
+                              {{ $value }}
+                            </option>
+                          @endforeach
                         </select></td>
                     </tr>
                     <tr>
                         <td>Finance</td>
                         <td><select id="finance" class="form-control" name="finance" required>
                             <option value="">Select Priority Value</option>
-                            <option value="5">5</option>
-                            <option value="4">4</option>
-                            <option value="3">3</option>
-                            <option value="2">2</option>
-                            <option value="1">1</option>
+                            @foreach([5, 4, 3, 2, 1] as $value)
+                            <option value="{{ $value }}" @selected(session('priority.finance') == $value)>
+                              {{ $value }}
+                            </option>
+                          @endforeach
                         </select></td>    
                     </tr>
                     <tr>
                         <td>Productivity</td>
                         <td><select id="productivity" class="form-control" name="productivity" required>
                             <option value="">Select Priority Value</option>
-                            <option value="5">5</option>
-                            <option value="4">4</option>
-                            <option value="3">3</option>
-                            <option value="2">2</option>
-                            <option value="1">1</option>
+                            @foreach([5, 4, 3, 2, 1] as $value)
+                            <option value="{{ $value }}" @selected(session('priority.productivity') == $value)>
+                              {{ $value }}
+                            </option>
+                          @endforeach
                         </select></td>    
                     </tr>
                     <tr>
                         <td>Safety and Health</td>
                         <td><select id="safety" class="form-control" name="safety" required>
                             <option value="">Select Priority Value</option>
-                            <option value="5">5</option>
-                            <option value="4">4</option>
-                            <option value="3">3</option>
-                            <option value="2">2</option>
-                            <option value="1">1</option>
+                            @foreach([5, 4, 3, 2, 1] as $value)
+                            <option value="{{ $value }}" @selected(session('priority.safety') == $value)>
+                              {{ $value }}
+                            </option>
+                          @endforeach
                         </select></td>
                     </tr>
                     <tr>
                         <td>Fines and Legal Sanctions</td>
                         <td><select id="fines" class="form-control" name="fines" required>
                             <option value="">Select Priority Value</option>
-                            <option value="5">5</option>
-                            <option value="4">4</option>
-                            <option value="3">3</option>
-                            <option value="2">2</option>
-                            <option value="1">1</option>
+                            @foreach([5, 4, 3, 2, 1] as $value)
+                            <option value="{{ $value }}" @selected(session('priority.fines') == $value)>
+                              {{ $value }}
+                            </option>
+                          @endforeach
                         </select></td>
                     </tr>
                 </tbody>

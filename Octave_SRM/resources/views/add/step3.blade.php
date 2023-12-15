@@ -20,8 +20,11 @@
                         <td>
                         <select id="t_location_{{ $i }}" class="form-control" name="t_location[]" required>
                             <option value="">Select Location</option>
-                            <option value="Internal">Internal</option>
-                            <option value="External">External</option>
+                            @foreach(['Internal','External'] as $value)
+                                <option value="{{ $value }}" @selected(old('t_location[]') == $value)>
+                                {{ $value }}
+                                </option>
+                            @endforeach
                         </select>
                     </td>
                     </tr>
@@ -53,8 +56,11 @@
                         <td>
                         <select id="p_location_{{ $i }}" class="form-control" name="p_location[]" required>
                             <option value="">Select Location</option>
-                            <option value="Internal">Internal</option>
-                            <option value="External">External</option>
+                            @foreach(['Internal','External'] as $value)
+                                <option value="{{ $value }}" @selected(old('p_location[]') == $value)>
+                                {{ $value }}
+                                </option>
+                            @endforeach
                         </select>
                     </td>
                     </tr>
@@ -86,8 +92,11 @@
                         <td>
                         <select id="h_location_{{ $i }}" class="form-control" name="h_location[]" required>
                             <option value="">Select Location</option>
-                            <option value="Internal">Internal</option>
-                            <option value="External">External</option>
+                            @foreach(['Internal','External'] as $value)
+                                <option value="{{ $value }}" @selected(old('h_location[]') == $value)>
+                                {{ $value }}
+                                </option>
+                            @endforeach
                         </select>
                     </td>
                     </tr>

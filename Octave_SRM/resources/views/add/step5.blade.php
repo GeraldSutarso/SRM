@@ -16,110 +16,95 @@
                         <td>Reputation and Consumer Trust</td>
                         <td><select id="rep_value" class="form-control" name="rep_value" required>
                             <option value="">Select Severity Value</option>
-                            <option value="high">High</option>
-                            <option value="medium">Medium</option>
-                            <option value="low">Low</option>
+                            @foreach(['high','medium','low'] as $value)
+                                <option value="{{ $value }}" @selected(old('rep_value') == $value)>
+                                {{ $value }}
+                                </option>
+                            @endforeach
                         </select></td>
                         <td><select id="rep_score" class="form-control" name="rep_score" onchange="updateRRScore()" required>
                             <option value="">Select Severity Score</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
+                            @foreach([10,9,8,7,6,5, 4, 3, 2, 1] as $value)
+                                <option value="{{ $value }}" @selected(old('rep_score') == $value)>
+                                {{ $value }}
+                                </option>
+                            @endforeach
                         </select></td>
                     </tr>
                     <tr>
                         <td>Finance</td>
                         <td><select id="financial_value" class="form-control" name="financial_value" required>
                             <option value="">Select Severity Value</option>
-                            <option value="high">High</option>
-                            <option value="medium">Medium</option>
-                            <option value="low">Low</option>
+                            @foreach(['high','medium','low'] as $value)
+                                <option value="{{ $value }}" @selected(old('financial_value') == $value)>
+                                {{ $value }}
+                                </option>
+                            @endforeach
                         </select></td>
                         <td><select id="financial_score" class="form-control" name="financial_score" onchange="updateRRScore()" required>
                             <option value="">Select Severity Score</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
+                            @foreach([10,9,8,7,6,5, 4, 3, 2, 1] as $value)
+                                <option value="{{ $value }}" @selected(old('financial_score') == $value)>
+                                {{ $value }}
+                                </option>
+                            @endforeach
                         </select></td>
                     </tr>
                     <tr>
                         <td>Productivity</td>
                         <td><select id="productivity_value" class="form-control" name="productivity_value" required>
                             <option value="">Select Severity Value</option>
-                            <option value="high">High</option>
-                            <option value="medium">Medium</option>
-                            <option value="low">Low</option>
+                            @foreach(['high','medium','low'] as $value)
+                                <option value="{{ $value }}" @selected(old('productivity_value') == $value)>
+                                {{ $value }}
+                                </option>
+                            @endforeach
                         </select></td>
                         <td><select id="productivity_score" class="form-control" name="productivity_score" onchange="updateRRScore()" required>
                             <option value="">Select Severity Score</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
+                            @foreach([10,9,8,7,6,5, 4, 3, 2, 1] as $value)
+                                <option value="{{ $value }}" @selected(old('productivity_score') == $value)>
+                                {{ $value }}
+                                </option>
+                            @endforeach
                         </select></td>
                     </tr>
                     <tr>
                         <td>Safety and Health</td>
                         <td><select id="safety_value" class="form-control" name="safety_value" required>
                             <option value="">Select Severity Value</option>
-                            <option value="high">High</option>
-                            <option value="medium">Medium</option>
-                            <option value="low">Low</option>
+                            @foreach(['high','medium','low'] as $value)
+                                <option value="{{ $value }}" @selected(old('safety_value') == $value)>
+                                {{ $value }}
+                                </option>
+                            @endforeach
                         </select></td>
                         <td><select id="safety_score" class="form-control" name="safety_score" onchange="updateRRScore()" required>
                             <option value="">Select Severity Score</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
+                            @foreach([10,9,8,7,6,5, 4, 3, 2, 1] as $value)
+                                <option value="{{ $value }}" @selected(old('safety_score') == $value)>
+                                {{ $value }}
+                                </option>
+                            @endforeach
                         </select></td>
                     </tr>
                     <tr>
                         <td>Fines and Legal Sanctions</td>
                         <td><select id="fines_value" class="form-control" name="fines_value" required>
                             <option value="">Select Severity Value</option>
-                            <option value="high">High</option>
-                            <option value="medium">Medium</option>
-                            <option value="low">Low</option>
+                            @foreach(['high','medium','low'] as $value)
+                                <option value="{{ $value }}" @selected(old('fines_value') == $value)>
+                                {{ $value }}
+                                </option>
+                            @endforeach
                         </select></td>
                         <td><select id="fines_score" class="form-control" name="fines_score" onchange="updateRRScore()" required>
                             <option value="">Select Severity Score</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
+                            @foreach([10,9,8,7,6,5, 4, 3, 2, 1] as $value)
+                            <option value="{{ $value }}" @selected(old('fines_score') == $value)>
+                              {{ $value }}
+                            </option>
+                          @endforeach
                         </select></td>
                     </tr>
                     <tr>
