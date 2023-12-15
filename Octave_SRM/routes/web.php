@@ -66,7 +66,14 @@ Route::get('add/step-3/add-human', [CRController::class, 'add_human'])->name('ad
 
 //Update routes
 Route::get('update/{asset_id}', [UController::class, 'update'])->name('update');
-Route::post('update/{asset_id}/save', [AuthController::class, 'save_Upd'])->name('update.save'); 
+//Set session routes
+Route::post('update/{asset_id}/asset-set', [CRController::class, 'set_step1'])->name('step1.set');
+Route::post('update/{asset_id}/priority-set', [CRController::class, 'set_step2'])->name('step2.set');
+Route::post('update/{asset_id}/mapping-set', [CRController::class, 'set_step3'])->name('step3.set');
+Route::post('update/{asset_id}/risk_identification-set', [CRController::class, 'set_step4'])->name('step4.set');
+Route::post('update/{asset_id}/severity-set', [CRController::class, 'set_step5'])->name('step5.set');
+//save update session
+Route::post('update/{asset_id}/save', [CRController::class, 'update_save'])->name('update.save');
 
 //Delete routes
 Route::delete('delete-asset/{asset_id}', [DController::class, 'delete_asset'])->name('delete.asset');

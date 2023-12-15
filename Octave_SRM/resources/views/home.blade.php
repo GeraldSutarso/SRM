@@ -36,9 +36,9 @@
                         <tr>
                             <th>No.</th>
                             <th>Asset Name</th>
-                            <th>Owner</th>
+                            <th>Owner/Creator</th>
                             @if ( Auth::user()->user_id == '1' )
-                                <th>Department</th>
+                            <th>Department</th>
                             @endif
                             <th>Time Created</th>
                             <th>Action</th>
