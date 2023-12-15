@@ -27,6 +27,12 @@ class UController extends Controller{
      */
     public function update($asset_id)
     {   
+            session()->forget([
+            //reset the database session
+            'asset','priority','severity','map_human','map_physical','map_technical','RI',
+            //reset the container mapping count session
+            'technical_asset_count','physical_asset_count','human_asset_count'
+            ]);
         //get session mapping counting
         session(['technical_asset_count' => 0]);
         session(['physical_asset_count' => 0]);
@@ -133,7 +139,7 @@ class UController extends Controller{
             'most_important_SR' => $validatedData['most_important_SR'],
             'rationale_for_select' => $validatedData['rationale_for_select'],
         ]);
-        
+        return redirect()->route('update');
     }
     /**
      * Write code on Method
@@ -163,6 +169,7 @@ class UController extends Controller{
             'fines' => $validatedData['fines'],
 
         ]);
+        return redirect()->route('update');
     }
     /**
      * Write code on Method
@@ -235,6 +242,8 @@ class UController extends Controller{
         }
         // Store the updated array in the session
         $request->session()->put('map_human', $map_human);
+
+        return redirect()->route('update');
     }
 //buttons for the add and delete mapping 
 
@@ -365,6 +374,7 @@ class UController extends Controller{
             'control' => $validatedData['control'],
             'probability' => $validatedData['probability'],
         ]);
+        return redirect()->route('update');
     }
 
     /**
@@ -403,6 +413,7 @@ class UController extends Controller{
             'rr_score' =>$validatedData['rr_score']
             
         ]);
+        return redirect()->route('update');
     }
 
     /**

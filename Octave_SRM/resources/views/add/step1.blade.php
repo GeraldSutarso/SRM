@@ -17,7 +17,7 @@
                     </tr>
                     <tr>
                         <td>Description</td>
-                        <td><textarea placeholder="Input asset description" name="description" class="form-control" required>{{ session('asset.description') }}</textarea></td>
+                        <td><textarea placeholder="Input asset description" name="description" class="form-control" required>{{ session('asset.asset_desc') }}</textarea></td>
                     </tr>
                     <tr>
                         <td>Owner</td>
