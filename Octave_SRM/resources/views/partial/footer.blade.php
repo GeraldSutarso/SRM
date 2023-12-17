@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Footer Design</title>
+    <title>Footer Octave_SRM</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
@@ -12,7 +12,7 @@
   <div class="container">
     <div class="row">
       <div class="footer-col">
-        <h4>{{ $company }}</h4>
+        <h4>{{ partial.footer }}</h4>
         <ul>
           <li><a href="{{('about-us') }}">about us</a></li>
           <li><a href="{{('our-services') }}">our services</a></li>
@@ -39,18 +39,6 @@
           <li><a href="{{('unlucky') }}">Unlucky</a></li>
         </ul>
       </div>
-      <div class="footer-col">
-        <h4>follow us</h4>
-        @section('social-links')
-        <div class="social-links">
-            <ul>
-          <li><a href="#">watch</a></li>
-          <li><a href="#">bag</a></li>
-          <li><a href="#">shoes</a></li>
-          <li><a href="#">dress</a></li>
-            </ul>
-        </div>
-        @endsection
       </div>
     </div>
   </div>
