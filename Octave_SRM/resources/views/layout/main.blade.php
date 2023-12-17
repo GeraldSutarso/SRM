@@ -13,6 +13,7 @@
   <body style="background-color: rgb(241, 241, 241)">
     
     @include('partial/navbar')
+    @include('partial/footer')
 
       <div class="container mt-4">
         @yield('content')
