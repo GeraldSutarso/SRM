@@ -67,20 +67,21 @@ Route::get('add/step-3/add-human', [CRController::class, 'add_human'])->name('ad
 //Update routes
 Route::get('update/{asset_id}', [UController::class, 'update'])->name('update');
 //Set session routes
-Route::post('update/{asset_id}/asset-set', [CRController::class, 'set_step1'])->name('step1.set');
-Route::post('update/{asset_id}/priority-set', [CRController::class, 'set_step2'])->name('step2.set');
-Route::post('update/{asset_id}/mapping-set', [CRController::class, 'set_step3'])->name('step3.set');
-Route::post('update/{asset_id}/risk_identification-set', [CRController::class, 'set_step4'])->name('step4.set');
-Route::post('update/{asset_id}/severity-set', [CRController::class, 'set_step5'])->name('step5.set');
+Route::post('update/asset-set', [UController::class, 'set_step1'])->name('step1.set');
+Route::post('update/priority-set', [UController::class, 'set_step2'])->name('step2.set');
+Route::get('update_mapping/{asset_id}', [UController::class, 'uMap'])->name('step3.update');
+Route::post('update/mapping-save', [UController::class, 'set_step3'])->name('step3.save');
+Route::post('update/risk_identification-set', [UController::class, 'set_step4'])->name('step4.set');
+Route::post('update/severity-set', [UController::class, 'set_step5'])->name('step5.set');
 //save update session
-Route::post('update/{asset_id}/save', [CRController::class, 'update_save'])->name('update.save');
+Route::post('update/save', [UController::class, 'update_save'])->name('update.save');
 
 //Delete routes
 Route::delete('delete-asset/{asset_id}', [DController::class, 'delete_asset'])->name('delete.asset');
 //Delete mapping container (inside the update)
-Route::delete('update/{asset_id}/delete_map_human/{mh_id}', [AuthController::class, 'del_mh'])->name('mh.del');
-Route::delete('update/{asset_id}/delete_map_physical/{mp_id}', [AuthController::class, 'del_mp'])->name('mp.del');
-Route::delete('update/{asset_id}/delete_map_technical/{mt_id}', [AuthController::class, 'del_mt'])->name('mt.del');
+Route::delete('update/delete_map_human/{mh_id}', [AuthController::class, 'del_mh'])->name('mh.del');
+Route::delete('update/delete_map_physical/{mp_id}', [AuthController::class, 'del_mp'])->name('mp.del');
+Route::delete('update/delete_map_technical/{mt_id}', [AuthController::class, 'del_mt'])->name('mt.del');
 //delete risk identification (inside the update)
 Route::delete('update/{asset_id}/delete_risk_identification/{AoC_id}', [AuthController::class, 'del_RI'])->name('RI.del');
 

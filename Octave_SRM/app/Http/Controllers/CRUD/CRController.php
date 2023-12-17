@@ -371,87 +371,87 @@ class CRController extends Controller{
          * @return response()
          */
     public function add_save(Request $request){
-// Retrieve all of the data from the session
-$assetData = $request->session()->get('asset'); //assetdata
-$priorityData = $request->session()->get('priority'); //priority
-$mapHData = $request->session()->get('map_human'); //mapping human
-$mapPData = $request->session()->get('map_physical'); //mapping phys
-$mapTData = $request->session()->get('map_technical'); //mapping tech
-$RIData = $request->session()->get('RI'); //risk_identification
-$severityData = $request->session()->get('severity'); // severity
+        // Retrieve all of the data from the session
+        $assetData = $request->session()->get('asset'); //assetdata
+        $priorityData = $request->session()->get('priority'); //priority
+        $mapHData = $request->session()->get('map_human'); //mapping human
+        $mapPData = $request->session()->get('map_physical'); //mapping phys
+        $mapTData = $request->session()->get('map_technical'); //mapping tech
+        $RIData = $request->session()->get('RI'); //risk_identification
+        $severityData = $request->session()->get('severity'); // severity
 
-$errors = [];
-// Validate that session data exists for all steps
-if (!$assetData) {
-    $errors[] = 'Please fill step 1.';
-}
-if (!$priorityData) {
-    $errors[] = 'Please fill step 2.';
-}
-if (!$mapHData || !$mapPData || !$mapTData) {
-    $errors[] = 'Please fill step 3.';
-}
-if (!$RIData) {
-    $errors[] = 'Please fill step 4.';
-}
-if (!$severityData) {
-    $errors[] = 'Please fill step 5.';
-}
+        $errors = [];
+        // Validate that session data exists for all steps
+        if (!$assetData) {
+            $errors[] = 'Please fill step 1.';
+        }
+        if (!$priorityData) {
+            $errors[] = 'Please fill step 2.';
+        }
+        if (!$mapHData || !$mapPData || !$mapTData) {
+            $errors[] = 'Please fill step 3.';
+        }
+        if (!$RIData) {
+            $errors[] = 'Please fill step 4.';
+        }
+        if (!$severityData) {
+            $errors[] = 'Please fill step 5.';
+        }
 
-if (!empty($errors)) {
-    // If there are any errors, return to the step 5 view with the errors
-    return view('add.step5', ['errors' => $errors]);
-}
+        if (!empty($errors)) {
+            // If there are any errors, return to the step 5 view with the errors
+            return view('add.step5', ['errors' => $errors]);
+        }
 
-    // Create and save the Asset
-    $asset = new Asset($assetData);
-    $asset->user_id = auth()->user()->user_id;
-    $asset->owner = auth()->user()->username;
-    $asset->save();
+            // Create and save the Asset
+            $asset = new Asset($assetData);
+            $asset->user_id = auth()->user()->user_id;
+            $asset->owner = auth()->user()->username;
+            $asset->save();
 
-    // Create and save the Priority
-    $priority = new Priority($priorityData);
-    $priority->asset_id = $asset->asset_id;
-    $priority->save();
+            // Create and save the Priority
+            $priority = new Priority($priorityData);
+            $priority->asset_id = $asset->asset_id;
+            $priority->save();
 
-    // Create and save the Human Mapping
-    foreach ($mapHData as $data) {
-        $mapH = new Map_Human($data);
-        $mapH->asset_id = $asset->asset_id;
-        $mapH->save();
-    }
+            // Create and save the Human Mapping
+            foreach ($mapHData as $data) {
+                $mapH = new Map_Human($data);
+                $mapH->asset_id = $asset->asset_id;
+                $mapH->save();
+            }
 
-    // Create and save the Physical Mapping
-    foreach ($mapPData as $data) {
-        $mapP = new Map_Physical($data);
-        $mapP->asset_id = $asset->asset_id;
-        $mapP->save();
-    }
+            // Create and save the Physical Mapping
+            foreach ($mapPData as $data) {
+                $mapP = new Map_Physical($data);
+                $mapP->asset_id = $asset->asset_id;
+                $mapP->save();
+            }
 
-    // Create and save the Technical Mapping
-    foreach ($mapTData as $data) {
-        $mapT = new Map_Technical($data);
-        $mapT->asset_id = $asset->asset_id;
-        $mapT->save();
-    }
+            // Create and save the Technical Mapping
+            foreach ($mapTData as $data) {
+                $mapT = new Map_Technical($data);
+                $mapT->asset_id = $asset->asset_id;
+                $mapT->save();
+            }
 
-    // Create and save the Risk Identification
-    $RI = new Risk_Identification($RIData);
-    $RI->asset_id = $asset->asset_id;
-    $RI->save();
+            // Create and save the Risk Identification
+            $RI = new Risk_Identification($RIData);
+            $RI->asset_id = $asset->asset_id;
+            $RI->save();
 
-    // Create and save the Severity
-    $Severity = new Severity($severityData);
-    $Severity->AoC_id = $RI->AoC_id;
-    $Severity->save();
+            // Create and save the Severity
+            $Severity = new Severity($severityData);
+            $Severity->AoC_id = $RI->AoC_id;
+            $Severity->save();
 
-    // Forget the session data
-    session()->forget(['asset', 'priority', 'severity', 'map_human', 'map_physical', 'map_technical', 'RI']);
+            // Forget the session data
+            session()->forget(['asset', 'priority', 'severity', 'map_human', 'map_physical', 'map_technical', 'RI']);
 
-    // Redirect to the home route with success message
-    return redirect()->route('home')->with('success', 'Asset created successfully.');
+            // Redirect to the home route with success message
+            return redirect()->route('home')->with('success', 'Asset created successfully.');
 
 
-    // Return with error message
-} 
+            // Return with error message
+        } 
 }

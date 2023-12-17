@@ -27,17 +27,18 @@ class UController extends Controller{
      */
     public function update($asset_id)
     {   
-            session()->forget([
-            //reset the database session
-            'asset','priority','severity','map_human','map_physical','map_technical','RI',
-            //reset the container mapping count session
-            'technical_asset_count','physical_asset_count','human_asset_count'
-            ]);
+            // session()->forget([
+            // //reset the database session
+            // 'asset','priority','severity','map_human','map_physical','map_technical','RI',
+            // //reset the container mapping count session
+            // 'technical_asset_count','physical_asset_count','human_asset_count'
+            // ]);
         //get session mapping counting
+        
         session(['technical_asset_count' => 0]);
         session(['physical_asset_count' => 0]);
         session(['human_asset_count' => 0]);
-
+        
         // Find the asset
         $asset = Asset::findOrFail($asset_id);
         if(Auth::user()->user_id != '1' && Auth::user()->department != $asset->a_department){
@@ -45,7 +46,9 @@ class UController extends Controller{
         }
         //place the asset table to the session
         $assetArray = $asset->toArray();
+        if(!session('asset')){
         session()->put('asset', $assetArray);
+        }
         // Initialize arrays to store the data
         $severityData = [];
         $mapHumanData = [];
@@ -57,14 +60,17 @@ class UController extends Controller{
         $RIArray = $RIs->toArray();
 
         // Put the array into the session
+        if(!session('RI')){
         session()->put('RI', $RIArray); // using the session helper function
-
+        }
         // For every RI, get severity and store it
         foreach ($RIs as $RI) {
             $severities = Severity::where('AoC_id', $RI->AoC_id)->get();
             foreach ($severities as $severity) {
                 $severityArray = $severity->toArray();
+                if(!session('severity')){
                 session()->put('severity.'.$severity->AoC_id, $severityArray);
+                }
                 $severityData[] = $severity;
             }
         }
@@ -76,7 +82,9 @@ class UController extends Controller{
             session()->put('human_asset_count', $count);
             session()->put('human_asset_count', ++$count);
             $mapHumanArray = $mapHuman->toArray();
+            if(!session('map_human')){
             session()->put('map_human.'.$mapHuman->mh_id, $mapHumanArray);
+            }
             $mapHumanData[] = $mapHuman;
         }
         $mapPhysicals = Map_Physical::where('asset_id', $asset_id)->get();
@@ -85,7 +93,9 @@ class UController extends Controller{
             session()->put('physical_asset_count', $count);
             session()->put('physical_asset_count', ++$count);
             $mapPhysicalArray = $mapPhysical->toArray();
+            if(!session('map_physical')){
             session()->put('map_physical.'.$mapPhysical->mp_id, $mapPhysicalArray);
+            }
             $mapPhysicalData[] = $mapPhysical;
         }
         $mapTechnicals = Map_Technical::where('asset_id', $asset_id)->get();
@@ -94,17 +104,77 @@ class UController extends Controller{
             session()->put('technical_asset_count', $count);
             session()->put('technical_asset_count', ++$count);
             $mapTechnicalArray = $mapTechnical->toArray();
+
             session()->put('map_technical.'.$mapTechnical->mt_id, $mapTechnicalArray);
+
             $mapTechnicalData[] = $mapTechnical;
         }
         // Get priority
         $priority = Priority::where('asset_id', $asset_id)->first();
         $priorityArray = $priority->toArray();
+        if(!session('priority')){
         session()->put('priority', $priorityArray);
-
+        }
         return view('update.update', compact('RIs', 'severityData', 'mapHumanData', 'mapPhysicalData', 'mapTechnicalData', 'priority', 'asset'));
     } 
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function uMap($asset_id){
+        session(['technical_asset_count' => 0]);
+        session(['physical_asset_count' => 0]);
+        session(['human_asset_count' => 0]);
+        
+        // Find the asset
+        $asset = Asset::findOrFail($asset_id);
+        if(Auth::user()->user_id != '1' && Auth::user()->department != $asset->a_department){
+            return redirect('home')->withErrors('Asset inaccessible.');
+        }
+        $mapHumanData = [];
+        $mapPhysicalData = [];
+        $mapTechnicalData = [];
 
+        // Get mapping data
+        $mapHumans = Map_Human::where('asset_id', $asset_id)->get();
+        foreach($mapHumans as $mapHuman){
+            $count = session()->get('human_asset_count', 1);
+            session()->put('human_asset_count', $count);
+            session()->put('human_asset_count', ++$count);
+            $mapHumanArray = $mapHuman->toArray();
+            if(!session('map_human')){
+            session()->put('map_human.'.$mapHuman->mh_id, $mapHumanArray);
+            }
+            $mapHumanData[] = $mapHuman;
+        }
+        $mapPhysicals = Map_Physical::where('asset_id', $asset_id)->get();
+        foreach($mapPhysicals as $mapPhysical){
+            $count = session()->get('physical_asset_count', 1);
+            session()->put('physical_asset_count', $count);
+            session()->put('physical_asset_count', ++$count);
+            $mapPhysicalArray = $mapPhysical->toArray();
+            if(!session('map_physical')){
+            session()->put('map_physical.'.$mapPhysical->mp_id, $mapPhysicalArray);
+            }
+            $mapPhysicalData[] = $mapPhysical;
+        }
+        $mapTechnicals = Map_Technical::where('asset_id', $asset_id)->get();
+        foreach($mapTechnicals as $mapTechnical){
+            $count = session()->get('technical_asset_count', 1);
+            session()->put('technical_asset_count', $count);
+            session()->put('technical_asset_count', ++$count);
+            $mapTechnicalArray = $mapTechnical->toArray();
+
+            session()->put('map_technical.'.$mapTechnical->mt_id, $mapTechnicalArray);
+
+            $mapTechnicalData[] = $mapTechnical;
+        }
+
+        return view('update.uMap', compact( 'mapHumanData', 'mapPhysicalData', 'mapTechnicalData', 'asset'));
+
+
+    }
 
     //Set Button
     /**
@@ -129,6 +199,7 @@ class UController extends Controller{
         $request->session()->forget('asset');
         // Store data in the session
         $request->session()->put('asset', [
+            'user_id' => auth()->user()->user_id,
             'asset_name' => $validatedData['asset_name'],
             'asset_desc' => $validatedData['description'],
             'owner' => $validatedData['owner'],
@@ -139,7 +210,7 @@ class UController extends Controller{
             'most_important_SR' => $validatedData['most_important_SR'],
             'rationale_for_select' => $validatedData['rationale_for_select'],
         ]);
-        return redirect()->route('update');
+        return back();
     }
     /**
      * Write code on Method
@@ -169,7 +240,7 @@ class UController extends Controller{
             'fines' => $validatedData['fines'],
 
         ]);
-        return redirect()->route('update');
+        return back()->withInput();
     }
     /**
      * Write code on Method
@@ -177,41 +248,42 @@ class UController extends Controller{
      * @return response()
      */
     public function set_step3(Request $request){
+        // Initialize arrays to store session data
+        $request->session()->forget('map_technical');
+        $request->session()->forget('map_physical');
+        $request->session()->forget('map_human');
+        $map_technical = $request->session()->get('map_technical', []);
+        $map_physical = $request->session()->get('map_physical', []);
+        $map_human = $request->session()->get('map_human', []);
+        $asset = $request->session()->get('asset');
+    
         // Loop through the input data for technical assets
-   // Initialize arrays to store session data
-    $request->session()->forget('map_technical');
-    $request->session()->forget('map_physical');
-    $request->session()->forget('map_human');
-    $map_technical = $request->session()->get('map_technical', []);
-    $map_physical = $request->session()->get('map_physical', []);
-    $map_human = $request->session()->get('map_human', []);
-
-    // Loop through the input data for technical assets
-    for ($i = 0; $i < session('technical_asset_count', 1); $i++) {
-        // Validate the form
-        $validatedData = $request->validate([
-            't_location.*' => 'required|string|max:255',
-            't_description.*' => 'required|string',
-            'mt_owner.*' => 'required|string|max:255',            
-        ]);
-
-        // Append to session array
-        $map_technical[] = [         
-            't_location' => $validatedData['t_location'][$i],
-            't_description' => $validatedData['t_description'][$i],
-            'mt_owner' => $validatedData['mt_owner'][$i],
-        ];
-    }
-        // Store the updated array in the session
-        $request->session()->put('map_technical', $map_technical);
-        //same as above but physical
-        // Loop through the input data for physical assets
-        for ($i = 0; $i < session('physical_asset_count', 1); $i++) {
+        for ($i = 0; $i < count($request->t_location); $i++) {
             // Validate the form
             $validatedData = $request->validate([
-                'p_location.*' => 'required|string|max:255',
-                'p_description.*' => 'required|string',
-                'mp_owner.*' => 'required|string|max:255',            
+                't_location' => 'required|string|max:255',
+                't_description' => 'required|string',
+                'mt_owner' => 'required|string|max:255',            
+            ]);
+    
+            // Append to session array
+            $map_technical[] = [         
+                't_location' => $validatedData['t_location'][$i],
+                't_description' => $validatedData['t_description'][$i],
+                'mt_owner' => $validatedData['mt_owner'][$i],
+            ];
+        }
+        // Store the updated array in the session
+        $request->session()->put('map_technical', $map_technical);
+    
+        //same as above but physical
+        // Loop through the input data for physical assets
+        for ($i = 0; $i < count($request->p_location); $i++) {
+            // Validate the form
+            $validatedData = $request->validate([
+                'p_location' => 'required|string|max:255',
+                'p_description' => 'required|string',
+                'mp_owner' => 'required|string|max:255',            
             ]);
     
             // Append to session array
@@ -225,12 +297,12 @@ class UController extends Controller{
         $request->session()->put('map_physical', $map_physical);
     
         // Loop through the input data for human assets
-        for ($i = 0; $i < session('human_asset_count', 1); $i++) {
+        for ($i = 0; $i < count($request->h_location); $i++) {
             // Validate the form
             $validatedData = $request->validate([
-                'h_location.*' => 'required|string|max:255',
-                'h_description.*' => 'required|string',
-                'mh_owner.*' => 'required|string|max:255',            
+                'h_location' => 'required|string|max:255',
+                'h_description' => 'required|string',
+                'mh_owner' => 'required|string|max:255',            
             ]);
     
             // Append to session array
@@ -242,8 +314,27 @@ class UController extends Controller{
         }
         // Store the updated array in the session
         $request->session()->put('map_human', $map_human);
-
-        return redirect()->route('update');
+    
+    
+        foreach ($map_human as $data) {
+            $mapH = new Map_Human($data);
+            $mapH->asset_id = $asset->asset_id;
+            $mapH->save();
+        }
+    
+        // Create and save the Physical Mapping
+        foreach ($map_physical as $data) {
+            $mapP = new Map_Physical($data);
+            $mapH->asset_id = $asset->asset_id;
+            $mapP->save();
+        }
+    
+        // Create and save the Technical Mapping
+        foreach ($map_technical as $data) {
+            $mapT = new Map_Technical($data);
+            $mapH->asset_id = $asset->asset_id;
+            $mapT->save();
+        }
     }
 //buttons for the add and delete mapping 
 
@@ -374,7 +465,7 @@ class UController extends Controller{
             'control' => $validatedData['control'],
             'probability' => $validatedData['probability'],
         ]);
-        return redirect()->route('update');
+        return back()->withInput();
     }
 
     /**
@@ -413,7 +504,7 @@ class UController extends Controller{
             'rr_score' =>$validatedData['rr_score']
             
         ]);
-        return redirect()->route('update');
+        return back()->withInput();
     }
 
     /**
@@ -425,9 +516,6 @@ class UController extends Controller{
         // Retrieve all of the data from the session
         $assetData = $request->session()->get('asset'); //assetdata
         $priorityData = $request->session()->get('priority'); //priority
-        $mapHData = $request->session()->get('map_human'); //mapping human
-        $mapPData = $request->session()->get('map_physical'); //mapping phys
-        $mapTData = $request->session()->get('map_technical'); //mapping tech
         $RIData = $request->session()->get('RI'); //risk_identification
         $severityData = $request->session()->get('severity'); // severity
 
@@ -441,27 +529,6 @@ class UController extends Controller{
         $priority = new Priority($priorityData);
         $priority->asset_id = $asset->asset_id;
         $priority->save();
-
-        // Create and save the Human Mapping
-        foreach ($mapHData as $data) {
-            $mapH = new Map_Human($data);
-            $mapH->asset_id = $asset->asset_id;
-            $mapH->save();
-        }
-
-        // Create and save the Physical Mapping
-        foreach ($mapPData as $data) {
-            $mapP = new Map_Physical($data);
-            $mapP->asset_id = $asset->asset_id;
-            $mapP->save();
-        }
-
-        // Create and save the Technical Mapping
-        foreach ($mapTData as $data) {
-            $mapT = new Map_Technical($data);
-            $mapT->asset_id = $asset->asset_id;
-            $mapT->save();
-        }
 
         // Create and save the Risk Identification
         $RI = new Risk_Identification($RIData);
