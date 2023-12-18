@@ -247,6 +247,126 @@
                </tbody>
               @endforeach
             </table>
+
+            {{-- Score Resiko Relatif --}}
+            <h2>Skor Risiko Relatif</h2>
+
+            <style>
+                table {
+                  border-collapse: collapse;
+                  width: 100%;
+                }
+              
+                th, td {
+                  border: 1px solid #ddd;
+                  padding: 8px;
+                  text-align: left;
+                }
+              
+                th {
+                  background-color: #3498db;
+                  color: white;
+                }
+              
+                tr:nth-child(even) {
+                  background-color: #ecf0f1;
+                }
+              
+                tr:nth-child(odd) {
+                  background-color: #d5eaf8;
+                }
+              
+                tr:hover {
+                  background-color: #bdc3c7;
+                }
+              </style>
+              
+              <table>
+                <thead>
+                  <tr> 
+                    <th rowspan="2">Probabilitas</th>
+                    <th colspan="3" style="text-align: center;">Skor Risiko Relatif</th>
+                  </tr>
+                  <tr>
+                    <th style="text-align: center;">30-45</th>
+                    <th style="text-align: center;">16-29</th>
+                    <th style="text-align: center;">0-15</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Tinggi</td>
+                    <td>(Kategori 1)<br>Mitigasi</td>
+                    <td>(Kategori 2)<br>Mitigasi/Menunda</td>
+                    <td>(Kategori 2)<br>Mitigasi/Menunda</td>
+                  </tr>
+                  <tr>
+                    <td>Sedang</td>
+                    <td>(Kategori 2)<br>Mitigasi/Menunda</td>
+                    <td>(Kategori 2)<br>Mitigasi/Menunda</td>
+                    <td>(Kategori 3)<br>Menunda/Menerima</td>
+                  </tr>
+                  <tr>
+                    <td>Rendah</td>
+                    <td>(Kategori 3)<br>Menunda/Menerima</td>
+                    <td>(Kategori 3)<br>Menunda/Menerima</td>
+                    <td>(Kategori 4)<br>Menerima</td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              {{-- Score Resiko Relatif --}}
+            <h2>Pendekatan Mitigasi</h2>
+
+            <style>
+                table {
+                    border-collapse: collapse;
+                    width: 100%;
+                    font-family: Arial, sans-serif;
+                }
+        
+                th, td {
+                    padding: 10px;
+                    text-align: left;
+                }
+        
+                th {
+                    background-color: #f2f2f2;
+                }
+        
+                tr:nth-child(even) {
+                    background-color: #f9f9f9;
+                }
+            </style>
+
+            <table border="1">
+                <caption>Tabel 6. Pendekatan Mitigasi — Data Mahasiswa</caption>
+                <tr>
+                    <th>Area kerawanan</th>
+                    <th>Aset Informasi: Data Mahasiswa</th>
+                    <th>Aksi</th>
+                </tr>
+                <tr>
+                    <td>Penyebaran data mahasiswa pada pihak-pihak yang memiliki hak akses</td>
+                    <td>Kategori 2-Mitigasi/Menunda</td>
+                    <td>Kontainer</td>
+                </tr>
+                <tr>
+                    <td>Staf ICT Fasilkom Unsri</td>
+                    <td>Mengedukasi staf melalui program kesadaran keamanan informasi.</td>
+                    <td>Kontrol</td> 
+                </tr> 
+                <tr> 
+                    <td>Basis data</td> 
+                    <td>Mengenkripsi kata sandi mahasiswa, melakukan pembatasan akses, dan membuat batasan durasi sesi login.</td> 
+                    <td></td> 
+                </tr> 
+            </table>
+
+              
+
       </div>
       <br><br>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
