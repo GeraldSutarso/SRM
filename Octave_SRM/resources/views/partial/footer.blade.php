@@ -6,13 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <body>
-    @component('components.footer')
-    @parent
+    @section('footer')
 <footer class="footer">
   <div class="container">
     <div class="row">
       <div class="footer-col">
-        <h4>{{ partial.footer }}</h4>
+        <h4>bukan itu adi wkwkw</h4>
         <ul>
           <li><a href="{{('about-us') }}">about us</a></li>
           <li><a href="{{('our-services') }}">our services</a></li>
@@ -43,6 +42,6 @@
     </div>
   </div>
 </footer>
-    @endcomponent
+    @endsection
   </body>
 </html>

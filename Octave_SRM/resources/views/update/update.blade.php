@@ -1,6 +1,19 @@
 @extends('layout.main')
 
 @section('content')
+<div class="container mt-4">
+    @if (session('success'))
+        <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if ($errors->any())
+    <div class="alert alert-danger">
+            @foreach ($errors->all() as $error)
+                {{ $error }}
+            @endforeach
+    </div>
+    @endif
     <div class="container">
         <h2>Edit Asset Information</h2>
         <form method="POST" action="{{ route('step1.set') }}">
@@ -160,7 +173,7 @@
         <a class="btn btn-info" href="{{ route('step3.update',  $asset->asset_id)  }}">Edit Mapping</a>
         <br>
         <br>
-        <h5>Map Humans</h5>
+        <h5>Human Mapping</h5>
         <!-- Add Bootstrap classes to the table -->
         <table class="table table-bordered table-light table-hover table-sm table-responsive">
             <thead class="thead-dark">
@@ -180,7 +193,7 @@
             @endforeach
             </tbody>
         </table>
-        <h5>Map Physicals</h5>
+        <h5>Physical Mapping</h5>
         <!-- Add Bootstrap classes to the table -->
         <table class="table table-bordered table-light table-hover table-sm table-responsive">
             <thead class="thead-light">
@@ -200,7 +213,7 @@
             @endforeach
             </tbody>
         </table>
-        <h5>Map Technicals</h5>
+        <h5>Technical Mapping</h5>
         <!-- Add Bootstrap classes to the table -->
         <table class="table table-bordered table-light table-hover table-sm table-responsive">
             <thead class="thead-dark">

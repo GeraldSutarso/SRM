@@ -70,7 +70,7 @@ Route::get('update/{asset_id}', [UController::class, 'update'])->name('update');
 Route::post('update/asset-set', [UController::class, 'set_step1'])->name('step1.set');
 Route::post('update/priority-set', [UController::class, 'set_step2'])->name('step2.set');
 Route::get('update_mapping/{asset_id}', [UController::class, 'uMap'])->name('step3.update');
-Route::post('update/mapping-save', [UController::class, 'set_step3'])->name('step3.save');
+Route::post('update/mapping-save/{asset_id}', [UController::class, 'set_step3'])->name('step3.save');
 Route::post('update/risk_identification-set', [UController::class, 'set_step4'])->name('step4.set');
 Route::post('update/severity-set', [UController::class, 'set_step5'])->name('step5.set');
 //save update session

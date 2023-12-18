@@ -247,94 +247,67 @@ class UController extends Controller{
      *
      * @return response()
      */
-    public function set_step3(Request $request){
-        // Initialize arrays to store session data
-        $request->session()->forget('map_technical');
-        $request->session()->forget('map_physical');
-        $request->session()->forget('map_human');
-        $map_technical = $request->session()->get('map_technical', []);
-        $map_physical = $request->session()->get('map_physical', []);
-        $map_human = $request->session()->get('map_human', []);
-        $asset = $request->session()->get('asset');
-    
-        // Loop through the input data for technical assets
-        for ($i = 0; $i < count($request->t_location); $i++) {
-            // Validate the form
-            $validatedData = $request->validate([
-                't_location' => 'required|string|max:255',
-                't_description' => 'required|string',
-                'mt_owner' => 'required|string|max:255',            
-            ]);
-    
-            // Append to session array
-            $map_technical[] = [         
-                't_location' => $validatedData['t_location'][$i],
-                't_description' => $validatedData['t_description'][$i],
-                'mt_owner' => $validatedData['mt_owner'][$i],
-            ];
+    public function set_step3($asset_id, Request $request){
+        $asset = Asset::findOrFail($asset_id);
+        if(Auth::user()->user_id != '1' && Auth::user()->department != $asset->a_department){
+            return redirect('home')->withErrors('Asset inaccessible.');
         }
-        // Store the updated array in the session
-        $request->session()->put('map_technical', $map_technical);
-    
-        //same as above but physical
-        // Loop through the input data for physical assets
-        for ($i = 0; $i < count($request->p_location); $i++) {
-            // Validate the form
-            $validatedData = $request->validate([
-                'p_location' => 'required|string|max:255',
-                'p_description' => 'required|string',
-                'mp_owner' => 'required|string|max:255',            
-            ]);
-    
-            // Append to session array
-            $map_physical[] = [         
-                'p_location' => $validatedData['p_location'][$i],
-                'p_description' => $validatedData['p_description'][$i],
-                'mp_owner' => $validatedData['mp_owner'][$i],
-            ];
-        }
-        // Store the updated array in the session
-        $request->session()->put('map_physical', $map_physical);
-    
-        // Loop through the input data for human assets
-        for ($i = 0; $i < count($request->h_location); $i++) {
-            // Validate the form
-            $validatedData = $request->validate([
-                'h_location' => 'required|string|max:255',
-                'h_description' => 'required|string',
-                'mh_owner' => 'required|string|max:255',            
-            ]);
-    
-            // Append to session array
-            $map_human[] = [         
-                'h_location' => $validatedData['h_location'][$i],
-                'h_description' => $validatedData['h_description'][$i],
-                'mh_owner' => $validatedData['mh_owner'][$i],
-            ];
-        }
-        // Store the updated array in the session
-        $request->session()->put('map_human', $map_human);
-    
-    
-        foreach ($map_human as $data) {
-            $mapH = new Map_Human($data);
-            $mapH->asset_id = $asset->asset_id;
-            $mapH->save();
-        }
-    
-        // Create and save the Physical Mapping
-        foreach ($map_physical as $data) {
-            $mapP = new Map_Physical($data);
-            $mapH->asset_id = $asset->asset_id;
-            $mapP->save();
-        }
-    
-        // Create and save the Technical Mapping
-        foreach ($map_technical as $data) {
-            $mapT = new Map_Technical($data);
-            $mapH->asset_id = $asset->asset_id;
-            $mapT->save();
-        }
+        // Get the input values from the request
+  $h_location = $request->input("h_location");
+  $h_description = $request->input("h_description");
+  $mh_owner = $request->input("mh_owner");
+  $p_location = $request->input("p_location");
+  $p_description = $request->input("p_description");
+  $mp_owner = $request->input("mp_owner");
+  $t_location = $request->input("t_location");
+  $t_description = $request->input("t_description");
+  $mt_owner = $request->input("mt_owner");
+
+        //mapping delete
+    Map_Human::where('asset_id', $asset_id)->each(function($map_h){
+        $map_h->delete();
+    });
+    Map_Physical::where('asset_id', $asset_id)->each(function($map_p){
+        $map_p->delete();
+    });
+    Map_Technical::where('asset_id', $asset_id)->each(function($map_t){
+        $map_t->delete();
+    });
+  // Loop through the input values and create or update the database rows
+  for ($i = 0; $i < count($h_location); $i++) {
+    // Create a new instance of the Human model
+    $human = new Map_Human();
+
+    // Assign the input values to the model attributes
+    $human->h_location = $h_location[$i];
+    $human->h_description = $h_description[$i];
+    $human->mh_owner = $mh_owner[$i];
+    $human->asset_id = $asset->asset_id;
+    // Save the model to the database
+    $human->save();
+  }
+
+  // Repeat the same process for the other models
+  for ($i = 0; $i < count($p_location); $i++) {
+    $physical = new Map_Physical();
+    $physical->p_location = $p_location[$i];
+    $physical->p_description = $p_description[$i];
+    $physical->mp_owner = $mp_owner[$i];
+    $physical->asset_id = $asset->asset_id;
+    $physical->save();
+  }
+
+  for ($i = 0; $i < count($t_location); $i++) {
+    $technical = new Map_Technical();
+    $technical->t_location = $t_location[$i];
+    $technical->t_description = $t_description[$i];
+    $technical->mt_owner = $mt_owner[$i];
+    $technical->asset_id = $asset->asset_id;
+    $technical->save();
+  }
+
+  // Redirect to the update route with a success message
+  return redirect()->route("update", $asset->asset_id)->with("success", "Mapping Data saved successfully");
     }
 //buttons for the add and delete mapping 
 
