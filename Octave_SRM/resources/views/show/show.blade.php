@@ -212,120 +212,36 @@
                   </tr>
                   <tr>
                       <td>Reputation and Consumer Trust</td>
-                      <td><select id="rep_value" class="form-control" name="rep_value" required>
-                          <option value="">Select Severity Value</option>
-                          <option value="high">High</option>
-                          <option value="medium">Medium</option>
-                          <option value="low">Low</option>
-                      </select></td>
-                      <td><select id="rep_score" class="form-control" name="rep_score" onchange="updateRRScore()" required>
-                          <option value="">Select Severity Score</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          <option value="6">6</option>
-                          <option value="7">7</option>
-                          <option value="8">8</option>
-                          <option value="9">9</option>
-                          <option value="10">10</option>
-                      </select></td>
+                      <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $severity->rep_value }}</td>
+                      <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $severity->rep_score }}</td>
                   </tr>
                   <tr>
                       <td>Finance</td>
-                      <td><select id="finance_value" class="form-control" name="finance_value" required>
-                          <option value="">Select Severity Value</option>
-                          <option value="high">High</option>
-                          <option value="medium">Medium</option>
-                          <option value="low">Low</option>
-                      </select></td>
-                      <td><select id="finance_score" class="form-control" name="finance_score" onchange="updateRRScore()" required>
-                          <option value="">Select Severity Score</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          <option value="6">6</option>
-                          <option value="7">7</option>
-                          <option value="8">8</option>
-                          <option value="9">9</option>
-                          <option value="10">10</option>
-                      </select></td>
+                      <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $severity->financial_value }}</td>
+                      <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $severity->financial_score }}</td>
                   </tr>
                   <tr>
                       <td>Productivity</td>
-                      <td><select id="productivity_value" class="form-control" name="productivity_value" required>
-                          <option value="">Select Severity Value</option>
-                          <option value="high">High</option>
-                          <option value="medium">Medium</option>
-                          <option value="low">Low</option>
-                      </select></td>
-                      <td><select id="productivity_score" class="form-control" name="productivity_score" onchange="updateRRScore()" required>
-                          <option value="">Select Severity Score</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          <option value="6">6</option>
-                          <option value="7">7</option>
-                          <option value="8">8</option>
-                          <option value="9">9</option>
-                          <option value="10">10</option>
-                      </select></td>
+                      <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $severity->productivity_value }}</td>
+                      <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $severity->productivity_score }}</td>
                   </tr>
                   <tr>
                       <td>Safety and Health</td>
-                      <td><select id="safety_value" class="form-control" name="safety_value" required>
-                          <option value="">Select Severity Value</option>
-                          <option value="high">High</option>
-                          <option value="medium">Medium</option>
-                          <option value="low">Low</option>
-                      </select></td>
-                      <td><select id="safety_score" class="form-control" name="safety_score" onchange="updateRRScore()" required>
-                          <option value="">Select Severity Score</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          <option value="6">6</option>
-                          <option value="7">7</option>
-                          <option value="8">8</option>
-                          <option value="9">9</option>
-                          <option value="10">10</option>
-                      </select></td>
+                      <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $severity->safety_value }}</td>
+                      <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $severity->safety_score }}</td>
                   </tr>
                   <tr>
                       <td>Fines and Legal Sanctions</td>
-                      <td><select id="fines_value" class="form-control" name="fines_value" required>
-                          <option value="">Select Severity Value</option>
-                          <option value="high">High</option>
-                          <option value="medium">Medium</option>
-                          <option value="low">Low</option>
-                      </select></td>
-                      <td><select id="fines_score" class="form-control" name="fines_score" onchange="updateRRScore()" required>
-                          <option value="">Select Severity Score</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          <option value="6">6</option>
-                          <option value="7">7</option>
-                          <option value="8">8</option>
-                          <option value="9">9</option>
-                          <option value="10">10</option>
-                      </select></td>
+                      <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $severity->fines_value }}</td>
+                      <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $severity->fines_score }}</td>
                   </tr>
                   <tr>
                       <td>Relative Risk Score
                       </td>
                       <td>
                       </td>
-                      <td><input type="text" name="rr_score" class="form-control" value="{{ old('rr_score') }}" readonly required>
+                      {{-- <td><input type="text" name="rr_score" class="form-control" value="{{ old('rr_score') }}" readonly required> --}}
+                        <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $severity->rr_score }}</td>
                       </td>
                   </tr>
                </tbody>
