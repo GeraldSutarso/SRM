@@ -82,7 +82,7 @@
                 </tbody>
             </table>
             <div class="form-group">
-              <button type="submit"  class="btn btn-primary">Ok</button>
+              <button type="submit"  class="btn btn-info">Ok</button>
             </div>
         </form>
     </div>
@@ -163,14 +163,15 @@
             </div>
             @endif
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Ok</button>
+                <button type="submit" class="btn btn-info">Ok</button>
             </div>
         </form>
     </div>
+    <br>
     <div class="container">
         <h2>Asset Mapping</h2>
         <br>
-        <a class="btn btn-info" href="{{ route('step3.update',  $asset->asset_id)  }}">Edit Mapping</a>
+        <a class="btn btn-primary" href="{{ route('step3.update',  $asset->asset_id)  }}">Edit Mapping</a>
         <br>
         <br>
         <h5>Human Mapping</h5>
@@ -234,4 +235,223 @@
             </tbody>
         </table>
     </div>
+    <br>
+    <div class="container">
+        <h2>Update Risk Identification</h2><br><br>
+        <form method="POST" action="{{ route('step4.set') }}">
+          @csrf
+          <table class="table">
+            <tbody>
+              <tr><td></td>
+                <td><h5>Threat Properties</h5></td>
+              </tr>
+              <tr>
+                <td>Area of Concern</td>
+                <td><textarea placeholder="Input Area of Concern" name="area_of_concern" class="form-control" required>{{ session('RI.area_of_concern') }}</textarea></td>
+              </tr>
+              <tr>
+                <td>Actor</td>
+                <td><input placeholder="Input Actor" name="actor" class="form-control" required value="{{ session('RI.actor') }}"></td>
+              </tr>
+              <tr>
+                <td>Objective</td>
+                <td><textarea placeholder="Input Objective" name="objective" class="form-control" required >{{  session('RI.objective')  }}</textarea></td>
+              </tr>
+              <tr>
+                <td>Motive</td>
+                <td><textarea placeholder="Input Motive" name="motive" class="form-control" required>{{ session('RI.motive') }}</textarea></td>
+              </tr>
+              <tr>
+                <td>Result</td>
+                <td><textarea placeholder="Input Result" name="result" class="form-control" >{{ session('RI.result') }}</textarea></td>
+              </tr>
+              <tr>
+                <td>Security Needs</td>
+                <td><textarea placeholder="Input Security Needs" name="security_needs" class="form-control" required>{{ session('RI.security_needs') }}</textarea></td>
+              </tr>
+              <tr>
+                <td>Probability</td>
+                <td><select id="probability" class="form-control" name="probability" required>
+                  <option value="">Select Probability Chances</option>
+                  @foreach(['high','medium', 'low'] as $value)
+                      <option value="{{ $value }}" @selected(session('RI.probability') == $value)>
+                      {{ $value }}
+                      </option>
+                  @endforeach
+              </select></td>
+              </tr>
+              <tr>
+                <td>Consequence</td>
+                <td><textarea placeholder="Input Consequence" name="consequences" class="form-control" required>{{ session('RI.consequences') }}</textarea></td>
+              </tr>
+              <tr>
+                <td>Control</td>
+                <td><textarea placeholder="Input Control" name="control" class="form-control" required>{{ session('RI.control') }}</textarea></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="form-group">
+            <button type="submit" class="btn btn-info">Ok</button>
+          </div>
+        </form>
+      </div>
+      <br>
+      <div class="container">
+        <h2>Update Impact Severity</h2>
+        <form method="POST" action="{{ route('step5.set') }}">
+            @csrf
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td><h5>Impact Area</h5></td>
+                        <td><h5>Value</h5></td>
+                        <td><h5>Score</h5></td>
+                    </tr>
+                    <tr>
+                        <td>Reputation and Consumer Trust</td>
+                        <td><select id="rep_value" class="form-control" name="rep_value" required>
+                            <option value="">Select Severity Value</option>
+                            @foreach(['high','medium','low'] as $value)
+                                <option value="{{ $value }}" @selected(session('severity.rep_value') == $value)>
+                                {{ $value }}
+                                </option>
+                            @endforeach
+                        </select></td>
+                        <td><select id="rep_score" class="form-control" name="rep_score" onchange="updateRRScore()" required>
+                            <option value="">Select Severity Score</option>
+                            @foreach([10,9,8,7,6,5, 4, 3, 2, 1] as $value)
+                                <option value="{{ $value }}" @selected(session('severity.rep_score') == $value)>
+                                {{ $value }}
+                                </option>
+                            @endforeach
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>Finance</td>
+                        <td><select id="financial_value" class="form-control" name="financial_value" required>
+                            <option value="">Select Severity Value</option>
+                            @foreach(['high','medium','low'] as $value)
+                                <option value="{{ $value }}" @selected(session('severity.financial_value') == $value)>
+                                {{ $value }}
+                                </option>
+                            @endforeach
+                        </select></td>
+                        <td><select id="financial_score" class="form-control" name="financial_score" onchange="updateRRScore()" required>
+                            <option value="">Select Severity Score</option>
+                            @foreach([10,9,8,7,6,5, 4, 3, 2, 1] as $value)
+                                <option value="{{ $value }}" @selected(session('severity.financial_score') == $value)>
+                                {{ $value }}
+                                </option>
+                            @endforeach
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>Productivity</td>
+                        <td><select id="productivity_value" class="form-control" name="productivity_value" required>
+                            <option value="">Select Severity Value</option>
+                            @foreach(['high','medium','low'] as $value)
+                                <option value="{{ $value }}" @selected(session('severity.productivity_value') == $value)>
+                                {{ $value }}
+                                </option>
+                            @endforeach
+                        </select></td>
+                        <td><select id="productivity_score" class="form-control" name="productivity_score" onchange="updateRRScore()" required>
+                            <option value="">Select Severity Score</option>
+                            @foreach([10,9,8,7,6,5, 4, 3, 2, 1] as $value)
+                                <option value="{{ $value }}" @selected(session('severity.productivity_score') == $value)>
+                                {{ $value }}
+                                </option>
+                            @endforeach
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>Safety and Health</td>
+                        <td><select id="safety_value" class="form-control" name="safety_value" required>
+                            <option value="">Select Severity Value</option>
+                            @foreach(['high','medium','low'] as $value)
+                                <option value="{{ $value }}" @selected(session('severity.safety_value') == $value)>
+                                {{ $value }}
+                                </option>
+                            @endforeach
+                        </select></td>
+                        <td><select id="safety_score" class="form-control" name="safety_score" onchange="updateRRScore()" required>
+                            <option value="">Select Severity Score</option>
+                            @foreach([10,9,8,7,6,5, 4, 3, 2, 1] as $value)
+                                <option value="{{ $value }}" @selected(session('severity.safety_score') == $value)>
+                                {{ $value }}
+                                </option>
+                            @endforeach
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>Fines and Legal Sanctions</td>
+                        <td><select id="fines_value" class="form-control" name="fines_value" required>
+                            <option value="">Select Severity Value</option>
+                            @foreach(['high','medium','low'] as $value)
+                                <option value="{{ $value }}" @selected(session('severity.fines_value') == $value)>
+                                {{ $value }}
+                                </option>
+                            @endforeach
+                        </select></td>
+                        <td><select id="fines_score" class="form-control" name="fines_score" onchange="updateRRScore()" required>
+                            <option value="">Select Severity Score</option>
+                            @foreach([10,9,8,7,6,5, 4, 3, 2, 1] as $value)
+                            <option value="{{ $value }}" @selected(session('severity.fines_score') == $value)>
+                              {{ $value }}
+                            </option>
+                          @endforeach
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>Relative Risk Score
+                        </td>
+                        <td>
+                        </td>
+                        <td><input type="text" name="rr_score" class="form-control" value="{{ session('severity.rr_score') }}" readonly required>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+                    <!-- Check for errors and display the message -->
+                @if(isset($errors) && is_array($errors))
+                    @foreach($errors as $error)
+                        <div class="alert alert-danger">
+                            {{ $error }}
+                        </div>
+                    @endforeach
+                @endif
+            <div class="form-group">
+                <button type="submit" class="btn btn-info">Ok</button>
+            </div>
+        </form>
+    </div>
+    <div class="container">
+        <br><br>
+        <form method="POST" action="{{ route('update.save', $asset->asset_id) }}">
+            @csrf
+            <center><div class="form-group">
+                <a href="{{ route('home') }}" class="btn btn-danger">Cancel</a>
+                <button type="submit" class="btn btn-success">Save</button>
+            </div>
+            </center>
+        </form>
+    </div>
+
+    <script>
+        // Function to calculate and update the Relative Risk Score
+        function updateRRScore() {
+            // Get the selected values of safety_score and fines_score
+            var repScore = parseInt(document.getElementById('rep_score').value) || 0;
+            var financeScore = parseInt(document.getElementById('financial_score').value) || 0;
+            var productivityScore = parseInt(document.getElementById('productivity_score').value) || 0;
+            var safetyScore = parseInt(document.getElementById('safety_score').value) || 0;
+            var finesScore = parseInt(document.getElementById('fines_score').value) || 0;
+    
+            // Calculate the sum of the scores
+            var rrScore = repScore + financeScore + productivityScore + safetyScore + finesScore;
+    
+            // Update the rr_score input with the calculated score
+            document.getElementsByName('rr_score')[0].value = rrScore;
+        }
+    </script>
 @endsection

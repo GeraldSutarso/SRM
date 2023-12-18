@@ -60,20 +60,21 @@ class UController extends Controller{
         $RIArray = $RIs->toArray();
 
         // Put the array into the session
+        foreach ($RIArray as $risk){
         if(!session('RI')){
-        session()->put('RI', $RIArray); // using the session helper function
-        }
+        session()->put('RI', $risk); // using the session helper function
+        }}
         // For every RI, get severity and store it
         foreach ($RIs as $RI) {
-            $severities = Severity::where('AoC_id', $RI->AoC_id)->get();
-            foreach ($severities as $severity) {
-                $severityArray = $severity->toArray();
-                if(!session('severity')){
-                session()->put('severity.'.$severity->AoC_id, $severityArray);
-                }
-                $severityData[] = $severity;
-            }
+        $severities = Severity::where('AoC_id', $RI->AoC_id)->get();
+        foreach ($severities as $severity) {
+        // Check the session for each severity key
+        if(!session('severity')){
+            session()->put('severity',$severity);
         }
+        $severityData[] = $severity;
+    }
+}
 
         // Get mapping data
         $mapHumans = Map_Human::where('asset_id', $asset_id)->get();
@@ -485,33 +486,100 @@ class UController extends Controller{
      *
      * @return response()
      */
-    public function update_save(Request $request){
+    public function update_save($asset_id,Request $request){
         // Retrieve all of the data from the session
+        $asset = Asset::findorFail($asset_id);
+        $priority = Priority::findOrFail($asset_id);
+        $RI = Risk_Identification::findorFail($asset_id);
+        $severity = Severity::where('AoC_id', $RI->AoC_id);
+
         $assetData = $request->session()->get('asset'); //assetdata
         $priorityData = $request->session()->get('priority'); //priority
         $RIData = $request->session()->get('RI'); //risk_identification
         $severityData = $request->session()->get('severity'); // severity
 
-        // Create and save the Asset
-        $asset = new Asset($assetData);
-        $asset->user_id = auth()->user()->user_id;
-        $asset->owner = auth()->user()->username;
-        $asset->save();
+        // $matchAsset = [
+        // 'asset_name' => $assetData['asset_name'],
+        // 'asset_desc' => $assetData['asset_desc'],
+        // 'owner' => $assetData['owner'],
+        // 'a_department' => $assetData['a_department'],
+        // 'SR_confidentiality' => $assetData['SR_confidentiality'],
+        // 'SR_integrity' => $assetData['SR_integrity'],
+        // 'SR_availability' => $assetData['SR_availability'],
+        // 'most_important_SR' => $assetData['most_important_SR'],
+        // 'rationale_for_select' => $assetData['rationale_for_select'],
+        // ];
+        $asset->update([ 
+        'trust' => $priorityData['trust'],
+        'finance' => $priorityData['finance'],
+        'productivity' => $priorityData['productivity'],
+        'safety' => $priorityData['safety'],
+        'fines' => $priorityData['fines'],]);
 
-        // Create and save the Priority
-        $priority = new Priority($priorityData);
-        $priority->asset_id = $asset->asset_id;
-        $priority->save();
+        // $matchPriority = [
+            // 'trust' => $priorityData['trust'],
+            // 'finance' => $priorityData['finance'],
+            // 'productivity' => $priorityData['productivity'],
+            // 'safety' => $priorityData['safety'],
+            // 'fines' => $priorityData['fines'],
+        // ];
+        $priority->update([
+            'trust' => $priorityData['trust'],
+            'finance' => $priorityData['finance'],
+            'productivity' => $priorityData['productivity'],
+            'safety' => $priorityData['safety'],
+            'fines' => $priorityData['fines'],
+        ]);
 
-        // Create and save the Risk Identification
-        $RI = new Risk_Identification($RIData);
-        $RI->asset_id = $asset->asset_id;
-        $RI->save();
+        // $matchRI = [
+            // 'area_of_concern' => $RIData['area_of_concern'],
+            // 'actor' => $RIData['actor'],
+            // 'objective' => $RIData['objective'],
+            // 'motive' => $RIData['motive'],
+            // 'result' => $RIData['result'],
+            // 'security_needs' => $RIData['security_needs'],
+            // 'consequences' => $RIData['consequences'],
+            // 'control' => $RIData['control'],
+            // 'probability' => $RIData['probability'],
+        // ];
+        $RI->update([
+            'area_of_concern' => $RIData['area_of_concern'],
+            'actor' => $RIData['actor'],
+            'objective' => $RIData['objective'],
+            'motive' => $RIData['motive'],
+            'result' => $RIData['result'],
+            'security_needs' => $RIData['security_needs'],
+            'consequences' => $RIData['consequences'],
+            'control' => $RIData['control'],
+            'probability' => $RIData['probability']
+        ]);
 
-        // Create and save the Severity
-        $Severity = new Severity($severityData);
-        $Severity->AoC_id = $RI->AoC_id;
-        $Severity->save();
+        // $matchSeverity = [
+            // 'rep_value' => $severityData['rep_value'],
+            // 'rep_score' => $severityData['rep_score'],
+            // 'financial_value' => $severityData['financial_value'],
+            // 'financial_score' => $severityData['financial_score'],
+            // 'productivity_value' => $severityData['productivity_value'],
+            // 'productivity_score' => $severityData['productivity_score'],
+            // 'safety_value' => $severityData['safety_value'],
+            // 'safety_score' => $severityData['safety_score'],
+            // 'fines_value' => $severityData['fines_value'],
+            // 'fines_score' => $severityData['fines_score'],
+            // 'rr_score' =>$severityData['rr_score']
+        // ];
+        $severity->update([
+            'rep_value' => $severityData['rep_value'],
+            'rep_score' => $severityData['rep_score'],
+            'financial_value' => $severityData['financial_value'],
+            'financial_score' => $severityData['financial_score'],
+            'productivity_value' => $severityData['productivity_value'],
+            'productivity_score' => $severityData['productivity_score'],
+            'safety_value' => $severityData['safety_value'],
+            'safety_score' => $severityData['safety_score'],
+            'fines_value' => $severityData['fines_value'],
+            'fines_score' => $severityData['fines_score'],
+            'rr_score' =>$severityData['rr_score']
+        ]);
 
         // Forget the session data
         session()->forget(['asset', 'priority', 'severity', 'map_human', 'map_physical', 'map_technical', 'RI']);

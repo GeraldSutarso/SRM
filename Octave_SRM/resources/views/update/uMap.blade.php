@@ -59,7 +59,7 @@
     <!-- Use an input field for owner -->
     <td><input type="text" name="mp_owner[]" value="{{$mapPhysical->mp_owner }} "></td>
     <!-- Use a button to delete the row -->
-    <td><button type="button" class="btn btn-danger deleteRow" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+    <td><button type="button" class="btn btn-danger deleteRow deleteP" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
       </svg></button></td>
@@ -91,7 +91,7 @@
     <!-- Use an input field for owner -->
     <td><input type="text" name="mt_owner[]" value="{{$mapTechnical->mt_owner }} "></td>
     <!-- Use a button to delete the row -->
-    <td><button type="button" class="btn btn-danger deleteRow"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+    <td><button type="button" class="btn btn-danger deleteRow deleteT"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
       </svg></button></td>
@@ -125,13 +125,13 @@ HaddButton.on("click", function() {
 
   // Append the new row to the table
   currentTable.append(newRow);
-  var rowCount = $("#humanTable tr").length;
+  var HrowCount = $("#humanTable tr").length;
 
 // If there is only one row left, disable the delete button
-if (rowCount < 3) {
+if (HrowCount < 3) {
   $(".deleteH").prop("disabled", true);
 }
-if (rowCount >= 3){
+if (HrowCount >= 3){
     $(".deleteH").prop("disabled", false);
 }
 
@@ -148,6 +148,15 @@ PaddButton.on("click", function() {
 
   // Append the new row to the table
   currentTable.append(newRow);
+  var ProwCount = $("#physicalTable tr").length;
+
+// If there is only one row left, disable the delete button
+if (ProwCount < 3) {
+  $(".deleteP").prop("disabled", true);
+}
+if (ProwCount >= 3){
+    $(".deleteP").prop("disabled", false);
+}
 });
 TaddButton.on("click", function() {
   // Get the current table based on the button clicked
@@ -161,6 +170,15 @@ TaddButton.on("click", function() {
 
   // Append the new row to the table
   currentTable.append(newRow);
+  var TrowCount = $("#technicalTable tr").length;
+
+// If there is only one row left, disable the delete button
+if (TrowCount < 3) {
+  $(".deleteT").prop("disabled", true);
+}
+if (TrowCount >= 3){
+    $(".deleteT").prop("disabled", false);
+}
 });
 var deleteButtons = $(document).on("click", ".deleteRow", function() {
   // Call the deleteRow function with the button as an argument
@@ -175,14 +193,31 @@ function deleteRow(button) {
   // Remove the row from the table
   row.remove();
     // Check the number of rows in the table
-    var rowCount = $("#humanTable tr").length;
-
+    var HrowCount = $("#humanTable tr").length;
 // If there is only one row left, disable the delete button
-if (rowCount < 3) {
+if (HrowCount < 3) {
   $(".deleteH").prop("disabled", true);
 }
-if (rowCount >= 3){
+if (HrowCount >= 3){
     $(".deleteH").prop("disabled", false);
+}
+var ProwCount = $("#physicalTable tr").length;
+
+// If there is only one row left, disable the delete button
+if (ProwCount < 3) {
+  $(".deleteP").prop("disabled", true);
+}
+if (ProwCount >= 3){
+    $(".deleteP").prop("disabled", false);
+}
+var TrowCount = $("#technicalTable tr").length;
+
+// If there is only one row left, disable the delete button
+if (TrowCount < 3) {
+  $(".deleteT").prop("disabled", true);
+}
+if (TrowCount >= 3){
+    $(".deleteT").prop("disabled", false);
 }
 }
 </script>

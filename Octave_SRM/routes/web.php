@@ -74,7 +74,7 @@ Route::post('update/mapping-save/{asset_id}', [UController::class, 'set_step3'])
 Route::post('update/risk_identification-set', [UController::class, 'set_step4'])->name('step4.set');
 Route::post('update/severity-set', [UController::class, 'set_step5'])->name('step5.set');
 //save update session
-Route::post('update/save', [UController::class, 'update_save'])->name('update.save');
+Route::post('update/save/{asset_id}', [UController::class, 'update_save'])->name('update.save');
 
 //Delete routes
 Route::delete('delete-asset/{asset_id}', [DController::class, 'delete_asset'])->name('delete.asset');
