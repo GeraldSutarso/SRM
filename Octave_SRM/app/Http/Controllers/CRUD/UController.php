@@ -510,11 +510,15 @@ class UController extends Controller{
         // 'rationale_for_select' => $assetData['rationale_for_select'],
         // ];
         $asset->update([ 
-        'trust' => $priorityData['trust'],
-        'finance' => $priorityData['finance'],
-        'productivity' => $priorityData['productivity'],
-        'safety' => $priorityData['safety'],
-        'fines' => $priorityData['fines'],]);
+            'asset_name' => $assetData['asset_name'],
+            'asset_desc' => $assetData['asset_desc'],
+            'owner' => $assetData['owner'],
+            'a_department' => $assetData['a_department'],
+            'SR_confidentiality' => $assetData['SR_confidentiality'],
+            'SR_integrity' => $assetData['SR_integrity'],
+            'SR_availability' => $assetData['SR_availability'],
+            'most_important_SR' => $assetData['most_important_SR'],
+            'rationale_for_select' => $assetData['rationale_for_select'],]);
 
         // $matchPriority = [
             // 'trust' => $priorityData['trust'],
