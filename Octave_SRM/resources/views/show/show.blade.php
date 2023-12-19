@@ -102,55 +102,54 @@
           
       
           {{-- Asset Mapping Table --}}
-            <h4 style="font-weight: bold">Asset Mapping</h4>
-
-            <h5 style="margin-top: 10px;">Technical Asset Mapping</h5>
-            <table class="table" style="background-color: #EFEFEF; border-collapse: collapse; width: 100%;">
-                <tr style="background-color: #EFEFEF;">
-                    <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Location :</h6></td>
-                    <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->rationale_for_select }}</td>
-                </tr style="background-color: #EFEFEF;">
+          <div class="container">
+            <h2>Asset Mapping</h2>
+            <h2>Map Humans</h2>
+            <table>
                 <tr>
-                    <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Description :</h6></td>
-                    <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->rationale_for_select }}</td>
+                    <th>Location</th>
+                    <th>Description</th>
+                    <th>Owner</th>
                 </tr>
-                <tr style="background-color: #EFEFEF;">
-                    <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Owner :</h6></td>
-                    <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->asset_desc }}</td>
+            @foreach ($mapHumanData as $mapHuman)
+                <tr>
+                    <td>{{$mapHuman->h_location }} </td>
+                    <td>{{$mapHuman->h_description }} </td>
+                    <td>{{$mapHuman->mh_owner }} </td>
                 </tr>
-            </table>&ensp;&ensp;
-
-            <h5>Physical Asset Mapping</h5>
-            <table class="table" style="border-collapse: collapse; width: 100%;">
-                <tr style="background-color: #EFEFEF;">
-                    <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Location :</h6></td>
-                    <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->asset_name }}</td>
+            @endforeach
+            </table>
+            <h2>Map Physicals</h2>
+            <table>
+                <tr>
+                    <th>Location</th>
+                    <th>Description</th>
+                    <th>Owner</th>
                 </tr>
-                <tr style="background-color: #EFEFEF;">
-                    <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Description :</h6></td>
-                    <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->rationale_for_select }}</td>
+            @foreach ($mapPhysicalData as $mapPhysical)
+                <tr>
+                    <td>{{$mapPhysical->p_location }} </td>
+                    <td>{{$mapPhysical->p_description }} </td>
+                    <td>{{$mapPhysical->mp_owner }} </td>
                 </tr>
-                <tr style="background-color: #EFEFEF;">
-                    <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Owner :</h6></td>
-                    <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->asset_desc }}</td>
+            @endforeach
+            </table>
+            <h2>Map Technicals</h2>
+            <table>
+                <tr>
+                    <th>Location</th>
+                    <th>Description</th>
+                    <th>Owner</th>
                 </tr>
-            </table>&ensp;&ensp;
-
-            <h5>Human Asset Mapping</h5>
-            <table class="table" style="border-collapse: collapse; width: 100%;">
-                <tr style="background-color: #EFEFEF;">
-                    <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Location :</h6></td>
-                    <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->asset_name }}</td>
+            @foreach ($mapTechnicalData as $mapTechnical)
+                <tr>
+                    <td>{{$mapTechnical->t_location }} </td>
+                    <td>{{$mapTechnical->t_description }} </td>
+                    <td>{{$mapTechnical->mt_owner }} </td>
                 </tr>
-                <tr style="background-color: #EFEFEF;">
-                    <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Description :</h6></td>
-                    <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->rationale_for_select }}</td>
-                </tr>
-                <tr style="background-color: #EFEFEF;">
-                    <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Owner :</h6></td>
-                    <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $asset->asset_desc }}</td>
-                </tr>
-            </table>&ensp;&ensp;
+            @endforeach
+            </table>
+        </div>
           
         {{-- Risk Identifications Table --}}
         <h4 style="font-weight: bold">Risk Identifications</h4>
