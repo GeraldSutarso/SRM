@@ -249,9 +249,9 @@
             </table>
 
             {{-- Score Resiko Relatif --}}
-            <h2>Skor Risiko Relatif</h2>
+            <h2>Relative Risk Score</h2>
 
-            <style>
+            {{-- <style>
                 table {
                   border-collapse: collapse;
                   width: 100%;
@@ -279,13 +279,13 @@
                 tr:hover {
                   background-color: #bdc3c7;
                 }
-              </style>
+              </style> --}}
               
-              <table>
+              <table class="table">
                 <thead>
                   <tr> 
-                    <th rowspan="2">Probabilitas</th>
-                    <th colspan="3" style="text-align: center;">Skor Risiko Relatif</th>
+                    <th rowspan="2">Probability</th>
+                    <th colspan="3" style="text-align: center;">Relative Risk Score</th>
                   </tr>
                   <tr>
                     <th style="text-align: center;">30-45</th>
@@ -295,62 +295,40 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Tinggi</td>
-                    <td>(Kategori 1)<br>Mitigasi</td>
-                    <td>(Kategori 2)<br>Mitigasi/Menunda</td>
-                    <td>(Kategori 2)<br>Mitigasi/Menunda</td>
+                    <td>High</td>
+                    <td>(Category 1)<br>Mitigate</td>
+                    <td>(Category 2)<br>Mitigate/Postpone</td>
+                    <td>(Category 2)<br>Mitigate/Postpone</td>
                   </tr>
                   <tr>
-                    <td>Sedang</td>
-                    <td>(Kategori 2)<br>Mitigasi/Menunda</td>
-                    <td>(Kategori 2)<br>Mitigasi/Menunda</td>
-                    <td>(Kategori 3)<br>Menunda/Menerima</td>
+                    <td>Medium</td>
+                    <td>(Category 2)<br>Mitigate/Postpone</td>
+                    <td>(Category 2)<br>Mitigate/Postpone</td>
+                    <td>(Category 3)<br>Postpone/Accept</td>
                   </tr>
                   <tr>
-                    <td>Rendah</td>
-                    <td>(Kategori 3)<br>Menunda/Menerima</td>
-                    <td>(Kategori 3)<br>Menunda/Menerima</td>
-                    <td>(Kategori 4)<br>Menerima</td>
+                    <td>Low</td>
+                    <td>(Category 3)<br>Postpone/Accept</td>
+                    <td>(Category 3)<br>Postpone/Accept</td>
+                    <td>(Category 4)<br>Accept</td>
                     <td></td>
                     <td></td>
                   </tr>
                 </tbody>
               </table>
 
-              {{-- Score Resiko Relatif --}}
-            <h2>Pendekatan Mitigasi</h2>
-
-            <style>
-                table {
-                    border-collapse: collapse;
-                    width: 100%;
-                    font-family: Arial, sans-serif;
-                }
-        
-                th, td {
-                    padding: 10px;
-                    text-align: left;
-                }
-        
-                th {
-                    background-color: #f2f2f2;
-                }
-        
-                tr:nth-child(even) {
-                    background-color: #f9f9f9;
-                }
-            </style>
-
-            <table border="1">
+            {{-- <table border="1">
                 <caption>Tabel 6. Pendekatan Mitigasi — Data Mahasiswa</caption>
                 <tr>
-                    <th>Area kerawanan</th>
-                    <th>Aset Informasi: Data Mahasiswa</th>
+                    <th>Risk Area</th>
+                    <th>Asset Information</th>
                     <th>Aksi</th>
+                    <th>Container</th>
+                    <th></th>
                 </tr>
                 <tr>
                     <td>Penyebaran data mahasiswa pada pihak-pihak yang memiliki hak akses</td>
-                    <td>Kategori 2-Mitigasi/Menunda</td>
+                    <td>Category 2-Mitigasi/Menunda</td>
                     <td>Kontainer</td>
                 </tr>
                 <tr>
@@ -363,12 +341,16 @@
                     <td>Mengenkripsi kata sandi mahasiswa, melakukan pembatasan akses, dan membuat batasan durasi sesi login.</td> 
                     <td></td> 
                 </tr> 
-            </table>
+            </table> --}}
 
               
 
       </div>
-      <br><br>
+      <br>
+      @if(!isset($excludeNavbar))
+      <a href="{{ route('genPDF',$asset->asset_id) }}" class="btn btn-success">Generate PDF</a>
+      @endif
+      <br>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   
   </body>
