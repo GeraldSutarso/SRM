@@ -103,13 +103,13 @@
       
           {{-- Asset Mapping Table --}}
           <div class="container">
-            <h2>Asset Mapping</h2>
-            <h2>Map Humans</h2>
-            <table>
-                <tr>
-                    <th>Location</th>
-                    <th>Description</th>
-                    <th>Owner</th>
+            <h2 style="font-weight: bold">Asset Mapping</h2>
+            <h2 style="margin-top: 10px;">Map Humans</h2>
+            <table class="table" style="background-color: #EFEFEF; border-collapse: collapse; width: 100%;">
+                <tr style="background-color: #B0A695;">
+                    <th style="border: 1px solid #dddddd; padding: 8px;">Location</th>
+                    <th style="border: 1px solid #dddddd; padding: 8px;">Description</th>
+                    <th style="border: 1px solid #dddddd; padding: 8px;">Owner</th>
                 </tr>
             @foreach ($mapHumanData as $mapHuman)
                 <tr>
@@ -119,12 +119,12 @@
                 </tr>
             @endforeach
             </table>
-            <h2>Map Physicals</h2>
-            <table>
-                <tr>
-                    <th>Location</th>
-                    <th>Description</th>
-                    <th>Owner</th>
+            <h2 style="margin-top: 10px;">Map Physicals</h2>
+            <table class="table" style="background-color: #EFEFEF; border-collapse: collapse; width: 100%;">
+                <tr style="background-color: #B0A695;">
+                    <th style="border: 1px solid #dddddd; padding: 8px;">Location</th>
+                    <th style="border: 1px solid #dddddd; padding: 8px;">Description</th>
+                    <th style="border: 1px solid #dddddd; padding: 8px;">Owner</th>
                 </tr>
             @foreach ($mapPhysicalData as $mapPhysical)
                 <tr>
@@ -134,12 +134,12 @@
                 </tr>
             @endforeach
             </table>
-            <h2>Map Technicals</h2>
-            <table>
-                <tr>
-                    <th>Location</th>
-                    <th>Description</th>
-                    <th>Owner</th>
+            <h2 style="margin-top: 10px;">Map Technicals</h2>
+            <table class="table" style="background-color: #EFEFEF; border-collapse: collapse; width: 100%;">
+                <tr style="background-color: #B0A695;">
+                    <th style="border: 1px solid #dddddd; padding: 8px;">Location</th>
+                    <th style="border: 1px solid #dddddd; padding: 8px;">Description</th>
+                    <th style="border: 1px solid #dddddd; padding: 8px;">Owner</th>
                 </tr>
             @foreach ($mapTechnicalData as $mapTechnical)
                 <tr>
@@ -205,9 +205,9 @@
               @foreach ($severityData as $severity)
                <tbody>
                   <tr>
-                      <td><h5>Impact Area</h5></td>
-                      <td><h5>Value</h5></td>
-                      <td><h5>Score</h5></td>
+                      <td style="background-color: #B0A695;"><h5>Impact Area</h5></td>
+                      <td style="background-color: #B0A695;"><h5>Value</h5></td>
+                      <td style="background-color: #B0A695;"><h5>Score</h5></td>
                   </tr>
                   <tr>
                       <td>Reputation and Consumer Trust</td>
@@ -347,7 +347,7 @@
       </div>
       <br>
       @if(!isset($excludeNavbar))
-      <a href="{{ route('genPDF',$asset->asset_id) }}" class="btn btn-success">Generate PDF</a>
+      <center><a href="{{ route('home') }}" class="btn btn-danger">Back</a> <a href="{{ route('genPDF',$asset->asset_id) }}" class="btn btn-success">Generate PDF</a></center><br><br>
       @endif
       <br>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
