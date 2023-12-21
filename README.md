@@ -5,7 +5,7 @@ A Security Risk Management Final Project
 ##
 How to Install?
 
-1. You need Composer, install it in your device
+1. You need Composer, install it in your device. You can see https://getcomposer.org/download/ for information on how to download it, or perhaps you could simply google it.
 2. If you already have it, open the application Octave_SRM folder, then open cmd in there.
 3. Type:> composer install
 4. Done? Now let's create the database. You only need to create a new one. You are free to name the database, but remember to change the .env file later, the default name is octave_srm.
