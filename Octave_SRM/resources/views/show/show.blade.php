@@ -108,8 +108,8 @@
             <table class="table" style="background-color: #EFEFEF; border-collapse: collapse; width: 100%;">
                 <tr style="background-color: #B0A695;">
                     <th style="border: 1px solid #dddddd; padding: 8px;">Location</th>
-                    <th style="border: 1px solid #dddddd; padding: 8px;">Description</th>
-                    <th style="border: 1px solid #dddddd; padding: 8px;">Owner</th>
+                    <th style="border: 1px solid #fbf7f7; padding: 8px;">Description</th>
+                    <th style="border: 1px solid #fbf7f7; padding: 8px;">Owner</th>
                 </tr>
             @foreach ($mapHumanData as $mapHuman)
                 <tr>
@@ -123,8 +123,8 @@
             <table class="table" style="background-color: #EFEFEF; border-collapse: collapse; width: 100%;">
                 <tr style="background-color: #B0A695;">
                     <th style="border: 1px solid #dddddd; padding: 8px;">Location</th>
-                    <th style="border: 1px solid #dddddd; padding: 8px;">Description</th>
-                    <th style="border: 1px solid #dddddd; padding: 8px;">Owner</th>
+                    <th style="border: 1px solid #fbf7f7; padding: 8px;">Description</th>
+                    <th style="border: 1px solid #fbf7f7; padding: 8px;">Owner</th>
                 </tr>
             @foreach ($mapPhysicalData as $mapPhysical)
                 <tr>
@@ -138,8 +138,8 @@
             <table class="table" style="background-color: #EFEFEF; border-collapse: collapse; width: 100%;">
                 <tr style="background-color: #B0A695;">
                     <th style="border: 1px solid #dddddd; padding: 8px;">Location</th>
-                    <th style="border: 1px solid #dddddd; padding: 8px;">Description</th>
-                    <th style="border: 1px solid #dddddd; padding: 8px;">Owner</th>
+                    <th style="border: 1px solid #fbf7f7; padding: 8px;">Description</th>
+                    <th style="border: 1px solid #fbf7f7; padding: 8px;">Owner</th>
                 </tr>
             @foreach ($mapTechnicalData as $mapTechnical)
                 <tr>
