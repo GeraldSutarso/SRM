@@ -16,7 +16,7 @@
 
 
       <div class="container bg-white"><br>
-          <h3><center>Asset Details</center></h3><br><br>
+          <h2><center>Asset Details</center></h2><br><br>
       
       {{-- priority dan severity biar gw yg buat soalnya agak beda --}}
       
@@ -48,7 +48,7 @@
         </table>&ensp;&ensp;
 
         {{-- Security Requirements Table --}}
-        <h5>Security Requirement</h5>
+        <h4>Security Requirement</h4>
         <table class="table" style="background-color: #EFEFEF; border-collapse: collapse; width: 100%;">
             <tr>
                 <td style="border: 1px solid #dddddd; padding: 8px;"><h6>Confidentiality :</h6></td>
@@ -103,8 +103,8 @@
       
           {{-- Asset Mapping Table --}}
           <div class="container">
-            <h2 style="font-weight: bold">Asset Mapping</h2>
-            <h2 style="margin-top: 10px;">Map Humans</h2>
+            <h4 style="font-weight: bold">Asset Mapping</h4>
+            <h5 style="margin-top: 10px;">Map Humans</h5>
             <table class="table" style="background-color: #EFEFEF; border-collapse: collapse; width: 100%;">
                 <tr style="background-color: #B0A695;">
                     <th style="border: 1px solid #dddddd; padding: 8px;">Location</th>
@@ -119,7 +119,7 @@
                 </tr>
             @endforeach
             </table>
-            <h2 style="margin-top: 10px;">Map Physicals</h2>
+            <h5 style="margin-top: 10px;">Map Physicals</h5>
             <table class="table" style="background-color: #EFEFEF; border-collapse: collapse; width: 100%;">
                 <tr style="background-color: #B0A695;">
                     <th style="border: 1px solid #dddddd; padding: 8px;">Location</th>
@@ -134,7 +134,7 @@
                 </tr>
             @endforeach
             </table>
-            <h2 style="margin-top: 10px;">Map Technicals</h2>
+            <h5 style="margin-top: 10px;">Map Technicals</h5>
             <table class="table" style="background-color: #EFEFEF; border-collapse: collapse; width: 100%;">
                 <tr style="background-color: #B0A695;">
                     <th style="border: 1px solid #dddddd; padding: 8px;">Location</th>
@@ -210,34 +210,34 @@
                       <td style="background-color: #B0A695;"><h5>Score</h5></td>
                   </tr>
                   <tr>
-                      <td>Reputation and Consumer Trust</td>
+                      <td style="background-color: #dfdbd2;">Reputation and Consumer Trust</td>
                       <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $severity->rep_value }}</td>
                       <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $severity->rep_score }}</td>
                   </tr>
                   <tr>
-                      <td>Finance</td>
+                      <td style="background-color: #dfdbd2;">Finance</td>
                       <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $severity->financial_value }}</td>
                       <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $severity->financial_score }}</td>
                   </tr>
                   <tr>
-                      <td>Productivity</td>
+                      <td style="background-color: #dfdbd2;">Productivity</td>
                       <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $severity->productivity_value }}</td>
                       <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $severity->productivity_score }}</td>
                   </tr>
                   <tr>
-                      <td>Safety and Health</td>
+                      <td style="background-color: #dfdbd2;">Safety and Health</td>
                       <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $severity->safety_value }}</td>
                       <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $severity->safety_score }}</td>
                   </tr>
                   <tr>
-                      <td>Fines and Legal Sanctions</td>
+                      <td style="background-color: #dfdbd2;">Fines and Legal Sanctions</td>
                       <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $severity->fines_value }}</td>
                       <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $severity->fines_score }}</td>
                   </tr>
                   <tr>
-                      <td>Relative Risk Score
+                      <td style="background-color: #fff8e9;" >Relative Risk Score
                       </td>
-                      <td>
+                      <td style="background-color: #fff8e9;">
                       </td>
                       {{-- <td><input type="text" name="rr_score" class="form-control" value="{{ old('rr_score') }}" readonly required> --}}
                         <td style="border: 1px solid #dddddd; background-color: #ffff; padding: 8px;">{{ $severity->rr_score }}</td>
@@ -248,7 +248,7 @@
             </table>
 
             {{-- Score Resiko Relatif --}}
-            <h2>Relative Risk Score</h2>
+            <h4>Relative Risk Score</h4>
 
             {{-- <style>
                 table {
@@ -282,11 +282,8 @@
               
               <table class="table">
                 <thead>
-                  <tr> 
-                    <th rowspan="2">Probability</th>
-                    <th colspan="3" style="text-align: center;">Relative Risk Score</th>
-                  </tr>
-                  <tr>
+                  <tr style="background-color: #B0A695;">
+                    <th>Probability</th>
                     <th style="text-align: center;">30-45</th>
                     <th style="text-align: center;">16-29</th>
                     <th style="text-align: center;">0-15</th>
@@ -294,53 +291,53 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>High</td>
-                    <td>(Category 1)<br>Mitigate</td>
-                    <td>(Category 2)<br>Mitigate/Postpone</td>
-                    <td>(Category 2)<br>Mitigate/Postpone</td>
+                    <td  style="background-color: #dfdbd2;">High</td>
+                    <td style="background-color: #ef8f8f;">(Category 1)<br>Mitigate</td>
+                    <td style="background-color: #ffe4a4;">(Category 2)<br>Mitigate/Postpone</td>
+                    <td style="background-color: #ffe4a4;">(Category 2)<br>Mitigate/Postpone</td>
                   </tr>
                   <tr>
-                    <td>Medium</td>
-                    <td>(Category 2)<br>Mitigate/Postpone</td>
-                    <td>(Category 2)<br>Mitigate/Postpone</td>
-                    <td>(Category 3)<br>Postpone/Accept</td>
+                    <td style="background-color: #dfdbd2;">Medium</td>
+                    <td style="background-color: #ffe4a4;">(Category 2)<br>Mitigate/Postpone</td>
+                    <td style="background-color: #ffe4a4;">(Category 2)<br>Mitigate/Postpone</td>
+                    <td style="background-color: #fffaa3;">(Category 3)<br>Postpone/Accept</td>
                   </tr>
                   <tr>
-                    <td>Low</td>
-                    <td>(Category 3)<br>Postpone/Accept</td>
-                    <td>(Category 3)<br>Postpone/Accept</td>
-                    <td>(Category 4)<br>Accept</td>
+                    <td style="background-color: #dfdbd2;">Low</td>
+                    <td style="background-color: #fffaa3;">(Category 3)<br>Postpone/Accept</td>
+                    <td style="background-color: #fffaa3;">(Category 3)<br>Postpone/Accept</td>
+                    <td style="background-color: #c1febf;">(Category 4)<br>Accept</td>
                     <td></td>
                     <td></td>
                   </tr>
                 </tbody>
               </table>
 
-            {{-- <table border="1">
-                <caption>Tabel 6. Pendekatan Mitigasi — Data Mahasiswa</caption>
-                <tr>
-                    <th>Risk Area</th>
-                    <th>Asset Information</th>
-                    <th>Aksi</th>
-                    <th>Container</th>
+            <table class="table" border="1">
+                <h4>Mitigation Table</h4>
+                <tr style="background-color: #dfdbd2;">
+                    <th><center>Asset Information : {{ $asset->asset_name }}</center></th>
                     <th></th>
                 </tr>
                 <tr>
-                    <td>Penyebaran data mahasiswa pada pihak-pihak yang memiliki hak akses</td>
-                    <td>Category 2-Mitigasi/Menunda</td>
-                    <td>Kontainer</td>
+                    <th style="background-color: #B0A695;">Risk Area</th>
+                    <th style="background-color: #B0A695;">Action</th>
                 </tr>
                 <tr>
-                    <td>Staf ICT Fasilkom Unsri</td>
-                    <td>Mengedukasi staf melalui program kesadaran keamanan informasi.</td>
-                    <td>Kontrol</td> 
-                </tr> 
-                <tr> 
-                    <td>Basis data</td> 
-                    <td>Mengenkripsi kata sandi mahasiswa, melakukan pembatasan akses, dan membuat batasan durasi sesi login.</td> 
-                    <td></td> 
-                </tr> 
-            </table> --}}
+                    <td>{{ $RI->area_of_concern }}</td>
+                    <td>{{ $matrix }}</td>
+                </tr>
+                <tr>
+                    <th style="background-color: #B0A695;">Container</th>
+                    <th style="background-color: #B0A695;">Control</th>
+                </tr>
+                @foreach($RIs as $RI)
+                <tr>
+                    <td>{{ $RI->actor }}</td>
+                    <td>{{ $RI->control }}</td>
+                </tr>
+                @endforeach
+            </table>
 
               
 

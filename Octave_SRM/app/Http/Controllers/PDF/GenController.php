@@ -49,6 +49,30 @@ class GenController extends Controller{
         $severities = Severity::where('AoC_id', $RI->AoC_id)->get();
         foreach ($severities as $severity) {
             $severityData[] = $severity;
+            if($RIs->probability = 'high' && $severity->rr_score >= 30){
+                $matrix =   '(Category 1) Mitigate';
+            }
+            else if($RIs->probability = 'medium' && $severity->rr_score >= 30){
+                $matrix =   '(Category 2) Mitigate/Postpone';
+            }
+            else if($RIs->probability = 'low' && $severity->rr_score >= 30){
+                $matrix =   '(Category 3) Postpone/Accept';
+            }
+            else if($RIs->probability = 'high' && $severity->rr_score <= 15){
+                $matrix =   '(Category 2) Mitigate/Postpone';
+            }
+            else if($RIs->probability = 'medium' && $severity->rr_score <= 15){
+                $matrix =   '(Category 3) Postpone/Accept';
+            }
+            else if($RIs->probability = 'low' && $severity->rr_score <= 15){
+                $matrix =   '(Category 4) Accept';
+            }
+            else if($RIs->probability = 'low' && $severity->rr_score >= 16 && $severity->rr_score <=29){
+                $matrix =   '(Category 3) Postpone/Accept';
+            }
+            else{                
+                $matrix =   '(Category 2) Mitigate/Postpone';
+            }
         }
     }
 
@@ -70,7 +94,7 @@ class GenController extends Controller{
     $priority = Priority::where('asset_id', $asset_id)->first();
 
     // Pass all the data to the view
-    return view('show.show', compact('RIs', 'severityData', 'mapHumanData', 'mapPhysicalData', 'mapTechnicalData', 'priority', 'asset'));
+    return view('show.show', compact('matrix','RIs', 'severityData', 'mapHumanData', 'mapPhysicalData', 'mapTechnicalData', 'priority', 'asset'));
 }
      /**
      * Write code on Method
@@ -99,6 +123,30 @@ class GenController extends Controller{
         $severities = Severity::where('AoC_id', $RI->AoC_id)->get();
         foreach ($severities as $severity) {
             $severityData[] = $severity;
+            if($RIs->probability = 'high' && $severity->rr_score >= 30){
+                $matrix =   '(Category 1) Mitigate';
+            }
+            else if($RIs->probability = 'medium' && $severity->rr_score >= 30){
+                $matrix =   '(Category 2) Mitigate/Postpone';
+            }
+            else if($RIs->probability = 'low' && $severity->rr_score >= 30){
+                $matrix =   '(Category 3) Postpone/Accept';
+            }
+            else if($RIs->probability = 'high' && $severity->rr_score <= 15){
+                $matrix =   '(Category 2) Mitigate/Postpone';
+            }
+            else if($RIs->probability = 'medium' && $severity->rr_score <= 15){
+                $matrix =   '(Category 3) Postpone/Accept';
+            }
+            else if($RIs->probability = 'low' && $severity->rr_score <= 15){
+                $matrix =   '(Category 4) Accept';
+            }
+            else if($RIs->probability = 'low' && $severity->rr_score >= 16 && $severity->rr_score <=29){
+                $matrix =   '(Category 3) Postpone/Accept';
+            }
+            else{                
+                $matrix =   '(Category 2) Mitigate/Postpone';
+            }
         }
     }
 
@@ -120,7 +168,7 @@ class GenController extends Controller{
     $priority = Priority::where('asset_id', $asset_id)->first();
     $excludeNavbar = true;
     // Load the view and pass the data to generate the PDF
-    $pdf = PDF::loadView('show.show', compact('RIs', 'severityData', 'mapHumanData', 'mapPhysicalData', 'mapTechnicalData', 'priority', 'asset', 'excludeNavbar'));
+    $pdf = PDF::loadView('show.show', compact('matrix','RIs', 'severityData', 'mapHumanData', 'mapPhysicalData', 'mapTechnicalData', 'priority', 'asset', 'excludeNavbar'));
 
     // Download the PDF file
     return $pdf->download($asset->asset_name .'_asset_report.pdf');
