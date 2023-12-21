@@ -112,6 +112,32 @@
  var PaddButton = $("#PaddButton");
  var TaddButton = $("#TaddButton");
  var delRow
+ var HrowCount = $("#humanTable tr").length;
+      // If there is only one row left, disable the delete button
+      if (HrowCount < 3) {
+        $(".deleteH").prop("disabled", true);
+      }
+      if (HrowCount >= 3){
+          $(".deleteH").prop("disabled", false);
+      }
+      var ProwCount = $("#physicalTable tr").length;
+
+      // If there is only one row left, disable the delete button
+      if (ProwCount < 3) {
+        $(".deleteP").prop("disabled", true);
+      }
+      if (ProwCount >= 3){
+          $(".deleteP").prop("disabled", false);
+      }
+      var TrowCount = $("#technicalTable tr").length;
+
+      // If there is only one row left, disable the delete button
+      if (TrowCount < 3) {
+        $(".deleteT").prop("disabled", true);
+      }
+      if (TrowCount >= 3){
+          $(".deleteT").prop("disabled", false);
+      }
 // Add a click event listener to the button
 HaddButton.on("click", function() {
   // Get the current table based on the button clicked
@@ -172,53 +198,53 @@ TaddButton.on("click", function() {
   currentTable.append(newRow);
   var TrowCount = $("#technicalTable tr").length;
 
-// If there is only one row left, disable the delete button
-if (TrowCount < 3) {
-  $(".deleteT").prop("disabled", true);
-}
-if (TrowCount >= 3){
-    $(".deleteT").prop("disabled", false);
-}
-});
-var deleteButtons = $(document).on("click", ".deleteRow", function() {
-  // Call the deleteRow function with the button as an argument
-  deleteRow(this);
+      // If there is only one row left, disable the delete button
+      if (TrowCount < 3) {
+        $(".deleteT").prop("disabled", true);
+      }
+      if (TrowCount >= 3){
+          $(".deleteT").prop("disabled", false);
+      }
+  });
+      var deleteButtons = $(document).on("click", ".deleteRow", function() {
+      // Call the deleteRow function with the button as an argument
+      deleteRow(this);
 });
 
 // Define a function to delete a row
 function deleteRow(button) {
   // Get the parent row of the button
-  var row = $(button).closest("tr");
+    var row = $(button).closest("tr");
 
-  // Remove the row from the table
-  row.remove();
+    // Remove the row from the table
+    row.remove();
     // Check the number of rows in the table
     var HrowCount = $("#humanTable tr").length;
-// If there is only one row left, disable the delete button
-if (HrowCount < 3) {
-  $(".deleteH").prop("disabled", true);
-}
-if (HrowCount >= 3){
-    $(".deleteH").prop("disabled", false);
-}
-var ProwCount = $("#physicalTable tr").length;
+      // If there is only one row left, disable the delete button
+      if (HrowCount < 3) {
+        $(".deleteH").prop("disabled", true);
+      }
+      if (HrowCount >= 3){
+          $(".deleteH").prop("disabled", false);
+      }
+      var ProwCount = $("#physicalTable tr").length;
 
-// If there is only one row left, disable the delete button
-if (ProwCount < 3) {
-  $(".deleteP").prop("disabled", true);
-}
-if (ProwCount >= 3){
-    $(".deleteP").prop("disabled", false);
-}
-var TrowCount = $("#technicalTable tr").length;
+      // If there is only one row left, disable the delete button
+      if (ProwCount < 3) {
+        $(".deleteP").prop("disabled", true);
+      }
+      if (ProwCount >= 3){
+          $(".deleteP").prop("disabled", false);
+      }
+      var TrowCount = $("#technicalTable tr").length;
 
-// If there is only one row left, disable the delete button
-if (TrowCount < 3) {
-  $(".deleteT").prop("disabled", true);
-}
-if (TrowCount >= 3){
-    $(".deleteT").prop("disabled", false);
-}
+      // If there is only one row left, disable the delete button
+      if (TrowCount < 3) {
+        $(".deleteT").prop("disabled", true);
+      }
+      if (TrowCount >= 3){
+          $(".deleteT").prop("disabled", false);
+      }
 }
 </script>
 @endsection
