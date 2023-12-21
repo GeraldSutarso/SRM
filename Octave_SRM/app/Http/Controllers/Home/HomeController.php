@@ -58,11 +58,21 @@ class HomeController extends Controller{
     public function search(Request $request)
     {//the search button
         $searchTerm = $request->input('search');
+        if(Auth::user()->user_id == 1){
         $assets = Asset::where('asset_name', 'LIKE', "%{$searchTerm}%")//find asset name or department or when is it created or even the id
                             ->orWhere('a_department', 'LIKE', "%{$searchTerm}%")//which has the same character as the inputted word
                             ->orWhere('created_at', 'LIKE', "%{$searchTerm}%")
                             ->orWhere('asset_id','LIKE',"%{$searchTerm}%")
                             ->paginate(10);
+        }
+        else{
+            $asset = Asset::where('a_department',  Auth::user()->department);
+            $assets = $asset->where('asset_name', 'LIKE', "%{$searchTerm}%")
+                                ->orWhere('a_department', 'LIKE', "%{$searchTerm}%")
+                                ->orWhere('created_at', 'LIKE', "%{$searchTerm}%")
+                                ->orWhere('asset_id','LIKE',"%{$searchTerm}%")
+                                ->paginate(10);
+            }
 
         return view('home', compact('assets'));//then send that data to the home page, which will be shown there
     }
