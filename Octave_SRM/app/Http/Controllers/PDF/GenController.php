@@ -49,28 +49,31 @@ class GenController extends Controller{
         $severities = Severity::where('AoC_id', $RI->AoC_id)->get();
         foreach ($severities as $severity) {
             $severityData[] = $severity;
-            if($RIs->probability = 'high' && $severity->rr_score >= 30){
+            if($RI->probability == 'high' && $severity->rr_score >= 30){
                 $matrix =   '(Category 1) Mitigate';
             }
-            else if($RIs->probability = 'medium' && $severity->rr_score >= 30){
+            else if($RI->probability == 'medium' && $severity->rr_score >= 30){
                 $matrix =   '(Category 2) Mitigate/Postpone';
             }
-            else if($RIs->probability = 'low' && $severity->rr_score >= 30){
+            else if($RI->probability == 'low' && $severity->rr_score >= 30){
                 $matrix =   '(Category 3) Postpone/Accept';
             }
-            else if($RIs->probability = 'high' && $severity->rr_score <= 15){
+            else if($RI->probability == 'high' && $severity->rr_score <= 15){
                 $matrix =   '(Category 2) Mitigate/Postpone';
             }
-            else if($RIs->probability = 'medium' && $severity->rr_score <= 15){
+            else if($RI->probability == 'medium' && $severity->rr_score <= 15){
                 $matrix =   '(Category 3) Postpone/Accept';
             }
-            else if($RIs->probability = 'low' && $severity->rr_score <= 15){
+            else if($RI->probability == 'low' && $severity->rr_score <= 15){
                 $matrix =   '(Category 4) Accept';
             }
-            else if($RIs->probability = 'low' && $severity->rr_score >= 16 && $severity->rr_score <=29){
+            else if($RI->probability == 'low' && 29 >= $severity->rr_score && $severity->rr_score >= 16){
                 $matrix =   '(Category 3) Postpone/Accept';
             }
-            else{                
+            else if($RI->probability == 'medium' && 29 >= $severity->rr_score && $severity->rr_score >= 16){              
+                $matrix =   '(Category 2) Mitigate/Postpone';
+            }
+            else if($RI->probability == 'high' && 29 >= $severity->rr_score && $severity->rr_score >= 16){              
                 $matrix =   '(Category 2) Mitigate/Postpone';
             }
         }
@@ -123,28 +126,31 @@ class GenController extends Controller{
         $severities = Severity::where('AoC_id', $RI->AoC_id)->get();
         foreach ($severities as $severity) {
             $severityData[] = $severity;
-            if($RIs->probability = 'high' && $severity->rr_score >= 30){
+            if($RI->probability == 'high' && $severity->rr_score >= 30){
                 $matrix =   '(Category 1) Mitigate';
             }
-            else if($RIs->probability = 'medium' && $severity->rr_score >= 30){
+            else if($RI->probability == 'medium' && $severity->rr_score >= 30){
                 $matrix =   '(Category 2) Mitigate/Postpone';
             }
-            else if($RIs->probability = 'low' && $severity->rr_score >= 30){
+            else if($RI->probability == 'low' && $severity->rr_score >= 30){
                 $matrix =   '(Category 3) Postpone/Accept';
             }
-            else if($RIs->probability = 'high' && $severity->rr_score <= 15){
+            else if($RI->probability == 'high' && $severity->rr_score <= 15){
                 $matrix =   '(Category 2) Mitigate/Postpone';
             }
-            else if($RIs->probability = 'medium' && $severity->rr_score <= 15){
+            else if($RI->probability == 'medium' && $severity->rr_score <= 15){
                 $matrix =   '(Category 3) Postpone/Accept';
             }
-            else if($RIs->probability = 'low' && $severity->rr_score <= 15){
+            else if($RI->probability == 'low' && $severity->rr_score <= 15){
                 $matrix =   '(Category 4) Accept';
             }
-            else if($RIs->probability = 'low' && $severity->rr_score >= 16 && $severity->rr_score <=29){
+            else if($RI->probability == 'low' && 29 >= $severity->rr_score && $severity->rr_score >= 16){
                 $matrix =   '(Category 3) Postpone/Accept';
             }
-            else{                
+            else if($RI->probability == 'medium' && 29 >= $severity->rr_score && $severity->rr_score >= 16){              
+                $matrix =   '(Category 2) Mitigate/Postpone';
+            }
+            else if($RI->probability == 'high' && 29 >= $severity->rr_score && $severity->rr_score >= 16){              
                 $matrix =   '(Category 2) Mitigate/Postpone';
             }
         }
