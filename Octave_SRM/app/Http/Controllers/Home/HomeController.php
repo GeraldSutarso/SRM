@@ -60,6 +60,7 @@ class HomeController extends Controller{
         $searchTerm = $request->input('search');
         if(Auth::user()->user_id == 1){
         $assets = Asset::where('asset_name', 'LIKE', "%{$searchTerm}%")//find asset name or department or when is it created or even the id
+                            ->orWhere('owner', 'LIKE', "%{$searchTerm}%")
                             ->orWhere('a_department', 'LIKE', "%{$searchTerm}%")//which has the same character as the inputted word
                             ->orWhere('created_at', 'LIKE', "%{$searchTerm}%")
                             ->orWhere('asset_id','LIKE',"%{$searchTerm}%")
@@ -68,6 +69,7 @@ class HomeController extends Controller{
         else{
             $asset = Asset::where('a_department',  Auth::user()->department);
             $assets = $asset->where('asset_name', 'LIKE', "%{$searchTerm}%")
+                                ->orWhere('owner', 'LIKE', "%{$searchTerm}%")
                                 ->orWhere('a_department', 'LIKE', "%{$searchTerm}%")
                                 ->orWhere('created_at', 'LIKE', "%{$searchTerm}%")
                                 ->orWhere('asset_id','LIKE',"%{$searchTerm}%")
